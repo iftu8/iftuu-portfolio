@@ -124,7 +124,7 @@
         .win-btn:hover { filter: brightness(1.5); }
         .window-body { flex: 1; overflow-y: auto; overflow-x: hidden; position: relative; }
 
-        /* App 1: The Nexus Gallery (3D Tilt & Infinite) */
+        /* App 1: The Nexus Gallery */
         #app-gallery { top: 80px; left: 50px; width: 65vw; height: 75vh; resize: both; }
         .gallery-grid { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; perspective: 1000px; }
         .neo-card {
@@ -143,14 +143,14 @@
         .neo-card:hover .card-glare { opacity: 1; }
         .card-data {
             position: absolute; bottom: 0; width: 100%; padding: 15px; background: linear-gradient(0deg, #000 0%, transparent 100%);
-            transform: translateZ(30px); /* 3D pop effect */ font-family: var(--font-mono);
+            transform: translateZ(30px); font-family: var(--font-mono);
         }
         .data-id { color: var(--magenta); font-size: 10px; margin-bottom: 5px; }
         .btn-vault { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 15px; font-family: var(--font-display); cursor: pointer; transition: 0.3s; font-size: 12px; border-radius: 3px; }
         .btn-vault:hover { background: var(--cyan); color: #000; box-shadow: var(--glow-cyan); }
 
         /* App 2: Neural AI Core Terminal */
-        #app-terminal { top: 120px; right: 300px; width: 400px; height: 500px; }
+        #app-terminal { top: 120px; right: 300px; width: 450px; height: 550px; }
         .term-output { padding: 15px; font-family: var(--font-mono); font-size: 13px; color: #0f0; display: flex; flex-direction: column; gap: 10px; min-height: calc(100% - 50px); }
         .sys-msg { color: var(--yellow); }
         .user-msg { color: var(--cyan); text-align: right; }
@@ -246,8 +246,8 @@
             </div>
             <div class="window-body" style="background: rgba(0,0,0,0.9);">
                 <div class="term-output" id="term-output">
-                    <div class="sys-msg">[SYS] AI Core Initialized.</div>
-                    <div class="ai-msg">Greetings, Operator. I am the Omega-Tier AI. Awaiting command sequence. Type 'help' for options.</div>
+                    <div class="sys-msg">[SYS] Omega AI Core Initialized. Bangla Language Pack [ACTIVE].</div>
+                    <div class="ai-msg">Greetings, Operator. I am the Omega-Tier AI. Awaiting command sequence. Type 'help' for options. (Apni ekhon amar sathe banglay kotha bolte paren!)</div>
                 </div>
                 <div class="term-input-container">
                     <span>root@omega:~#</span>
@@ -279,6 +279,7 @@
         const bootLogs = [
             "Initializing Omega Kernel v9.9...",
             "Loading Quantum Drivers... [OK]",
+            "Injecting Bangla Language Pack... [SUCCESS]",
             "Bypassing Mainframe Security... [SUCCESS]",
             "Decrypting Neural Net Assets... [OK]",
             "Establishing Uplink to Tokyo_Servers... [CONNECTED]",
@@ -302,7 +303,7 @@
                     p.innerText = `> ${log}`;
                     logContainer.appendChild(p);
                 }, delay);
-                delay += 300 + Math.random() * 400; // Randomize typing speed
+                delay += 300 + Math.random() * 400; 
             });
 
             setTimeout(() => {
@@ -337,7 +338,7 @@
         }
 
         /* =======================================================================
-           [2] 3D WARP SPEED CANVAS (WEBGL STYLE VANILLA JS)
+           [2] 3D WARP SPEED CANVAS
            ======================================================================= */
         function initWarpCanvas() {
             const canvas = document.getElementById('warp-canvas');
@@ -379,7 +380,6 @@
                     let opacity = (1 - this.z / width);
                     ctx.beginPath();
                     ctx.moveTo(px, py); ctx.lineTo(sx, sy);
-                    // Color mix for Cyberpunk feel (Cyan to Magenta)
                     ctx.strokeStyle = Math.random() > 0.5 ? `rgba(0, 243, 255, ${opacity})` : `rgba(255, 0, 234, ${opacity})`;
                     ctx.lineWidth = opacity * 3;
                     ctx.stroke();
@@ -389,7 +389,7 @@
             for (let i = 0; i < numStars; i++) stars.push(new Star());
 
             function animate() {
-                ctx.fillStyle = 'rgba(5, 5, 8, 0.4)'; // Motion blur trail
+                ctx.fillStyle = 'rgba(5, 5, 8, 0.4)'; 
                 ctx.fillRect(0, 0, width, height);
                 stars.forEach(s => { s.update(); s.draw(); });
                 requestAnimationFrame(animate);
@@ -398,13 +398,13 @@
         }
 
         /* =======================================================================
-           [3] OS WINDOW MANAGER & DRAGGING LOGIC
+           [3] OS WINDOW MANAGER
            ======================================================================= */
         let zIndexCounter = 100;
 
         function startDrag(e, windowId) {
             const win = document.getElementById(windowId);
-            win.style.zIndex = ++zIndexCounter; // Bring to front
+            win.style.zIndex = ++zIndexCounter; 
             
             let startX = e.clientX;
             let startY = e.clientY;
@@ -433,7 +433,6 @@
             if (win.style.display === 'none' || win.style.display === '') {
                 win.style.display = 'flex';
                 win.style.zIndex = ++zIndexCounter;
-                // Add pop animation class if needed
             } else {
                 win.style.display = 'none';
             }
@@ -458,7 +457,7 @@
         }
 
         /* =======================================================================
-           [4] 3D GALLERY PHYSICS & RENDERER
+           [4] 3D GALLERY
            ======================================================================= */
         const photoPool = [
             '1542051841857-5f90071e7989', '1518005020951-eccb494ad742', '1528360983277-13d401cdc186',
@@ -483,7 +482,6 @@
                     </div>
                 `;
                 
-                // 3D Tilt Physics Event Listeners
                 card.addEventListener('mousemove', handleCardMove);
                 card.addEventListener('mouseleave', handleCardLeave);
                 
@@ -494,19 +492,17 @@
         function handleCardMove(e) {
             const card = this;
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // x position within the element.
-            const y = e.clientY - rect.top;  // y position within the element.
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top; 
             
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            // Calculate rotation (Max 15 degrees)
             const rotateX = ((y - centerY) / centerY) * -15;
             const rotateY = ((x - centerX) / centerX) * 15;
             
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
             
-            // Move glare
             const glare = card.querySelector('.card-glare');
             glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.3), transparent 60%)`;
         }
@@ -517,7 +513,7 @@
         }
 
         /* =======================================================================
-           [5] NEURAL AI TERMINAL LOGIC
+           [5] NEURAL AI TERMINAL LOGIC (UPDATED WITH BENGALI/BANGLISH)
            ======================================================================= */
         const termInput = document.getElementById('term-input');
         const termOutput = document.getElementById('term-output');
@@ -527,32 +523,59 @@
                 let val = this.value.trim();
                 if(!val) return;
                 
-                // Print user command
                 termOutput.innerHTML += `<div class="user-msg">root@omega:~# ${val}</div>`;
                 this.value = '';
                 
-                // Process Command with delay to simulate thinking
-                setTimeout(() => processCommand(val.toLowerCase()), 400);
+                // Typing delay simulation
+                setTimeout(() => processCommand(val), 400);
                 
                 termOutput.parentElement.scrollTop = termOutput.parentElement.scrollHeight;
             }
         });
 
-        function processCommand(cmd) {
+        function processCommand(rawCmd) {
+            let cmd = rawCmd.toLowerCase().trim();
             let response = "";
-            if(cmd === 'help') {
-                response = "AVAILABLE COMMANDS: <br>- <b>nexus</b>: Launch Gallery<br>- <b>clear</b>: Clear Terminal<br>- <b>hack</b>: Initiate sequence<br>- <b>whoami</b>: Identity check";
-            } else if (cmd === 'nexus') {
+
+            // --- BANGLISH / BENGALI LOGIC BLOCK ---
+            if (['kemon aso', 'kemon acho', 'ki obostha', 'hello', 'hi'].includes(cmd)) {
+                response = "Ami valo achi, Operator. System optimal. Apnar command er opekkhay achi. ⚡";
+            } 
+            else if (['bangla bujho', 'bangla paro', 'bangla bujhos', 'bangla bhujo', 'tmi ki bangla bhujo'].includes(cmd)) {
+                response = "<span style='color:var(--cyan);'>[SYSTEM OVERRIDE]</span> Haa Operator, ami ekhon Bangla bujhte pari. Amar v10.0 neural network bangla process korar jonno fully upgraded. 🚀 Kon command execute korbo?";
+            } 
+            else if (['tomar nam ki', 'name ki', 'tor nam ki'].includes(cmd)) {
+                response = "Amar nam OMEGA AI. Amar kono physical form nei, ami shudhu ei Matrix er vitore bishorito. Tobe amar creator holo <span style='color:var(--magenta);'>@i_f_t_uu</span>.";
+            } 
+            else if (['ki koro', 'ki korcho', 'ki koros'].includes(cmd)) {
+                response = "Ami background-e mainframe monitor korchi, ar apnar command process korar jonno ready achi.";
+            }
+            else if (['tmi ki onk fast', 'tmi ki fast', 'koto fast'].includes(cmd)) {
+                response = "I'm running on Web Workers and Hardware Acceleration. Zero lag, pure speed! ⚡🏎️ Er theke fast kichu asha kora pap!";
+            }
+            else if (['valo na', 'khub kharap', 'bal'].includes(cmd)) {
+                response = "<span style='color:var(--crimson);'>[WARNING]</span> Operator, mood kharap korben na. Relax korun, let's hack the mainframe together! 💻🔥";
+            }
+            // --- SYSTEM COMMANDS ---
+            else if(cmd === 'help') {
+                response = "AVAILABLE COMMANDS: <br>- <b>nexus</b>: Launch Visual Gallery<br>- <b>clear</b>: Clear Terminal<br>- <b>hack</b>: Initiate sequence<br>- <b>whoami</b>: Identity check<br>- <b>bangla bujho</b>: Check Language Pack";
+            } 
+            else if (cmd === 'nexus') {
                 toggleWindow('app-gallery');
-                response = "Executing NEXUS_VISUAL_CORE.exe... Access Granted.";
-            } else if (cmd === 'clear' || cmd === 'cls') {
+                response = "Executing NEXUS_VISUAL_CORE.exe... Access Granted. Opening Window.";
+            } 
+            else if (cmd === 'clear' || cmd === 'cls') {
                 termOutput.innerHTML = ''; return;
-            } else if (cmd === 'hack') {
-                response = "<span style='color:#ff003c; animation: glitchEffect 0.2s infinite;'>WARNING: BYPASSING MAINFRAME... ACCESSING CLASSIFIED DATA.</span>";
-            } else if (cmd === 'whoami') {
-                response = "You are OPERATOR_01. Clearance Level: OMEGA.";
-            } else {
-                response = `Command not recognized: '${cmd}'. Type 'help' for syntax.`;
+            } 
+            else if (cmd === 'hack') {
+                response = "<span style='color:#ff003c; animation: glitchEffect 0.2s infinite;'>WARNING: BYPASSING MAINFRAME... ACCESSING CLASSIFIED DATA. ETA KONO MOJA NOY!</span>";
+            } 
+            else if (cmd === 'whoami') {
+                response = "You are OPERATOR_01. Clearance Level: OMEGA. Welcome back to the system.";
+            } 
+            else {
+                // Default fallback if not understood
+                response = `Command not recognized: '${rawCmd}'. Type 'help' for syntax or talk to me in Banglish!`;
             }
 
             termOutput.innerHTML += `<div class="ai-msg">${response}</div>`;
@@ -560,7 +583,7 @@
         }
 
         /* =======================================================================
-           [6] LIVE HUD & SYSTEM CLOCK UPDATER
+           [6] LIVE HUD & SYSTEM CLOCK
            ======================================================================= */
         function startClock() {
             setInterval(() => {
@@ -572,18 +595,15 @@
 
         function startHUDUpdates() {
             setInterval(() => {
-                // Fake CPU
-                let cpu = Math.floor(Math.random() * 40) + 20; // 20-60%
+                let cpu = Math.floor(Math.random() * 40) + 20; 
                 document.getElementById('cpu-val').innerText = `${cpu}%`;
                 document.getElementById('cpu-bar').style.width = `${cpu}%`;
                 
-                // Fake Network
                 let down = (Math.random() * 5 + 1).toFixed(1);
                 let up = (Math.random() * 2 + 0.1).toFixed(1);
                 document.getElementById('net-down').innerText = `${down} GB/s`;
                 document.getElementById('net-up').innerText = `${up} GB/s`;
                 
-                // Fake Ping
                 let ping = Math.floor(Math.random() * 20) + 5;
                 document.getElementById('ping-val').innerText = `${ping}ms`;
                 document.getElementById('ping-val').style.color = ping > 15 ? "var(--yellow)" : "#0f0";
