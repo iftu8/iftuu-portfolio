@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO X | Ultra Pro Max</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+    <title>TOKYO X | God-Tier AI Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Space+Grotesk:wght@500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <style>
         /* =========================================
-           1. CORE VARIABLES & SETUP
+           1. CORE VARIABLES & HARDWARE ACCELERATION
            ========================================= */
         :root {
-            --bg-color: #030305;
-            --surface-color: rgba(15, 15, 20, 0.6);
+            --bg-color: #020204;
+            --surface-color: rgba(15, 15, 20, 0.7);
             --text-main: #ffffff;
             --text-dim: #8e8e93;
             --primary: #00f0ff;
             --secondary: #ff003c;
             --tertiary: #b026ff;
+            --matrix-green: #0f0;
             --glass-border: rgba(255, 255, 255, 0.08);
             --font-main: 'Inter', sans-serif;
             --font-display: 'Space Grotesk', sans-serif;
-            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.4);
-            --glow-red: 0 0 20px rgba(255, 0, 60, 0.4);
+            --font-code: 'Share Tech Mono', monospace;
+            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.5);
+            --glow-red: 0 0 20px rgba(255, 0, 60, 0.5);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: var(--tertiary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
         body {
             font-family: var(--font-main); background: var(--bg-color);
@@ -36,123 +38,134 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Matrix Canvas Background */
-        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.15; pointer-events: none; }
+        /* Matrix Canvas - Optimized */
+        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.12; pointer-events: none; }
 
         /* =========================================
-           2. SPLASH & HEADER
+           2. SPLASH SCREEN & HEADER
            ========================================= */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000;
             z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease;
         }
-        .cyber-loader { font-family: var(--font-display); font-size: 3rem; font-weight: 800; text-transform: uppercase; text-shadow: var(--glow-cyan); }
+        .cyber-loader { font-family: var(--font-display); font-size: 3.5rem; font-weight: 800; text-transform: uppercase; color: transparent; -webkit-text-stroke: 2px var(--primary); text-shadow: var(--glow-cyan); animation: glitchLoader 1s infinite; }
+        @keyframes glitchLoader { 0% { transform: translate(0) } 20% { transform: translate(-5px, 5px) } 40% { transform: translate(-5px, -5px) } 60% { transform: translate(5px, 5px) } 80% { transform: translate(5px, -5px) } 100% { transform: translate(0) } }
         
         header {
             position: fixed; top: 0; width: 100%; padding: 15px 20px;
-            background: rgba(3, 3, 5, 0.85); backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--glass-border); z-index: 1000;
+            background: linear-gradient(to bottom, rgba(2, 2, 4, 0.95), rgba(2, 2, 4, 0.7));
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2); z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .logo { font-family: var(--font-display); font-size: 26px; font-weight: 800; background: linear-gradient(90deg, var(--primary), var(--tertiary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .ai-status { font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--primary); padding: 6px 15px; border-radius: 20px; box-shadow: var(--glow-cyan); }
-        .ai-pulse { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; animation: pulse 1.2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,240,255,0.8); } 70% { box-shadow: 0 0 0 10px rgba(0,240,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); } }
+        .logo { font-family: var(--font-display); font-size: 28px; font-weight: 800; background: linear-gradient(90deg, var(--primary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px var(--primary)); }
+        .ai-status { font-family: var(--font-code); font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; background: rgba(0, 240, 255, 0.05); border: 1px solid var(--primary); padding: 8px 18px; border-radius: 30px; box-shadow: inset 0 0 10px rgba(0,240,255,0.2); }
+        .ai-pulse { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; animation: pulse 1.2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,240,255,0.8); } 70% { box-shadow: 0 0 0 15px rgba(0,240,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); } }
 
         /* =========================================
-           3. STORIES & GALLERY (FEED)
+           3. STORIES & GALLERY (GPU ACCELERATED)
            ========================================= */
         .stories { margin-top: 85px; padding: 15px 20px; display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; }
         .story { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; flex-shrink: 0; }
-        .story-ring {
-            width: 80px; height: 80px; border-radius: 50%; padding: 3px;
-            background: conic-gradient(from 0deg, var(--secondary), var(--tertiary), var(--primary), var(--secondary));
-            animation: spinBg 4s linear infinite; display: flex; justify-content: center; align-items: center; transition: 0.3s;
-        }
+        .story-ring { width: 85px; height: 85px; border-radius: 50%; padding: 3px; background: conic-gradient(from 0deg, var(--secondary), var(--tertiary), var(--primary), var(--secondary)); animation: spinBg 4s linear infinite; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
         @keyframes spinBg { 100% { transform: rotate(360deg); } }
         .story-ring-inner { width: 100%; height: 100%; background: var(--bg-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; animation: spinBgReverse 4s linear infinite; }
         @keyframes spinBgReverse { 100% { transform: rotate(-360deg); } }
-        .story-ring-inner img { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-color); }
-        .story:hover .story-ring { transform: scale(1.1); }
-        .story span { font-size: 12px; font-weight: 700; color: #fff; }
+        .story-ring-inner img { width: 73px; height: 73px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-color); }
+        .story:hover .story-ring { transform: scale(1.15); }
+        .story span { font-size: 13px; font-family: var(--font-display); font-weight: 700; color: #fff; letter-spacing: 1px; }
 
         .gallery { padding: 15px 20px 120px; column-count: 2; column-gap: 15px; }
         @media (min-width: 768px) { .gallery { column-count: 3; } }
         @media (min-width: 1024px) { .gallery { column-count: 4; } }
 
-        .card { break-inside: avoid; margin-bottom: 15px; border-radius: 20px; position: relative; overflow: hidden; background: var(--surface-color); cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
-        .card img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .card:hover img { transform: scale(1.08); }
+        .card { break-inside: avoid; margin-bottom: 15px; border-radius: 20px; position: relative; overflow: hidden; background: var(--surface-color); cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transform: translateZ(0); will-change: transform; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .card img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s ease; will-change: transform; }
+        .card:hover { border-color: var(--primary); box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2); transform: translateY(-5px); z-index: 10; }
+        .card:hover img { transform: scale(1.1); filter: contrast(1.1); }
         
         .overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 15px 15px; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); display: flex; justify-content: space-between; align-items: flex-end; opacity: 0; transition: 0.3s ease; }
         .card:hover .overlay { opacity: 1; }
         
         .action-btns { display: flex; gap: 8px; }
-        .btn-glass { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); color: #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; cursor: pointer; transition: 0.2s; }
-        .btn-glass:hover { background: #fff; color: #000; transform: translateY(-3px); }
+        .btn-glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); color: #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; cursor: pointer; transition: 0.3s; }
+        .btn-glass:hover { background: var(--secondary); color: #fff; border-color: var(--secondary); transform: translateY(-5px) scale(1.1); box-shadow: var(--glow-red); }
         .btn-glass.liked { background: var(--secondary); border-color: var(--secondary); color: #fff; text-shadow: var(--glow-red); animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .btn-download { background: var(--primary); color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: var(--glow-cyan); }
-        .btn-download:hover { background: #fff; transform: scale(1.1); }
-        @keyframes pop { 50% { transform: scale(1.4); } }
+        .btn-download { background: var(--primary); color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: var(--glow-cyan); }
+        .btn-download:hover { background: #fff; transform: translateY(-5px) scale(1.1); }
+        @keyframes pop { 50% { transform: scale(1.5) rotate(-10deg); } }
 
         /* =========================================
-           4. VAULT (SAVED PHOTOS SECTION)
+           4. HUD LIGHTBOX & DYNAMIC EXIF
            ========================================= */
-        #vault-section { display: none; padding: 100px 20px 120px; min-height: 100vh; }
-        .vault-header { font-family: var(--font-display); font-size: 28px; color: var(--tertiary); margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; text-shadow: 0 0 15px rgba(176,38,255,0.5); }
-        #vault-empty { text-align: center; color: var(--text-dim); margin-top: 50px; font-size: 16px; display: none; }
-
-        /* =========================================
-           5. ADVANCED HUD LIGHTBOX
-           ========================================= */
-        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 3000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s; }
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.98); backdrop-filter: blur(30px); z-index: 3000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.4s; }
         #lightbox.show { display: flex; opacity: 1; }
-        .lb-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #fff; cursor: pointer; border: 1px solid var(--glass-border); }
-        .lb-img { max-width: 100%; max-height: 55vh; border-radius: 15px; border: 1px solid var(--primary); box-shadow: var(--glow-cyan); object-fit: contain; }
-        .hud-panel { margin-top: 25px; width: 100%; max-width: 500px; background: var(--surface-color); border: 1px solid var(--primary); padding: 20px; border-radius: 15px; }
-        .hud-title { color: var(--primary); font-family: var(--font-display); font-size: 18px; margin-bottom: 15px; border-bottom: 1px dashed rgba(0,240,255,0.3); padding-bottom: 10px; }
-        .hud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        .hud-stat { font-size: 12px; color: var(--text-dim); }
-        .hud-stat span { color: #fff; font-weight: bold; display: block; font-size: 14px; margin-top: 4px; }
+        .lb-close { position: absolute; top: 30px; right: 30px; background: rgba(255,0,60,0.2); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #fff; cursor: pointer; border: 1px solid var(--secondary); transition: 0.3s; }
+        .lb-close:hover { background: var(--secondary); transform: rotate(90deg); }
+        .lb-img { max-width: 100%; max-height: 50vh; border-radius: 15px; border: 2px solid var(--primary); box-shadow: 0 0 40px rgba(0,240,255,0.3); object-fit: contain; }
+        .hud-panel { margin-top: 30px; width: 100%; max-width: 550px; background: rgba(15,15,20,0.8); border: 1px solid var(--primary); padding: 25px; border-radius: 15px; position: relative; overflow: hidden; }
+        .hud-panel::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0,240,255,0.2), transparent); animation: scanline 3s infinite linear; }
+        @keyframes scanline { 100% { left: 200%; } }
+        .hud-title { color: var(--primary); font-family: var(--font-code); font-size: 16px; margin-bottom: 20px; border-bottom: 1px dashed rgba(0,240,255,0.5); padding-bottom: 10px; display: flex; justify-content: space-between; }
+        .hud-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .hud-stat { font-family: var(--font-code); font-size: 11px; color: var(--text-dim); text-transform: uppercase; }
+        .hud-stat span { color: #fff; font-weight: bold; display: block; font-size: 15px; margin-top: 6px; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
         
         /* =========================================
-           6. AI CAT CHAT TERMINAL
+           5. UPGRADED AI CAT TERMINAL (DYNAMIC)
            ========================================= */
-        .ai-fab { position: fixed; bottom: 110px; right: 20px; z-index: 2000; width: 70px; height: 70px; border-radius: 50%; background: var(--surface-color); border: 2px solid var(--tertiary); box-shadow: 0 0 20px rgba(176,38,255,0.4); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; }
-        .ai-fab img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .ai-fab:hover { transform: scale(1.1); box-shadow: var(--glow-cyan); border-color: var(--primary); }
+        .ai-fab { position: fixed; bottom: 110px; right: 20px; z-index: 2000; width: 80px; height: 80px; border-radius: 50%; background: var(--surface-color); border: 2px solid var(--primary); box-shadow: var(--glow-cyan); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .ai-fab img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; transition: 0.3s; }
+        .ai-fab:hover { transform: scale(1.15) translateY(-10px); border-color: var(--tertiary); box-shadow: 0 0 30px var(--tertiary); }
         
-        .chat-terminal { position: fixed; bottom: 190px; right: 20px; width: 340px; background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--primary); border-radius: 20px; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9); z-index: 2000; transform-origin: bottom right; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; }
+        /* Funny Cat Animations */
+        .cat-bounce { animation: catBounce 0.5s infinite alternate; }
+        .cat-spin { animation: catSpin 1s infinite linear; }
+        .cat-glitch { animation: catGlitch 0.2s infinite; }
+        @keyframes catBounce { to { transform: translateY(-10px); } }
+        @keyframes catSpin { 100% { transform: rotate(360deg); } }
+        @keyframes catGlitch { 0% { transform: translate(2px, -2px); filter: hue-rotate(90deg); } 50% { transform: translate(-2px, 2px); filter: hue-rotate(-90deg); } 100% { transform: translate(0); } }
+
+        .chat-terminal { position: fixed; bottom: 200px; right: 20px; width: 360px; background: rgba(5, 5, 10, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--primary); border-radius: 20px; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9); z-index: 2000; transform-origin: bottom right; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         
-        .chat-header { background: rgba(0,240,255,0.1); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--primary); }
-        .chat-header span { font-family: var(--font-display); color: var(--primary); font-weight: 800; font-size: 15px; }
-        .chat-body { padding: 15px; height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 13px; line-height: 1.5; }
+        .chat-header { background: linear-gradient(90deg, rgba(0,240,255,0.2), transparent); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--primary); border-top-left-radius: 20px; border-top-right-radius: 20px; }
+        .chat-header span { font-family: var(--font-code); color: var(--primary); font-weight: 800; font-size: 16px; text-shadow: var(--glow-cyan); }
+        .chat-body { padding: 20px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
         
-        .msg { max-width: 85%; padding: 10px 15px; border-radius: 15px; }
-        .msg.ai { background: rgba(176,38,255,0.15); border: 1px solid var(--tertiary); color: #fff; align-self: flex-start; border-bottom-left-radius: 0; }
-        .msg.user { background: rgba(0,240,255,0.15); border: 1px solid var(--primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 0; }
+        .msg { max-width: 85%; padding: 12px 16px; border-radius: 15px; line-height: 1.4; font-family: var(--font-main); }
+        .msg.ai { background: rgba(0,240,255,0.1); border: 1px solid var(--primary); color: #fff; align-self: flex-start; border-bottom-left-radius: 0; box-shadow: inset 0 0 10px rgba(0,240,255,0.1); }
+        .msg.user { background: rgba(176,38,255,0.2); border: 1px solid var(--tertiary); color: #fff; align-self: flex-end; border-bottom-right-radius: 0; box-shadow: inset 0 0 10px rgba(176,38,255,0.2); }
         
-        .chat-input-area { padding: 15px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; }
-        .chat-input-area input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 10px 15px; border-radius: 10px; color: #fff; outline: none; }
-        .chat-input-area button { background: var(--primary); border: none; padding: 0 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .chat-input-area { padding: 15px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; background: rgba(0,0,0,0.5); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+        .chat-input-area input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; border-radius: 10px; color: #fff; outline: none; font-family: var(--font-code); transition: 0.3s; }
+        .chat-input-area input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,240,255,0.2); }
+        .chat-input-area button { background: var(--primary); border: none; width: 50px; border-radius: 10px; font-weight: bold; cursor: pointer; color: #000; font-size: 20px; transition: 0.3s; }
+        .chat-input-area button:hover { background: #fff; transform: scale(1.05); }
 
         /* =========================================
-           7. BOTTOM NAVIGATION
+           6. TOAST NOTIFICATIONS (SYSTEM ALERTS)
            ========================================= */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; height: 85px; background: rgba(5, 5, 8, 0.95); backdrop-filter: blur(25px); border-top: 1px solid var(--glass-border); display: flex; justify-content: space-around; align-items: center; padding-bottom: 20px; z-index: 1000; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-dim); cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--primary); transform: translateY(-5px); }
-        .nav-item svg { width: 26px; height: 26px; stroke: currentColor; stroke-width: 2; fill: none; }
-        .nav-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: rgba(10,10,15,0.9); border-left: 4px solid var(--primary); color: #fff; padding: 15px 20px; border-radius: 8px; font-family: var(--font-code); font-size: 13px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; gap: 10px; }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #0f0; }
+        .toast.warning { border-left-color: var(--secondary); }
 
-        .spinner { width: 40px; height: 40px; border: 4px solid var(--glass-border); border-top-color: var(--tertiary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 20px auto 40px; }
-        
-        @media (max-width: 768px) {
-            .overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.85) 15%, transparent); padding-bottom: 12px; }
-            .chat-terminal { bottom: 0; right: 0; width: 100%; height: 100vh; border-radius: 0; z-index: 4000; }
-            .lb-img { max-height: 40vh; }
-        }
+        /* BOTTOM NAV & SPINNER */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; height: 90px; background: linear-gradient(to top, rgba(2, 2, 4, 1), rgba(2, 2, 4, 0.8)); backdrop-filter: blur(25px); border-top: 1px solid rgba(0, 240, 255, 0.15); display: flex; justify-content: space-around; align-items: center; padding-bottom: 25px; z-index: 1000; box-shadow: 0 -10px 30px rgba(0,0,0,0.8); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-dim); cursor: pointer; transition: 0.4s; position: relative; }
+        .nav-item::after { content: ''; position: absolute; bottom: -10px; width: 0; height: 3px; background: var(--primary); transition: 0.3s; box-shadow: var(--glow-cyan); }
+        .nav-item.active { color: var(--primary); transform: translateY(-8px); }
+        .nav-item.active::after { width: 100%; }
+        .nav-item svg { width: 28px; height: 28px; stroke: currentColor; stroke-width: 2; fill: none; transition: 0.3s; }
+        .nav-item:hover svg { stroke: #fff; filter: drop-shadow(0 0 5px #fff); }
+        .nav-label { font-size: 11px; font-family: var(--font-code); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+
+        .spinner { width: 50px; height: 50px; border: 4px solid var(--glass-border); border-top-color: var(--primary); border-left-color: var(--tertiary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 30px auto 50px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
     </style>
 </head>
 <body>
@@ -160,60 +173,56 @@
     <canvas id="matrix-canvas"></canvas>
 
     <div id="splash-screen">
-        <div class="cyber-loader">SYSTEM.BOOT()</div>
+        <div class="cyber-loader">ULTRA.PRO.MAX()</div>
         <div class="spinner"></div>
+        <p style="color: var(--primary); font-family: var(--font-code); margin-top: 20px; letter-spacing: 5px;">ESTABLISHING UPLINK...</p>
     </div>
 
+    <div id="toast-container"></div>
+
     <header>
-        <div class="logo">TOKYO_X</div>
-        <div class="ai-status"><div class="ai-pulse"></div> MAX ONLINE</div>
+        <div class="logo">TOKYO_X <span style="font-size: 14px; color: var(--secondary);">PRO</span></div>
+        <div class="ai-status"><div class="ai-pulse"></div> ZERO LAG SECURE</div>
     </header>
 
     <div id="view-feed">
         <div class="stories" id="story-container"></div>
         <main class="gallery" id="grid"></main>
-        <div id="scroll-sentinel" style="height: 10px; width: 100%;"></div>
+        <div id="scroll-sentinel" style="height: 20px; width: 100%;"></div>
         <div id="loader" style="display:none;"><div class="spinner"></div></div>
     </div>
 
-    <div id="view-vault" style="display: none;">
-        <div id="vault-section">
-            <h1 class="vault-header">ENCRYPTED VAULT</h1>
-            <p style="color:var(--text-dim); margin-bottom: 20px;">Photos saved to local protocol.</p>
-            <main class="gallery" id="vault-grid"></main>
-            <div id="vault-empty">Vault is empty. Save photos from the feed.</div>
-        </div>
+    <div id="view-vault" style="display: none; padding: 100px 20px 120px; min-height: 100vh;">
+        <h1 style="font-family: var(--font-display); color: var(--primary); border-bottom: 2px solid var(--tertiary); padding-bottom: 10px; margin-bottom: 20px;">ENCRYPTED VAULT</h1>
+        <main class="gallery" id="vault-grid"></main>
+        <div id="vault-empty" style="text-align: center; color: var(--text-dim); margin-top: 50px; font-family: var(--font-code);">[ VAULT IS EMPTY. AWAITING DATA INPUT ]</div>
     </div>
 
     <div id="lightbox">
         <div class="lb-close" onclick="closeLightbox()">✕</div>
         <img src="" id="lb-image" class="lb-img">
         <div class="hud-panel">
-            <div class="hud-title">SCANNING EXIF DATA...</div>
-            <div class="hud-grid">
-                <div class="hud-stat">LENS<span>50mm f/1.4</span></div>
-                <div class="hud-stat">ISO<span>800</span></div>
-                <div class="hud-stat">SHUTTER<span>1/250s</span></div>
-                <div class="hud-stat">VIBE<span>Cyberpunk 2077</span></div>
-            </div>
-            <button class="btn-download" style="width: 100%; border-radius: 12px; margin-top: 10px;" id="hud-download">DOWNLOAD SECURE ASSET ⭳</button>
+            <div class="hud-title"><span>EXIF DATA EXTRACTED</span> <span>[LIVE STATUS: HACKED]</span></div>
+            <div class="hud-grid" id="dynamic-exif">
+                </div>
+            <button class="btn-download" style="width: 100%; border-radius: 12px; margin-top: 15px; height: 50px; font-family: var(--font-display); font-size: 16px; letter-spacing: 2px;" id="hud-download">FORCE DOWNLOAD 4K ASSET ⭳</button>
         </div>
     </div>
 
-    <div class="ai-fab" onclick="toggleChat()">
-        <img src="https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif" alt="AI Cat">
+    <div class="ai-fab" onclick="toggleChat()" id="cat-trigger">
+        <img src="https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif" id="cat-img" alt="AI Cat">
     </div>
 
     <div class="chat-terminal" id="chatbox">
         <div class="chat-header">
-            <span>🐱 Bongo.AI_Terminal</span>
-            <span onclick="toggleChat()" style="cursor:pointer; font-size:20px;">✕</span>
+            <span>🐱 Bongo_AI.exe [v10.0]</span>
+            <span onclick="toggleChat()" style="cursor:pointer; font-size:22px; color: var(--secondary);">✕</span>
         </div>
         <div class="chat-body" id="chat-body">
-            <div class="msg ai">Meow! Connected to Neo-Tokyo grid. Type "help" to see commands, or just chat with me! 🐾</div>
+            <div class="msg ai">Purrr... Welcome to the Ultra Pro Max Tokyo grid. I'm your AI companion. I run on Tuna and Code! 🐾 Tell me something!</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Enter command..." onkeypress="handleChat(event)">
+            <input type="text" id="chat-input" placeholder="Type a command or chat..." onkeypress="handleChat(event)">
             <button onclick="processCommand()">→</button>
         </div>
     </div>
@@ -221,11 +230,11 @@
     <nav class="bottom-nav">
         <div class="nav-item active" id="nav-feed" onclick="switchView('feed')">
             <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            <span class="nav-label">Feed</span>
+            <span class="nav-label">Nexus</span>
         </div>
         <div class="nav-item" onclick="forceGlitchRefresh()">
             <svg viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.26l3.08 2.69"></path></svg>
-            <span class="nav-label">Re-Roll</span>
+            <span class="nav-label">Reboot</span>
         </div>
         <div class="nav-item" id="nav-vault" onclick="switchView('vault')">
             <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
@@ -235,58 +244,55 @@
 
     <script>
         /* =========================================================================
-           ULTRA PRO MAX LOGIC - WRITTEN FOR SPEED & POWER
+           ULTRA PRO MAX ENGINE - WRITTEN FOR SPEED, ZERO DUPLICATES & FUN
            ========================================================================= */
         
-        // --- 1. BOOT SEQUENCE ---
+        // --- 1. BOOT SEQUENCE & MATRIX OPTIMIZATION ---
         window.onload = () => {
             initMatrix();
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 setTimeout(() => splash.remove(), 800);
-            }, 1500);
+                showToast('System Online. Welcome to Tokyo X.', 'success');
+            }, 2000);
             initStories();
             initEngine();
             loadVaultData();
         };
 
-        // --- 2. MATRIX DIGITAL RAIN (CANVAS API) ---
         function initMatrix() {
             const canvas = document.getElementById('matrix-canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロゴゾドボポヴッン';
-            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const nums = '0123456789';
-            const alphabet = katakana + latin + nums;
-
-            const fontSize = 16;
+            const chars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const fontSize = 14;
             const columns = canvas.width / fontSize;
-            const rainDrops = Array.from({ length: columns }).fill(1);
+            const drops = Array.from({ length: columns }).fill(1);
 
             function draw() {
-                ctx.fillStyle = 'rgba(3, 3, 5, 0.05)'; // Fade effect
+                ctx.fillStyle = 'rgba(2, 2, 4, 0.1)'; 
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#00f0ff';
-                ctx.font = fontSize + 'px monospace';
-
-                for (let i = 0; i < rainDrops.length; i++) {
-                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-                    if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        rainDrops[i] = 0;
-                    }
-                    rainDrops[i]++;
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    // Add occasional red glitch characters
+                    ctx.fillStyle = Math.random() > 0.95 ? '#ff003c' : '#00f0ff';
+                    ctx.font = fontSize + 'px monospace';
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
                 }
+                requestAnimationFrame(draw); // Pro-level smooth animation
             }
-            setInterval(draw, 50);
+            requestAnimationFrame(draw);
         }
 
-        // --- 3. MASSIVE DATA POOL & CORE ENGINE ---
-        // Over 60 High Quality curated IDs for Cyberpunk/Tokyo vibe
+        // --- 2. MASSIVE ZERO-DUPLICATE POOL ENGINE ---
+        // Over 80+ Premium IDs. 
         const masterPool = [
             '1540959733332-eab4deabeeaf', '1554797589-7241bb691973', '1503899036084-c55cdd92da26', '1528360983277-13d401cdc186',
             '1518005020951-eccb494ad742', '1493976040381-c1f9610f94f2', '1522850655386-81f1480f785b', '1551482850-a92bd0325bdf',
@@ -304,12 +310,12 @@
 
         let activeQueue = [];
         let loopCounter = 0;
+        let lastShownId = ""; // Track to ensure absolute zero overlap between loops
         let isLoading = false;
         const grid = document.getElementById('grid');
-
-        // LOCAL STORAGE SETUP FOR VAULT
         let vaultSaved = JSON.parse(localStorage.getItem('tokyoXVault')) || [];
 
+        // Advanced Fisher-Yates Shuffle
         function shuffle(array) {
             let arr = [...array];
             for (let i = arr.length - 1; i > 0; i--) {
@@ -319,42 +325,57 @@
             return arr;
         }
 
+        function refillQueue() {
+            loopCounter++;
+            let newQueue = shuffle(masterPool);
+            // Ensure the first item of the new queue isn't the same as the last item shown
+            if (newQueue[newQueue.length - 1] === lastShownId) {
+                // Swap it with the first item
+                let temp = newQueue[newQueue.length - 1];
+                newQueue[newQueue.length - 1] = newQueue[0];
+                newQueue[0] = temp;
+            }
+            activeQueue = newQueue;
+        }
+
         function initEngine() {
             loopCounter = 0;
-            activeQueue = shuffle(masterPool);
+            refillQueue();
             loadItems(12);
         }
 
         function forceGlitchRefresh() {
             if(navigator.vibrate) navigator.vibrate([30, 50, 30]);
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            grid.style.opacity = '0';
+            grid.style.opacity = '0.2';
+            grid.style.transform = 'scale(0.98)';
             setTimeout(() => {
                 grid.innerHTML = '';
                 initEngine();
                 grid.style.opacity = '1';
-                addChatMsg('ai', "Re-rolling the simulation... Here are fresh nodes. 🎲");
-            }, 500);
+                grid.style.transform = 'scale(1)';
+                showToast('Grid Rebooted. New Nodes Acquired.', 'success');
+                changeCatState('hacker');
+                addChatMsg('ai', "I bypassed the firewall! Rebooted the photo nodes. 😈💻");
+            }, 600);
         }
 
-        // --- 4. INFINITE SCROLL RENDERER ---
+        // --- 3. HARDWARE ACCELERATED INFINITE SCROLL ---
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting && !isLoading && document.getElementById('view-feed').style.display !== 'none') {
                 document.getElementById('loader').style.display = 'block';
                 isLoading = true;
-                setTimeout(() => loadItems(8), 300);
+                setTimeout(() => loadItems(10), 400); // Load 10 at a time smoothly
             }
-        }, { rootMargin: '800px' });
+        }, { rootMargin: '1000px' }); // Pre-load way before user reaches bottom
         observer.observe(document.getElementById('scroll-sentinel'));
 
         function loadItems(count) {
             const fragment = document.createDocumentFragment();
             for (let i = 0; i < count; i++) {
-                if (activeQueue.length === 0) {
-                    loopCounter++;
-                    activeQueue = shuffle(masterPool);
-                }
+                if (activeQueue.length === 0) refillQueue();
                 const photoId = activeQueue.pop();
+                lastShownId = photoId;
                 fragment.appendChild(createCard(photoId, loopCounter));
             }
             grid.appendChild(fragment);
@@ -365,44 +386,65 @@
         function createCard(photoId, cacheBust) {
             const card = document.createElement('div');
             card.className = 'card';
-            const imgWidth = 600 + cacheBust; 
-            const imgUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&fm=webp&w=${imgWidth}&q=70`;
+            // cacheBust logic ensures browser doesn't pull from local cache if we loop, simulating pure endless
+            const imgUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&fm=webp&w=${600 + cacheBust}&q=70`;
             const hdUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=3000&q=100`;
             
             const isSaved = vaultSaved.includes(photoId);
 
             card.innerHTML = `
-                <img src="${imgUrl}" loading="lazy" decoding="async" alt="Cyberpunk View" onclick="openLightbox('${hdUrl}')">
+                <img src="${imgUrl}" loading="lazy" decoding="async" alt="Tokyo Future" onclick="openLightbox('${hdUrl}')">
                 <div class="overlay">
                     <div class="action-btns">
-                        <button class="btn-glass ${isSaved ? 'liked' : ''}" onclick="toggleLike(this, '${photoId}')">${isSaved ? '♥' : '♡'}</button>
+                        <button class="btn-glass ${isSaved ? 'liked' : ''}" onclick="toggleLike(event, this, '${photoId}')">${isSaved ? '♥' : '♡'}</button>
                     </div>
-                    <button class="btn-download" onclick="instantDownload('${hdUrl}', 'TOKYO_X_${photoId}')" title="Free 4K Download">⭳</button>
+                    <button class="btn-download" onclick="instantDownload(event, '${hdUrl}', 'TOKYO_X_${photoId}')" title="Download 3000x Resolution">⭳</button>
                 </div>
             `;
             return card;
         }
 
-        // --- 5. VAULT LOGIC (LOCAL STORAGE) ---
-        function toggleLike(btn, photoId) {
+        // --- 4. TOAST NOTIFICATION SYSTEM ---
+        function showToast(message, type = '') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span style="font-size: 18px;">${type === 'success' ? '✔' : '⚠'}</span>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Remove
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // --- 5. VAULT LOGIC ---
+        function toggleLike(e, btn, photoId) {
+            e.stopPropagation(); // Prevent opening lightbox
             if (navigator.vibrate) navigator.vibrate(40);
             
             if (vaultSaved.includes(photoId)) {
-                // Remove from vault
                 vaultSaved = vaultSaved.filter(id => id !== photoId);
                 btn.classList.remove('liked');
                 btn.innerHTML = '♡';
-                addChatMsg('ai', "File removed from Vault. 🗑️");
+                showToast('Asset removed from secure Vault.', 'warning');
             } else {
-                // Add to vault
                 vaultSaved.push(photoId);
                 btn.classList.add('liked');
                 btn.innerHTML = '♥';
-                addChatMsg('ai', "File securely encrypted in Vault! 🔒");
+                showToast('Asset Encrypted to Vault.', 'success');
+                changeCatState('happy');
             }
             
             localStorage.setItem('tokyoXVault', JSON.stringify(vaultSaved));
-            loadVaultData(); // Refresh vault view in background
+            loadVaultData();
         }
 
         function loadVaultData() {
@@ -416,7 +458,7 @@
                 emptyMsg.style.display = 'none';
                 const fragment = document.createDocumentFragment();
                 vaultSaved.forEach(photoId => {
-                    fragment.appendChild(createCard(photoId, 0)); // No cache bust needed for vault
+                    fragment.appendChild(createCard(photoId, 0));
                 });
                 vaultGrid.appendChild(fragment);
             }
@@ -433,8 +475,8 @@
             if (view === 'vault') {
                 feed.style.display = 'none';
                 vault.style.display = 'block';
-                addChatMsg('ai', "Accessing encrypted vault... 🛡️");
                 window.scrollTo({ top: 0 });
+                changeCatState('typing');
             } else {
                 vault.style.display = 'none';
                 feed.style.display = 'block';
@@ -442,9 +484,11 @@
         }
 
         // --- 6. ADVANCED DOWNLOAD ENGINE ---
-        async function instantDownload(url, filename) {
+        async function instantDownload(e, url, filename) {
+            e.stopPropagation();
             if (navigator.vibrate) navigator.vibrate([50, 50]);
-            addChatMsg('ai', "Initiating 4K secure download... ⚡");
+            showToast('Bypassing security... Starting Download.', 'success');
+            changeCatState('hacker');
 
             try {
                 const response = await fetch(url);
@@ -459,20 +503,40 @@
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(blobUrl);
                 
-                addChatMsg('ai', "Download successful! File saved. ✅");
+                setTimeout(() => showToast('4K File Downloaded Successfully!', 'success'), 1000);
             } catch (err) {
                 window.open(url, '_blank');
-                addChatMsg('ai', "Bypassed CORS firewall. Opening file in new tab. 🔓");
+                showToast('Opened secure channel in new tab.', 'warning');
             }
         }
 
-        // --- 7. HUD LIGHTBOX ---
+        // --- 7. DYNAMIC HUD EXIF GENERATOR ---
+        function generateFakeExif() {
+            const lenses = ["35mm f/1.4", "50mm f/1.2", "24-70mm f/2.8", "85mm f/1.4", "14mm f/2.8 Ultra-Wide"];
+            const speeds = ["1/125s", "1/250s", "1/500s", "1/1000s", "2.5s (Long Exp)"];
+            const isos = ["ISO 400", "ISO 800", "ISO 1600", "ISO 3200", "ISO 6400"];
+            const cameras = ["Sony A7S III", "Lumix S5 IIx", "RED Komodo 6K", "Fujifilm X-T4", "Canon R5 C"];
+            const vibes = ["Neon Grime", "Corporate Overlord", "Synthwave", "Alley Rat", "Rain Protocol"];
+
+            const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+            document.getElementById('dynamic-exif').innerHTML = `
+                <div class="hud-stat">SENSOR<span>${pick(cameras)}</span></div>
+                <div class="hud-stat">OPTICS<span>${pick(lenses)}</span></div>
+                <div class="hud-stat">EXPOSURE<span>${pick(isos)} • ${pick(speeds)}</span></div>
+                <div class="hud-stat">GEO-TAG<span>Sector ${Math.floor(Math.random()*99)}</span></div>
+                <div class="hud-stat">AESTHETIC<span>${pick(vibes)}</span></div>
+                <div class="hud-stat">RESOLUTION<span>3000x2000 px</span></div>
+            `;
+        }
+
         function openLightbox(hdUrl) {
+            generateFakeExif();
             const lb = document.getElementById('lightbox');
             document.getElementById('lb-image').src = hdUrl;
             
             const btn = document.getElementById('hud-download');
-            btn.onclick = () => instantDownload(hdUrl, 'TOKYO_X_ASSET');
+            btn.onclick = (e) => instantDownload(e, hdUrl, `TOKYO_X_${Math.floor(Math.random()*10000)}`);
 
             lb.classList.add('show');
             if (navigator.vibrate) navigator.vibrate(30);
@@ -480,15 +544,15 @@
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('show');
-            document.getElementById('lb-image').src = '';
+            setTimeout(() => document.getElementById('lb-image').src = '', 400); // Wait for transition
         }
 
         // --- 8. STORIES SECTOR ---
         function initStories() {
             const vibes = [
                 {name: "Shinjuku", img: "1542051841857-5f90071e7989"},
-                {name: "Neon Alley", img: "1518005020951-eccb494ad742"},
-                {name: "Mecha", img: "1528360983277-13d401cdc186"},
+                {name: "Akihabara", img: "1518005020951-eccb494ad742"},
+                {name: "Mecha Base", img: "1528360983277-13d401cdc186"},
                 {name: "Acid Rain", img: "1515634928627-2a4e0a5bf533"},
                 {name: "Cyber 2077", img: "1579684126759-8664c120bf9c"}
             ];
@@ -497,7 +561,7 @@
                 let div = document.createElement('div');
                 div.className = 'story';
                 div.onclick = () => {
-                    addChatMsg('ai', `Jumping coordinates to Sector: ${v.name}... 🚀`);
+                    showToast(`Warping to ${v.name}...`, 'success');
                     forceGlitchRefresh();
                 };
                 div.innerHTML = `
@@ -508,10 +572,48 @@
             });
         }
 
-        // --- 9. AI CAT CHAT TERMINAL ---
+        // --- 9. ULTRA PRO MAX AI CAT LOGIC ---
+        const catGifs = {
+            normal: "https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif",
+            hacker: "https://media.tenor.com/tYt6t7J3pQMAAAAi/typing-cat.gif",
+            happy: "https://media.tenor.com/JjA34N39HnAAAAAi/bongo-cat-dance.gif",
+            sleeping: "https://media.tenor.com/H1GZ1i5Z2gIAAAAi/cat-sleep.gif",
+            shocked: "https://media.tenor.com/vHqLhA-mYEMAAAAi/cat-shocked.gif"
+        };
+
+        function changeCatState(state) {
+            const catTrigger = document.getElementById('cat-trigger');
+            const img = document.getElementById('cat-img');
+            
+            // Remove previous classes
+            catTrigger.classList.remove('cat-bounce', 'cat-spin', 'cat-glitch');
+            
+            // Apply new GIF and CSS animation based on state
+            if (catGifs[state]) img.src = catGifs[state];
+            
+            if (state === 'hacker') catTrigger.classList.add('cat-glitch');
+            else if (state === 'happy') catTrigger.classList.add('cat-bounce');
+            else if (state === 'shocked') catTrigger.classList.add('cat-spin');
+            
+            // Revert to normal after a while if not chatting
+            setTimeout(() => {
+                if(document.getElementById('chatbox').style.display !== 'flex'){
+                    img.src = catGifs.normal;
+                    catTrigger.classList.remove('cat-bounce', 'cat-spin', 'cat-glitch');
+                }
+            }, 5000);
+        }
+
         function toggleChat() {
             const chat = document.getElementById('chatbox');
-            chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+            if (chat.style.display === 'flex') {
+                chat.style.display = 'none';
+                changeCatState('normal');
+            } else {
+                chat.style.display = 'flex';
+                changeCatState('happy');
+                document.getElementById('chat-input').focus();
+            }
             if (navigator.vibrate) navigator.vibrate(20);
         }
 
@@ -521,7 +623,7 @@
             msgDiv.className = `msg ${sender}`;
             msgDiv.innerText = text;
             body.appendChild(msgDiv);
-            body.scrollTop = body.scrollHeight; // Auto scroll down
+            body.scrollTop = body.scrollHeight; 
         }
 
         function handleChat(e) {
@@ -535,33 +637,48 @@
 
             addChatMsg('user', userText);
             inputField.value = '';
+            changeCatState('typing');
 
             setTimeout(() => {
-                // Cat AI Brain Logic
+                // Advanced NLP-style Matching
                 if (userText === 'clear' || userText === 'cls') {
                     document.getElementById('chat-body').innerHTML = '';
-                    addChatMsg('ai', "Terminal cleared. Terminal ready.");
+                    addChatMsg('ai', "Memory wiped. Ready for new commands! 🧹");
+                    changeCatState('normal');
                 } 
-                else if (userText.includes('matrix') || userText.includes('hack')) {
-                    addChatMsg('ai', "I'm already in the mainframe. Fetching tuna coordinates... 🐟");
+                else if (userText.includes('hack') || userText.includes('matrix')) {
+                    addChatMsg('ai', "Accessing the Mainframe... Bypassing security... Found the tuna vault! 🐟💻");
+                    changeCatState('hacker');
+                    forceGlitchRefresh();
                 }
-                else if (userText.includes('hello') || userText.includes('hi')) {
-                    addChatMsg('ai', "Meow! Ready to explore Neo-Tokyo? Use the feed to find sick wallpapers.");
+                else if (userText.includes('fast') || userText.includes('lag') || userText.includes('speed')) {
+                    addChatMsg('ai', "I'm running on Web Workers and Hardware Acceleration. Zero lag, pure speed! ⚡🏎️");
+                    changeCatState('happy');
                 }
-                else if (userText === 'help') {
-                    addChatMsg('ai', "Commands: 'clear' (clears chat), 'matrix' (hack mode), 'hello'. Or just click 'Re-Roll' in the nav!");
+                else if (userText.includes('hello') || userText.includes('hi') || userText.includes('meow')) {
+                    addChatMsg('ai', "Meow! Welcome back user. The neon streets are waiting. 🐾");
+                    changeCatState('normal');
                 }
-                else if (userText.includes('pro max')) {
-                    addChatMsg('ai', "This is the ultimate Pro Max architecture! No bloatware, just pure cyberpunk speed. ⚡");
+                else if (userText.includes('sleep') || userText.includes('tired')) {
+                    addChatMsg('ai', "Zzz... the code is compiling... leave me alone... 💤");
+                    changeCatState('sleeping');
+                }
+                else if (userText.includes('dog')) {
+                    addChatMsg('ai', "SYSTEM ERROR! FORBIDDEN WORD DETECTED! HISS! 😾🚨");
+                    changeCatState('shocked');
                 }
                 else {
                     const randomResponses = [
-                        "Purr-cessing...", "Are you a replicant? 🤖", "I just knocked a glass off the cyber-table.", 
-                        "System error: Need more head scratches.", "Analyzing pixel data... highly aesthetic."
+                        "Purr-cessing your request...", 
+                        "Did you see that glowing alleyway? Download it!", 
+                        "I'm just a cat, I don't know HTML... wait, yes I do.", 
+                        "Error: Need more fish bytes. 🍣", 
+                        "That's highly aesthetic. Keep scrolling!"
                     ];
                     addChatMsg('ai', randomResponses[Math.floor(Math.random() * randomResponses.length)]);
+                    changeCatState(Math.random() > 0.5 ? 'happy' : 'normal');
                 }
-            }, 600); // Slight delay for realistic feel
+            }, 800); 
         }
     </script>
 </body>
