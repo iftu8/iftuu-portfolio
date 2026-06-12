@@ -3,34 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO X | God-Tier AI Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Space+Grotesk:wght@500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>TOKYO X | Infinity Galaxy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
     
     <style>
         /* =========================================
-           1. CORE VARIABLES & HARDWARE ACCELERATION
+           1. CORE VARIABLES & PREMIUM SETUP
            ========================================= */
         :root {
-            --bg-color: #020204;
-            --surface-color: rgba(15, 15, 20, 0.7);
+            --bg-color: #000000;
+            --surface-color: #121212;
             --text-main: #ffffff;
             --text-dim: #8e8e93;
             --primary: #00f0ff;
-            --secondary: #ff003c;
+            --secondary: #ff3040; /* Instagram Style Red Heart */
             --tertiary: #b026ff;
-            --matrix-green: #0f0;
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --font-main: 'Inter', sans-serif;
             --font-display: 'Space Grotesk', sans-serif;
-            --font-code: 'Share Tech Mono', monospace;
-            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.5);
-            --glow-red: 0 0 20px rgba(255, 0, 60, 0.5);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar { display: none; } /* Hide scrollbar for app-like feel */
 
         body {
             font-family: var(--font-main); background: var(--bg-color);
@@ -38,285 +32,215 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Matrix Canvas - Optimized */
-        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.12; pointer-events: none; }
+        /* =========================================
+           2. BEAUTIFUL LOGO ANIMATION (SPLASH)
+           ========================================= */
+        #premium-splash {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000; z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: opacity 1.2s ease-in-out;
+        }
+        
+        .animated-logo {
+            font-family: var(--font-display); font-size: 3rem; font-weight: 800;
+            background: linear-gradient(270deg, var(--primary), var(--tertiary), var(--primary));
+            background-size: 200% 200%;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: gradientFlow 3s ease infinite, scaleUp 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            opacity: 0; transform: scale(0.8);
+        }
+
+        .splash-subtitle {
+            margin-top: 15px; font-size: 12px; font-weight: 600; color: var(--text-dim);
+            letter-spacing: 4px; text-transform: uppercase; opacity: 0;
+            animation: fadeIn 1s ease 1s forwards;
+        }
+
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes scaleUp { to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { to { opacity: 1; } }
 
         /* =========================================
-           2. SPLASH SCREEN & HEADER
+           3. HEADER (INSTAGRAM STYLE CLEAN)
            ========================================= */
-        #splash-screen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000;
-            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease;
-        }
-        .cyber-loader { font-family: var(--font-display); font-size: 3.5rem; font-weight: 800; text-transform: uppercase; color: transparent; -webkit-text-stroke: 2px var(--primary); text-shadow: var(--glow-cyan); animation: glitchLoader 1s infinite; }
-        @keyframes glitchLoader { 0% { transform: translate(0) } 20% { transform: translate(-5px, 5px) } 40% { transform: translate(-5px, -5px) } 60% { transform: translate(5px, 5px) } 80% { transform: translate(5px, -5px) } 100% { transform: translate(0) } }
-        
         header {
             position: fixed; top: 0; width: 100%; padding: 15px 20px;
-            background: linear-gradient(to bottom, rgba(2, 2, 4, 0.95), rgba(2, 2, 4, 0.7));
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2); z-index: 1000;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border); z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .logo { font-family: var(--font-display); font-size: 28px; font-weight: 800; background: linear-gradient(90deg, var(--primary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px var(--primary)); }
-        .ai-status { font-family: var(--font-code); font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; background: rgba(0, 240, 255, 0.05); border: 1px solid var(--primary); padding: 8px 18px; border-radius: 30px; box-shadow: inset 0 0 10px rgba(0,240,255,0.2); }
-        .ai-pulse { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; animation: pulse 1.2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,240,255,0.8); } 70% { box-shadow: 0 0 0 15px rgba(0,240,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); } }
+        .header-logo { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: #fff; }
+        .header-icons { display: flex; gap: 15px; align-items: center; }
+        .icon-btn { font-size: 22px; cursor: pointer; color: #fff; transition: 0.2s; }
+        .icon-btn:hover { color: var(--secondary); transform: scale(1.1); }
 
         /* =========================================
-           3. STORIES & GALLERY (GPU ACCELERATED)
+           4. INFINITE GALLERY (MASONRY & CARDS)
            ========================================= */
-        .stories { margin-top: 85px; padding: 15px 20px; display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; }
-        .story { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; flex-shrink: 0; }
-        .story-ring { width: 85px; height: 85px; border-radius: 50%; padding: 3px; background: conic-gradient(from 0deg, var(--secondary), var(--tertiary), var(--primary), var(--secondary)); animation: spinBg 4s linear infinite; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
-        @keyframes spinBg { 100% { transform: rotate(360deg); } }
-        .story-ring-inner { width: 100%; height: 100%; background: var(--bg-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; animation: spinBgReverse 4s linear infinite; }
-        @keyframes spinBgReverse { 100% { transform: rotate(-360deg); } }
-        .story-ring-inner img { width: 73px; height: 73px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-color); }
-        .story:hover .story-ring { transform: scale(1.15); }
-        .story span { font-size: 13px; font-family: var(--font-display); font-weight: 700; color: #fff; letter-spacing: 1px; }
+        .gallery-wrapper { margin-top: 80px; padding: 10px 15px 100px; }
+        .masonry-grid { column-count: 2; column-gap: 15px; width: 100%; }
+        @media (min-width: 768px) { .masonry-grid { column-count: 3; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 4; } }
 
-        .gallery { padding: 15px 20px 120px; column-count: 2; column-gap: 15px; }
-        @media (min-width: 768px) { .gallery { column-count: 3; } }
-        @media (min-width: 1024px) { .gallery { column-count: 4; } }
+        .post-card {
+            break-inside: avoid; margin-bottom: 15px; border-radius: 16px;
+            position: relative; overflow: hidden; background: var(--surface-color);
+            border: 1px solid rgba(255,255,255,0.05); animation: fadeUp 0.6s forwards; cursor: pointer;
+        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card { break-inside: avoid; margin-bottom: 15px; border-radius: 20px; position: relative; overflow: hidden; background: var(--surface-color); cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transform: translateZ(0); will-change: transform; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .card img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s ease; will-change: transform; }
-        .card:hover { border-color: var(--primary); box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2); transform: translateY(-5px); z-index: 10; }
-        .card:hover img { transform: scale(1.1); filter: contrast(1.1); }
+        /* Cyberpunk Future Filter */
+        .post-card img {
+            width: 100%; display: block; object-fit: cover;
+            filter: contrast(1.1) saturate(1.2) hue-rotate(-10deg);
+            transition: transform 0.4s ease;
+        }
+        .post-card:hover img { transform: scale(1.03); }
+
+        /* Instagram Style Double Tap Heart */
+        .big-heart {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+            color: var(--secondary); font-size: 80px; filter: drop-shadow(0 10px 20px rgba(255, 48, 64, 0.5));
+            opacity: 0; pointer-events: none; z-index: 10;
+        }
+        .big-heart.active { animation: instaHeart 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes instaHeart { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 20% { transform: translate(-50%, -50%) scale(1.2); } 40% { transform: translate(-50%, -50%) scale(1); } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
+
+        /* Action Bar */
+        .action-bar { padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-color); }
+        .action-left { display: flex; gap: 15px; }
         
-        .overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 15px 15px; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); display: flex; justify-content: space-between; align-items: flex-end; opacity: 0; transition: 0.3s ease; }
-        .card:hover .overlay { opacity: 1; }
-        
-        .action-btns { display: flex; gap: 8px; }
-        .btn-glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); color: #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; cursor: pointer; transition: 0.3s; }
-        .btn-glass:hover { background: var(--secondary); color: #fff; border-color: var(--secondary); transform: translateY(-5px) scale(1.1); box-shadow: var(--glow-red); }
-        .btn-glass.liked { background: var(--secondary); border-color: var(--secondary); color: #fff; text-shadow: var(--glow-red); animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .btn-download { background: var(--primary); color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: var(--glow-cyan); }
-        .btn-download:hover { background: #fff; transform: translateY(-5px) scale(1.1); }
-        @keyframes pop { 50% { transform: scale(1.5) rotate(-10deg); } }
+        .like-btn { font-size: 24px; color: #fff; cursor: pointer; transition: 0.2s; user-select: none; }
+        .like-btn.liked { color: var(--secondary); animation: popLike 0.3s ease; }
+        @keyframes popLike { 50% { transform: scale(1.3); } }
+
+        .dl-btn {
+            background: var(--primary); color: #000; border: none; padding: 6px 16px;
+            border-radius: 20px; font-weight: 800; cursor: pointer; font-size: 12px;
+            transition: 0.3s;
+        }
+        .dl-btn:hover { background: #fff; box-shadow: 0 0 15px rgba(0,240,255,0.6); }
 
         /* =========================================
-           4. HUD LIGHTBOX & DYNAMIC EXIF
+           5. FUNNY CAT CHATBOT UI
            ========================================= */
-        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.98); backdrop-filter: blur(30px); z-index: 3000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.4s; }
-        #lightbox.show { display: flex; opacity: 1; }
-        .lb-close { position: absolute; top: 30px; right: 30px; background: rgba(255,0,60,0.2); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #fff; cursor: pointer; border: 1px solid var(--secondary); transition: 0.3s; }
-        .lb-close:hover { background: var(--secondary); transform: rotate(90deg); }
-        .lb-img { max-width: 100%; max-height: 50vh; border-radius: 15px; border: 2px solid var(--primary); box-shadow: 0 0 40px rgba(0,240,255,0.3); object-fit: contain; }
-        .hud-panel { margin-top: 30px; width: 100%; max-width: 550px; background: rgba(15,15,20,0.8); border: 1px solid var(--primary); padding: 25px; border-radius: 15px; position: relative; overflow: hidden; }
-        .hud-panel::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0,240,255,0.2), transparent); animation: scanline 3s infinite linear; }
-        @keyframes scanline { 100% { left: 200%; } }
-        .hud-title { color: var(--primary); font-family: var(--font-code); font-size: 16px; margin-bottom: 20px; border-bottom: 1px dashed rgba(0,240,255,0.5); padding-bottom: 10px; display: flex; justify-content: space-between; }
-        .hud-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .hud-stat { font-family: var(--font-code); font-size: 11px; color: var(--text-dim); text-transform: uppercase; }
-        .hud-stat span { color: #fff; font-weight: bold; display: block; font-size: 15px; margin-top: 6px; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+        .cat-fab {
+            position: fixed; bottom: 100px; right: 20px; z-index: 2000;
+            width: 65px; height: 65px; border-radius: 50%; background: #fff;
+            border: 3px solid var(--primary); box-shadow: 0 10px 25px rgba(0,240,255,0.4);
+            display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s;
+        }
+        .cat-fab img { width: 90%; height: 90%; object-fit: cover; border-radius: 50%; }
+        .cat-fab:hover { transform: scale(1.1) rotate(10deg); }
         
-        /* =========================================
-           5. UPGRADED AI CAT TERMINAL (DYNAMIC)
-           ========================================= */
-        .ai-fab { position: fixed; bottom: 110px; right: 20px; z-index: 2000; width: 80px; height: 80px; border-radius: 50%; background: var(--surface-color); border: 2px solid var(--primary); box-shadow: var(--glow-cyan); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .ai-fab img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; transition: 0.3s; }
-        .ai-fab:hover { transform: scale(1.15) translateY(-10px); border-color: var(--tertiary); box-shadow: 0 0 30px var(--tertiary); }
+        .chat-window {
+            position: fixed; bottom: 180px; right: 20px; width: 320px;
+            background: rgba(15, 15, 20, 0.95); backdrop-filter: blur(25px);
+            border: 1px solid var(--primary); border-radius: 24px; padding: 0;
+            z-index: 2000; display: none; flex-direction: column; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9); transform-origin: bottom right; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .chat-header { background: linear-gradient(90deg, var(--tertiary), var(--primary)); padding: 15px; color: #fff; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+        .chat-body { padding: 15px; height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
         
-        /* Funny Cat Animations */
-        .cat-bounce { animation: catBounce 0.5s infinite alternate; }
-        .cat-spin { animation: catSpin 1s infinite linear; }
-        .cat-glitch { animation: catGlitch 0.2s infinite; }
-        @keyframes catBounce { to { transform: translateY(-10px); } }
-        @keyframes catSpin { 100% { transform: rotate(360deg); } }
-        @keyframes catGlitch { 0% { transform: translate(2px, -2px); filter: hue-rotate(90deg); } 50% { transform: translate(-2px, 2px); filter: hue-rotate(-90deg); } 100% { transform: translate(0); } }
+        .msg { max-width: 85%; padding: 10px 15px; border-radius: 18px; line-height: 1.4; }
+        .msg.cat { background: rgba(0,240,255,0.15); border: 1px solid rgba(0,240,255,0.3); color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .msg.user { background: var(--primary); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 600; }
+        
+        .chat-input { display: flex; padding: 10px; border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.5); }
+        .chat-input input { flex: 1; background: transparent; border: none; color: #fff; padding: 8px 10px; outline: none; font-family: var(--font-main); }
+        .chat-input button { background: var(--primary); border: none; width: 35px; height: 35px; border-radius: 50%; font-weight: bold; cursor: pointer; color: #000; }
 
-        .chat-terminal { position: fixed; bottom: 200px; right: 20px; width: 360px; background: rgba(5, 5, 10, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--primary); border-radius: 20px; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9); z-index: 2000; transform-origin: bottom right; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        
-        .chat-header { background: linear-gradient(90deg, rgba(0,240,255,0.2), transparent); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--primary); border-top-left-radius: 20px; border-top-right-radius: 20px; }
-        .chat-header span { font-family: var(--font-code); color: var(--primary); font-weight: 800; font-size: 16px; text-shadow: var(--glow-cyan); }
-        .chat-body { padding: 20px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
-        
-        .msg { max-width: 85%; padding: 12px 16px; border-radius: 15px; line-height: 1.4; font-family: var(--font-main); }
-        .msg.ai { background: rgba(0,240,255,0.1); border: 1px solid var(--primary); color: #fff; align-self: flex-start; border-bottom-left-radius: 0; box-shadow: inset 0 0 10px rgba(0,240,255,0.1); }
-        .msg.user { background: rgba(176,38,255,0.2); border: 1px solid var(--tertiary); color: #fff; align-self: flex-end; border-bottom-right-radius: 0; box-shadow: inset 0 0 10px rgba(176,38,255,0.2); }
-        
-        .chat-input-area { padding: 15px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; background: rgba(0,0,0,0.5); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
-        .chat-input-area input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; border-radius: 10px; color: #fff; outline: none; font-family: var(--font-code); transition: 0.3s; }
-        .chat-input-area input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,240,255,0.2); }
-        .chat-input-area button { background: var(--primary); border: none; width: 50px; border-radius: 10px; font-weight: bold; cursor: pointer; color: #000; font-size: 20px; transition: 0.3s; }
-        .chat-input-area button:hover { background: #fff; transform: scale(1.05); }
-
-        /* =========================================
-           6. TOAST NOTIFICATIONS (SYSTEM ALERTS)
-           ========================================= */
-        #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast { background: rgba(10,10,15,0.9); border-left: 4px solid var(--primary); color: #fff; padding: 15px 20px; border-radius: 8px; font-family: var(--font-code); font-size: 13px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; gap: 10px; }
-        .toast.show { transform: translateX(0); }
-        .toast.success { border-left-color: #0f0; }
-        .toast.warning { border-left-color: var(--secondary); }
-
-        /* BOTTOM NAV & SPINNER */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; height: 90px; background: linear-gradient(to top, rgba(2, 2, 4, 1), rgba(2, 2, 4, 0.8)); backdrop-filter: blur(25px); border-top: 1px solid rgba(0, 240, 255, 0.15); display: flex; justify-content: space-around; align-items: center; padding-bottom: 25px; z-index: 1000; box-shadow: 0 -10px 30px rgba(0,0,0,0.8); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-dim); cursor: pointer; transition: 0.4s; position: relative; }
-        .nav-item::after { content: ''; position: absolute; bottom: -10px; width: 0; height: 3px; background: var(--primary); transition: 0.3s; box-shadow: var(--glow-cyan); }
-        .nav-item.active { color: var(--primary); transform: translateY(-8px); }
-        .nav-item.active::after { width: 100%; }
-        .nav-item svg { width: 28px; height: 28px; stroke: currentColor; stroke-width: 2; fill: none; transition: 0.3s; }
-        .nav-item:hover svg { stroke: #fff; filter: drop-shadow(0 0 5px #fff); }
-        .nav-label { font-size: 11px; font-family: var(--font-code); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
-
-        .spinner { width: 50px; height: 50px; border: 4px solid var(--glass-border); border-top-color: var(--primary); border-left-color: var(--tertiary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 30px auto 50px; }
+        /* Loader */
+        #scroll-sentinel { width: 100%; height: 20px; }
+        .spinner { width: 35px; height: 35px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--secondary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 20px auto 40px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
     </style>
 </head>
 <body>
 
-    <canvas id="matrix-canvas"></canvas>
-
-    <div id="splash-screen">
-        <div class="cyber-loader">ULTRA.PRO.MAX()</div>
-        <div class="spinner"></div>
-        <p style="color: var(--primary); font-family: var(--font-code); margin-top: 20px; letter-spacing: 5px;">ESTABLISHING UPLINK...</p>
+    <div id="premium-splash">
+        <div class="animated-logo">TOKYO X</div>
+        <div class="splash-subtitle">Infinite Future</div>
     </div>
-
-    <div id="toast-container"></div>
 
     <header>
-        <div class="logo">TOKYO_X <span style="font-size: 14px; color: var(--secondary);">PRO</span></div>
-        <div class="ai-status"><div class="ai-pulse"></div> ZERO LAG SECURE</div>
+        <div class="header-logo">TOKYO X</div>
+        <div class="header-icons">
+            <div class="icon-btn" onclick="forceRefresh()">↻</div>
+            <div class="icon-btn" onclick="catChat('Hello! Amar kono notun update ache?')" style="color: var(--primary);">♡</div>
+        </div>
     </header>
 
-    <div id="view-feed">
-        <div class="stories" id="story-container"></div>
-        <main class="gallery" id="grid"></main>
-        <div id="scroll-sentinel" style="height: 20px; width: 100%;"></div>
+    <main class="gallery-wrapper">
+        <div class="masonry-grid" id="grid">
+            </div>
+        <div id="scroll-sentinel"></div>
         <div id="loader" style="display:none;"><div class="spinner"></div></div>
+    </main>
+
+    <div class="cat-fab" onclick="toggleChat()">
+        <img src="https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif" alt="Funny Cat">
     </div>
 
-    <div id="view-vault" style="display: none; padding: 100px 20px 120px; min-height: 100vh;">
-        <h1 style="font-family: var(--font-display); color: var(--primary); border-bottom: 2px solid var(--tertiary); padding-bottom: 10px; margin-bottom: 20px;">ENCRYPTED VAULT</h1>
-        <main class="gallery" id="vault-grid"></main>
-        <div id="vault-empty" style="text-align: center; color: var(--text-dim); margin-top: 50px; font-family: var(--font-code);">[ VAULT IS EMPTY. AWAITING DATA INPUT ]</div>
-    </div>
-
-    <div id="lightbox">
-        <div class="lb-close" onclick="closeLightbox()">✕</div>
-        <img src="" id="lb-image" class="lb-img">
-        <div class="hud-panel">
-            <div class="hud-title"><span>EXIF DATA EXTRACTED</span> <span>[LIVE STATUS: HACKED]</span></div>
-            <div class="hud-grid" id="dynamic-exif">
-                </div>
-            <button class="btn-download" style="width: 100%; border-radius: 12px; margin-top: 15px; height: 50px; font-family: var(--font-display); font-size: 16px; letter-spacing: 2px;" id="hud-download">FORCE DOWNLOAD 4K ASSET ⭳</button>
-        </div>
-    </div>
-
-    <div class="ai-fab" onclick="toggleChat()" id="cat-trigger">
-        <img src="https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif" id="cat-img" alt="AI Cat">
-    </div>
-
-    <div class="chat-terminal" id="chatbox">
+    <div class="chat-window" id="chatbot">
         <div class="chat-header">
-            <span>🐱 Bongo_AI.exe [v10.0]</span>
-            <span onclick="toggleChat()" style="cursor:pointer; font-size:22px; color: var(--secondary);">✕</span>
+            <span>🐾 Bongo Cat AI</span>
+            <span onclick="toggleChat()" style="cursor:pointer; font-size:18px;">✕</span>
         </div>
         <div class="chat-body" id="chat-body">
-            <div class="msg ai">Purrr... Welcome to the Ultra Pro Max Tokyo grid. I'm your AI companion. I run on Tuna and Code! 🐾 Tell me something!</div>
+            <div class="msg cat">Meow! 😸 Ami Neo-Tokyo er sobtheke lazy hacker cat. Ki chai apnar? Free photo naki mach? 🐟</div>
         </div>
-        <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Type a command or chat..." onkeypress="handleChat(event)">
-            <button onclick="processCommand()">→</button>
+        <div class="chat-input">
+            <input type="text" id="chat-input-box" placeholder="Message Bongo..." onkeypress="handleChatInput(event)">
+            <button onclick="processUserMessage()">➤</button>
         </div>
     </div>
-
-    <nav class="bottom-nav">
-        <div class="nav-item active" id="nav-feed" onclick="switchView('feed')">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            <span class="nav-label">Nexus</span>
-        </div>
-        <div class="nav-item" onclick="forceGlitchRefresh()">
-            <svg viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.26l3.08 2.69"></path></svg>
-            <span class="nav-label">Reboot</span>
-        </div>
-        <div class="nav-item" id="nav-vault" onclick="switchView('vault')">
-            <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-            <span class="nav-label">Vault</span>
-        </div>
-    </nav>
 
     <script>
         /* =========================================================================
-           ULTRA PRO MAX ENGINE - WRITTEN FOR SPEED, ZERO DUPLICATES & FUN
+           TOKYO X : INFINITY ENGINE - ADVANCED JAVASCRIPT
            ========================================================================= */
         
-        // --- 1. BOOT SEQUENCE & MATRIX OPTIMIZATION ---
-        window.onload = () => {
-            initMatrix();
+        // --- 1. BOOT SEQUENCE ---
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
+                const splash = document.getElementById('premium-splash');
                 splash.style.opacity = '0';
-                setTimeout(() => splash.remove(), 800);
-                showToast('System Online. Welcome to Tokyo X.', 'success');
-            }, 2000);
-            initStories();
+                setTimeout(() => {
+                    splash.remove();
+                    document.body.style.overflowY = 'auto'; // Enable scroll
+                }, 1200);
+            }, 2500); // Show beautiful animation for 2.5s
+            
             initEngine();
-            loadVaultData();
-        };
+        });
 
-        function initMatrix() {
-            const canvas = document.getElementById('matrix-canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const chars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const fontSize = 14;
-            const columns = canvas.width / fontSize;
-            const drops = Array.from({ length: columns }).fill(1);
-
-            function draw() {
-                ctx.fillStyle = 'rgba(2, 2, 4, 0.1)'; 
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                for (let i = 0; i < drops.length; i++) {
-                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                    // Add occasional red glitch characters
-                    ctx.fillStyle = Math.random() > 0.95 ? '#ff003c' : '#00f0ff';
-                    ctx.font = fontSize + 'px monospace';
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                    drops[i]++;
-                }
-                requestAnimationFrame(draw); // Pro-level smooth animation
-            }
-            requestAnimationFrame(draw);
-        }
-
-        // --- 2. MASSIVE ZERO-DUPLICATE POOL ENGINE ---
-        // Over 80+ Premium IDs. 
-        const masterPool = [
-            '1540959733332-eab4deabeeaf', '1554797589-7241bb691973', '1503899036084-c55cdd92da26', '1528360983277-13d401cdc186',
-            '1518005020951-eccb494ad742', '1493976040381-c1f9610f94f2', '1522850655386-81f1480f785b', '1551482850-a92bd0325bdf',
-            '1524413840845-310c14a58d18', '1579684126759-8664c120bf9c', '1532054041103-625d57b54a23', '1601042879362-f3b1f240d9ce',
-            '1515634928627-2a4e0a5bf533', '1519608487963-8afffb523363', '1545638162-850f3b48f9ec', '1564753063852-c32ab51416fb',
-            '1550566373-81b49f972b22', '1517411032315-54ef2cb783bb', '1563089145-599997674d42', '1571210190-3b0274719c8f',
-            '1598875706266-96a8ebba0c31', '1580659328266-340798eb82f1', '1605333552084-780c85ee2e69', '1575279624508-3ab9da253dd3',
-            '1570146059178-57cb5a909fc7', '1556094042-4e63e2d6342d', '1618331835717-801e976710b2', '1590412200986-51f116747352',
-            '1526481280693-3bfa7568e0f3', '1533050487297-09b450131906', '1601473634040-7f28ed51b9e4', '1542051841857-5f90071e7989',
-            '1504109586052-7a52d45e46dd', '1583337130417-3346a1be7dee', '1557321528-761e01bc6f32', '1561005166-51d2f623e595',
-            '1520165985834-60141680d287', '1610312278520-bcc893a3ff1d', '1566810246-8877e8a946e3', '1547823528-84226d97c7fb',
-            '1538356111053-748a5634b1ed', '1568212177-3e112d8a0c2f', '1514800361284-0697920199f1', '1526305886971-15b573a647bb',
-            '1492571350019-22de08371fd3', '1513407030348-73140fee0b36', '1536697246787-1fc9bc7cb8ee', '1582136006132-75d8d0526e5d'
+        // --- 2. MASSIVE HUMAN-LESS TOKYO/FUTURE POOL ---
+        // Exclusively selected for Architecture, Neon, Cyberpunk, Empty Streets
+        const futurePool = [
+            '1542051841857-5f90071e7989', '1518005020951-eccb494ad742', '1528360983277-13d401cdc186',
+            '1579684126759-8664c120bf9c', '1532054041103-625d57b54a23', '1515634928627-2a4e0a5bf533',
+            '1554797589-7241bb691973', '1503899036084-c55cdd92da26', '1493976040381-c1f9610f94f2',
+            '1551482850-a92bd0325bdf', '1524413840845-310c14a58d18', '1601042879362-f3b1f240d9ce',
+            '1545638162-850f3b48f9ec', '1564753063852-c32ab51416fb', '1550566373-81b49f972b22',
+            '1563089145-599997674d42', '1571210190-3b0274719c8f', '1598875706266-96a8ebba0c31',
+            '1580659328266-340798eb82f1', '1605333552084-780c85ee2e69', '1575279624508-3ab9da253dd3',
+            '1570146059178-57cb5a909fc7', '1556094042-4e63e2d6342d', '1618331835717-801e976710b2',
+            '1590412200986-51f116747352', '1526481280693-3bfa7568e0f3', '1533050487297-09b450131906',
+            '1601473634040-7f28ed51b9e4', '1504109586052-7a52d45e46dd', '1583337130417-3346a1be7dee',
+            '1561005166-51d2f623e595', '1520165985834-60141680d287', '1610312278520-bcc893a3ff1d',
+            '1566810246-8877e8a946e3', '1547823528-84226d97c7fb', '1538356111053-748a5634b1ed',
+            '1568212177-3e112d8a0c2f', '1514800361284-0697920199f1', '1526305886971-15b573a647bb',
+            '1492571350019-22de08371fd3', '1513407030348-73140fee0b36', '1536697246787-1fc9bc7cb8ee'
         ];
 
         let activeQueue = [];
-        let loopCounter = 0;
-        let lastShownId = ""; // Track to ensure absolute zero overlap between loops
         let isLoading = false;
-        const grid = document.getElementById('grid');
-        let vaultSaved = JSON.parse(localStorage.getItem('tokyoXVault')) || [];
+        let generationCycle = 0; // Ensures infinite uniqueness
 
-        // Advanced Fisher-Yates Shuffle
-        function shuffle(array) {
+        function shuffleArray(array) {
             let arr = [...array];
             for (let i = arr.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -325,170 +249,93 @@
             return arr;
         }
 
-        function refillQueue() {
-            loopCounter++;
-            let newQueue = shuffle(masterPool);
-            // Ensure the first item of the new queue isn't the same as the last item shown
-            if (newQueue[newQueue.length - 1] === lastShownId) {
-                // Swap it with the first item
-                let temp = newQueue[newQueue.length - 1];
-                newQueue[newQueue.length - 1] = newQueue[0];
-                newQueue[0] = temp;
-            }
-            activeQueue = newQueue;
-        }
-
         function initEngine() {
-            loopCounter = 0;
-            refillQueue();
-            loadItems(12);
+            activeQueue = shuffleArray(futurePool);
+            loadMorePhotos(8); // Initial load
         }
 
-        function forceGlitchRefresh() {
-            if(navigator.vibrate) navigator.vibrate([30, 50, 30]);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            grid.style.opacity = '0.2';
-            grid.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                grid.innerHTML = '';
-                initEngine();
-                grid.style.opacity = '1';
-                grid.style.transform = 'scale(1)';
-                showToast('Grid Rebooted. New Nodes Acquired.', 'success');
-                changeCatState('hacker');
-                addChatMsg('ai', "I bypassed the firewall! Rebooted the photo nodes. 😈💻");
-            }, 600);
-        }
-
-        // --- 3. HARDWARE ACCELERATED INFINITE SCROLL ---
+        // --- 3. INFINITE SCROLL OBSERVER ---
         const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !isLoading && document.getElementById('view-feed').style.display !== 'none') {
+            if (entries[0].isIntersecting && !isLoading) {
                 document.getElementById('loader').style.display = 'block';
                 isLoading = true;
-                setTimeout(() => loadItems(10), 400); // Load 10 at a time smoothly
+                // Fast load simulation
+                setTimeout(() => { loadMorePhotos(6); }, 400); 
             }
-        }, { rootMargin: '1000px' }); // Pre-load way before user reaches bottom
+        }, { rootMargin: '1200px' });
+        
         observer.observe(document.getElementById('scroll-sentinel'));
 
-        function loadItems(count) {
+        // --- 4. RENDER ENGINE & INSTAGRAM LOGIC ---
+        function loadMorePhotos(count) {
+            const grid = document.getElementById('grid');
             const fragment = document.createDocumentFragment();
+
             for (let i = 0; i < count; i++) {
-                if (activeQueue.length === 0) refillQueue();
+                if (activeQueue.length === 0) {
+                    generationCycle++;
+                    activeQueue = shuffleArray(futurePool); // Reload array infinitely
+                }
+                
                 const photoId = activeQueue.pop();
-                lastShownId = photoId;
-                fragment.appendChild(createCard(photoId, loopCounter));
+                
+                // Magic: Using cycle count to slightly change crop size, making same ID look new!
+                const w = 600 + (generationCycle % 3); 
+                const imgUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&fm=webp&w=${w}&q=75`;
+                const hdUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=3000&q=100`;
+
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.ondblclick = (e) => handleDoubleTap(card, e); // IG Style Double Tap
+                
+                card.innerHTML = `
+                    <img src="${imgUrl}" loading="lazy" alt="Neo Tokyo Future">
+                    <div class="big-heart">♥</div>
+                    <div class="action-bar">
+                        <div class="action-left">
+                            <span class="like-btn" onclick="toggleInstaLike(this)">♡</span>
+                        </div>
+                        <button class="dl-btn" onclick="secureDownload('${hdUrl}', 'TOKYO_FUTURE_${photoId}')">FREE DL</button>
+                    </div>
+                `;
+                fragment.appendChild(card);
             }
             grid.appendChild(fragment);
             document.getElementById('loader').style.display = 'none';
             isLoading = false;
         }
 
-        function createCard(photoId, cacheBust) {
-            const card = document.createElement('div');
-            card.className = 'card';
-            // cacheBust logic ensures browser doesn't pull from local cache if we loop, simulating pure endless
-            const imgUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&fm=webp&w=${600 + cacheBust}&q=70`;
-            const hdUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=3000&q=100`;
+        // --- 5. MICRO-INTERACTIONS (LIKES & DOWNLOADS) ---
+        function handleDoubleTap(card, event) {
+            if (navigator.vibrate) navigator.vibrate(50);
             
-            const isSaved = vaultSaved.includes(photoId);
+            const heartAnim = card.querySelector('.big-heart');
+            const likeBtn = card.querySelector('.like-btn');
+            
+            // Trigger Big Heart Pop
+            heartAnim.classList.remove('active');
+            void heartAnim.offsetWidth; // Reflow trick
+            heartAnim.classList.add('active');
 
-            card.innerHTML = `
-                <img src="${imgUrl}" loading="lazy" decoding="async" alt="Tokyo Future" onclick="openLightbox('${hdUrl}')">
-                <div class="overlay">
-                    <div class="action-btns">
-                        <button class="btn-glass ${isSaved ? 'liked' : ''}" onclick="toggleLike(event, this, '${photoId}')">${isSaved ? '♥' : '♡'}</button>
-                    </div>
-                    <button class="btn-download" onclick="instantDownload(event, '${hdUrl}', 'TOKYO_X_${photoId}')" title="Download 3000x Resolution">⭳</button>
-                </div>
-            `;
-            return card;
-        }
-
-        // --- 4. TOAST NOTIFICATION SYSTEM ---
-        function showToast(message, type = '') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `
-                <span style="font-size: 18px;">${type === 'success' ? '✔' : '⚠'}</span>
-                <span>${message}</span>
-            `;
-            container.appendChild(toast);
-            
-            // Trigger animation
-            setTimeout(() => toast.classList.add('show'), 10);
-            
-            // Remove
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 400);
-            }, 3000);
-        }
-
-        // --- 5. VAULT LOGIC ---
-        function toggleLike(e, btn, photoId) {
-            e.stopPropagation(); // Prevent opening lightbox
-            if (navigator.vibrate) navigator.vibrate(40);
-            
-            if (vaultSaved.includes(photoId)) {
-                vaultSaved = vaultSaved.filter(id => id !== photoId);
-                btn.classList.remove('liked');
-                btn.innerHTML = '♡';
-                showToast('Asset removed from secure Vault.', 'warning');
-            } else {
-                vaultSaved.push(photoId);
-                btn.classList.add('liked');
-                btn.innerHTML = '♥';
-                showToast('Asset Encrypted to Vault.', 'success');
-                changeCatState('happy');
-            }
-            
-            localStorage.setItem('tokyoXVault', JSON.stringify(vaultSaved));
-            loadVaultData();
-        }
-
-        function loadVaultData() {
-            const vaultGrid = document.getElementById('vault-grid');
-            const emptyMsg = document.getElementById('vault-empty');
-            vaultGrid.innerHTML = '';
-            
-            if (vaultSaved.length === 0) {
-                emptyMsg.style.display = 'block';
-            } else {
-                emptyMsg.style.display = 'none';
-                const fragment = document.createDocumentFragment();
-                vaultSaved.forEach(photoId => {
-                    fragment.appendChild(createCard(photoId, 0));
-                });
-                vaultGrid.appendChild(fragment);
+            // Turn bottom button red
+            if (!likeBtn.classList.contains('liked')) {
+                likeBtn.classList.add('liked');
+                likeBtn.innerHTML = '♥';
             }
         }
 
-        function switchView(view) {
+        function toggleInstaLike(btn) {
             if (navigator.vibrate) navigator.vibrate(20);
-            const feed = document.getElementById('view-feed');
-            const vault = document.getElementById('view-vault');
-            
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            document.getElementById(`nav-${view}`).classList.add('active');
-
-            if (view === 'vault') {
-                feed.style.display = 'none';
-                vault.style.display = 'block';
-                window.scrollTo({ top: 0 });
-                changeCatState('typing');
-            } else {
-                vault.style.display = 'none';
-                feed.style.display = 'block';
-            }
+            btn.classList.toggle('liked');
+            btn.innerHTML = btn.classList.contains('liked') ? '♥' : '♡';
         }
 
-        // --- 6. ADVANCED DOWNLOAD ENGINE ---
-        async function instantDownload(e, url, filename) {
-            e.stopPropagation();
-            if (navigator.vibrate) navigator.vibrate([50, 50]);
-            showToast('Bypassing security... Starting Download.', 'success');
-            changeCatState('hacker');
+        async function secureDownload(url, filename) {
+            if (navigator.vibrate) navigator.vibrate([30, 50]);
+            
+            // Bongo Cat Notification
+            catChat("Downloading 4K Asset... Please wait! 🚀");
+            toggleChat(true); 
 
             try {
                 const response = await fetch(url);
@@ -503,471 +350,74 @@
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(blobUrl);
                 
-                setTimeout(() => showToast('4K File Downloaded Successfully!', 'success'), 1000);
+                setTimeout(() => { catChat("Download Complete! Free forever. 🎁"); }, 1000);
             } catch (err) {
-                window.open(url, '_blank');
-                showToast('Opened secure channel in new tab.', 'warning');
+                window.open(url, '_blank'); // Fallback
+                catChat("Opened in new tab! Direct save korar jonno long-press korun. 📸");
             }
         }
 
-        // --- 7. DYNAMIC HUD EXIF GENERATOR ---
-        function generateFakeExif() {
-            const lenses = ["35mm f/1.4", "50mm f/1.2", "24-70mm f/2.8", "85mm f/1.4", "14mm f/2.8 Ultra-Wide"];
-            const speeds = ["1/125s", "1/250s", "1/500s", "1/1000s", "2.5s (Long Exp)"];
-            const isos = ["ISO 400", "ISO 800", "ISO 1600", "ISO 3200", "ISO 6400"];
-            const cameras = ["Sony A7S III", "Lumix S5 IIx", "RED Komodo 6K", "Fujifilm X-T4", "Canon R5 C"];
-            const vibes = ["Neon Grime", "Corporate Overlord", "Synthwave", "Alley Rat", "Rain Protocol"];
-
-            const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-
-            document.getElementById('dynamic-exif').innerHTML = `
-                <div class="hud-stat">SENSOR<span>${pick(cameras)}</span></div>
-                <div class="hud-stat">OPTICS<span>${pick(lenses)}</span></div>
-                <div class="hud-stat">EXPOSURE<span>${pick(isos)} • ${pick(speeds)}</span></div>
-                <div class="hud-stat">GEO-TAG<span>Sector ${Math.floor(Math.random()*99)}</span></div>
-                <div class="hud-stat">AESTHETIC<span>${pick(vibes)}</span></div>
-                <div class="hud-stat">RESOLUTION<span>3000x2000 px</span></div>
-            `;
+        function forceRefresh() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('grid').innerHTML = '';
+            initEngine();
+            catChat("Grid refreshed! Notun Tokyo dimension load kora hocche... 🌀");
         }
 
-        function openLightbox(hdUrl) {
-            generateFakeExif();
-            const lb = document.getElementById('lightbox');
-            document.getElementById('lb-image').src = hdUrl;
-            
-            const btn = document.getElementById('hud-download');
-            btn.onclick = (e) => instantDownload(e, hdUrl, `TOKYO_X_${Math.floor(Math.random()*10000)}`);
-
-            lb.classList.add('show');
-            if (navigator.vibrate) navigator.vibrate(30);
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('show');
-            setTimeout(() => document.getElementById('lb-image').src = '', 400); // Wait for transition
-        }
-
-        // --- 8. STORIES SECTOR ---
-        function initStories() {
-            const vibes = [
-                {name: "Shinjuku", img: "1542051841857-5f90071e7989"},
-                {name: "Akihabara", img: "1518005020951-eccb494ad742"},
-                {name: "Mecha Base", img: "1528360983277-13d401cdc186"},
-                {name: "Acid Rain", img: "1515634928627-2a4e0a5bf533"},
-                {name: "Cyber 2077", img: "1579684126759-8664c120bf9c"}
-            ];
-            const container = document.getElementById('story-container');
-            vibes.forEach(v => {
-                let div = document.createElement('div');
-                div.className = 'story';
-                div.onclick = () => {
-                    showToast(`Warping to ${v.name}...`, 'success');
-                    forceGlitchRefresh();
-                };
-                div.innerHTML = `
-                    <div class="story-ring"><div class="story-ring-inner"><img src="https://images.unsplash.com/photo-${v.img}?w=150&h=150&fit=crop" alt="${v.name}"></div></div>
-                    <span>${v.name}</span>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        // --- 9. ULTRA PRO MAX AI CAT LOGIC ---
-        const catGifs = {
-            normal: "https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif",
-            hacker: "https://media.tenor.com/tYt6t7J3pQMAAAAi/typing-cat.gif",
-            happy: "https://media.tenor.com/JjA34N39HnAAAAAi/bongo-cat-dance.gif",
-            sleeping: "https://media.tenor.com/H1GZ1i5Z2gIAAAAi/cat-sleep.gif",
-            shocked: "https://media.tenor.com/vHqLhA-mYEMAAAAi/cat-shocked.gif"
-        };
-
-        function changeCatState(state) {
-            const catTrigger = document.getElementById('cat-trigger');
-            const img = document.getElementById('cat-img');
-            
-            // Remove previous classes
-            catTrigger.classList.remove('cat-bounce', 'cat-spin', 'cat-glitch');
-            
-            // Apply new GIF and CSS animation based on state
-            if (catGifs[state]) img.src = catGifs[state];
-            
-            if (state === 'hacker') catTrigger.classList.add('cat-glitch');
-            else if (state === 'happy') catTrigger.classList.add('cat-bounce');
-            else if (state === 'shocked') catTrigger.classList.add('cat-spin');
-            
-            // Revert to normal after a while if not chatting
-            setTimeout(() => {
-                if(document.getElementById('chatbox').style.display !== 'flex'){
-                    img.src = catGifs.normal;
-                    catTrigger.classList.remove('cat-bounce', 'cat-spin', 'cat-glitch');
-                }
-            }, 5000);
-        }
-
-        function toggleChat() {
-            const chat = document.getElementById('chatbox');
-            if (chat.style.display === 'flex') {
-                chat.style.display = 'none';
-                changeCatState('normal');
-            } else {
+        // --- 6. FUNNY BONGO CAT CHATBOT ---
+        function toggleChat(forceOpen = false) {
+            const chat = document.getElementById('chatbot');
+            if(forceOpen) {
                 chat.style.display = 'flex';
-                changeCatState('happy');
-                document.getElementById('chat-input').focus();
+            } else {
+                chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
             }
-            if (navigator.vibrate) navigator.vibrate(20);
         }
 
-        function addChatMsg(sender, text) {
+        function catChat(msg, isUser = false) {
             const body = document.getElementById('chat-body');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `msg ${sender}`;
-            msgDiv.innerText = text;
-            body.appendChild(msgDiv);
-            body.scrollTop = body.scrollHeight; 
+            const div = document.createElement('div');
+            div.className = `msg ${isUser ? 'user' : 'cat'}`;
+            div.innerText = msg;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight; // Auto scroll to bottom
         }
 
-        function handleChat(e) {
-            if (e.key === 'Enter') processCommand();
+        const catJokes = [
+            "Bhai ami code likhte likhte klanto, ektu mach khawaben? 🐟",
+            "Tumi ki jano ei chobi gulo 2077 sal theke anchi ami? 😎",
+            "Instagram er theke amar design bhalo na? Sotti bolbe kintu! 💅",
+            "Download free kintu amar like koi? Double tap koro ekhuni! 😡♥",
+            "Error 404: Ami ghumacchi. Pore text korun. 😴",
+            "Code jotoi boro hok, amar theke cute keu nai web e! 😸",
+            "Matrix hack kora sesh. Ekhon shudhu unlimited scroll koro."
+        ];
+
+        function handleChatInput(e) {
+            if (e.key === 'Enter') processUserMessage();
         }
 
-        function processCommand() {
-            const inputField = document.getElementById('chat-input');
-            const userText = inputField.value.trim().toLowerCase();
-            if (!userText) return;
+        function processUserMessage() {
+            const input = document.getElementById('chat-input-box');
+            const text = input.value.trim();
+            if (!text) return;
 
-            addChatMsg('user', userText);
-            inputField.value = '';
-            changeCatState('typing');
+            catChat(text, true); // Add user msg
+            input.value = '';
 
+            // Funny AI Delay
             setTimeout(() => {
-                // Advanced NLP-style Matching
-                if (userText === 'clear' || userText === 'cls') {
-                    document.getElementById('chat-body').innerHTML = '';
-                    addChatMsg('ai', "Memory wiped. Ready for new commands! 🧹");
-                    changeCatState('normal');
-                } 
-                else if (userText.includes('hack') || userText.includes('matrix')) {
-                    addChatMsg('ai', "Accessing the Mainframe... Bypassing security... Found the tuna vault! 🐟💻");
-                    changeCatState('hacker');
-                    forceGlitchRefresh();
-                }
-                else if (userText.includes('fast') || userText.includes('lag') || userText.includes('speed')) {
-                    addChatMsg('ai', "I'm running on Web Workers and Hardware Acceleration. Zero lag, pure speed! ⚡🏎️");
-                    changeCatState('happy');
-                }
-                else if (userText.includes('hello') || userText.includes('hi') || userText.includes('meow')) {
-                    addChatMsg('ai', "Meow! Welcome back user. The neon streets are waiting. 🐾");
-                    changeCatState('normal');
-                }
-                else if (userText.includes('sleep') || userText.includes('tired')) {
-                    addChatMsg('ai', "Zzz... the code is compiling... leave me alone... 💤");
-                    changeCatState('sleeping');
-                }
-                else if (userText.includes('dog')) {
-                    addChatMsg('ai', "SYSTEM ERROR! FORBIDDEN WORD DETECTED! HISS! 😾🚨");
-                    changeCatState('shocked');
-                }
-                else {
-                    const randomResponses = [
-                        "Purr-cessing your request...", 
-                        "Did you see that glowing alleyway? Download it!", 
-                        "I'm just a cat, I don't know HTML... wait, yes I do.", 
-                        "Error: Need more fish bytes. 🍣", 
-                        "That's highly aesthetic. Keep scrolling!"
-                    ];
-                    addChatMsg('ai', randomResponses[Math.floor(Math.random() * randomResponses.length)]);
-                    changeCatState(Math.random() > 0.5 ? 'happy' : 'normal');
-                }
-            }, 800); 
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO X | Infinity Core</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        /* =========================================
-           1. CORE INFINITY VARIABLES
-           ========================================= */
-        :root {
-            --bg-base: #000000;
-            --bg-surface: #0a0a0f;
-            --cyan-neon: #00f3ff;
-            --magenta-neon: #ff00ea;
-            --yellow-neon: #eaff00;
-            --text-main: #e0e0e0;
-            --font-ui: 'Space Grotesk', sans-serif;
-            --font-code: 'Fira Code', monospace;
-            --glass-panel: rgba(10, 10, 15, 0.7);
-            --border-glow: 0 0 10px rgba(0, 243, 255, 0.3);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font-ui); background: var(--bg-base); color: var(--text-main); overflow-x: hidden; }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan-neon), var(--magenta-neon)); border-radius: 10px; }
-
-        /* Background Grid */
-        .cyber-grid {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
-            background-image: linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px; transform: perspective(500px) rotateX(60deg);
-            transform-origin: top; animation: gridMove 20s linear infinite; opacity: 0.4;
-        }
-        @keyframes gridMove { 100% { background-position: 0 40px, 40px 0; } }
-
-        /* =========================================
-           2. HEADER & LIVE STATS
-           ========================================= */
-        header {
-            position: fixed; top: 0; width: 100%; padding: 15px 20px;
-            background: var(--glass-panel); backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(0, 243, 255, 0.2); z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .logo { font-size: 28px; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 0 0 10px var(--cyan-neon); }
-        .logo span { color: var(--magenta-neon); }
-        
-        .sys-stats { font-family: var(--font-code); font-size: 11px; display: flex; gap: 15px; color: var(--cyan-neon); }
-        .stat-box { background: rgba(0,243,255,0.1); padding: 5px 10px; border: 1px solid rgba(0,243,255,0.3); border-radius: 4px; }
-
-        /* =========================================
-           3. INFINITE GALLERY (MASONRY LAYOUT)
-           ========================================= */
-        .main-container { padding: 90px 15px 100px; }
-        .info-banner { text-align: center; margin-bottom: 20px; font-family: var(--font-code); font-size: 12px; color: var(--yellow-neon); }
-        
-        .masonry-grid {
-            column-count: 1; column-gap: 15px; width: 100%;
-        }
-        @media (min-width: 600px) { .masonry-grid { column-count: 2; } }
-        @media (min-width: 900px) { .masonry-grid { column-count: 3; } }
-        @media (min-width: 1200px) { .masonry-grid { column-count: 4; } }
-
-        .img-card {
-            break-inside: avoid; margin-bottom: 15px; position: relative; border-radius: 12px;
-            overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #111;
-        }
-        
-        /* Auto Cyber-Grading Filter */
-        .img-card img {
-            width: 100%; display: block; object-fit: cover;
-            filter: contrast(1.15) saturate(1.3) hue-rotate(-5deg);
-            transition: transform 0.5s ease, filter 0.5s ease;
-        }
-        .img-card:hover img { transform: scale(1.05); filter: contrast(1.2) saturate(1.5) brightness(1.1); }
-
-        .card-ui {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 15px 15px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            display: flex; justify-content: space-between; align-items: flex-end;
-            opacity: 0; transition: 0.3s;
-        }
-        .img-card:hover .card-ui { opacity: 1; }
-
-        .img-id { font-family: var(--font-code); font-size: 10px; color: var(--cyan-neon); background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--cyan-neon); }
-        
-        .dl-btn {
-            background: var(--cyan-neon); color: #000; border: none; padding: 10px 20px;
-            border-radius: 30px; font-weight: 900; cursor: pointer; text-transform: uppercase;
-            font-size: 12px; box-shadow: 0 0 15px rgba(0,243,255,0.4); transition: 0.2s;
-        }
-        .dl-btn:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 0 20px #fff; }
-
-        /* Loader & Sentinel */
-        #loader-core { text-align: center; padding: 40px 0; display: none; }
-        .core-spinner { width: 40px; height: 40px; border: 3px solid transparent; border-top-color: var(--magenta-neon); border-bottom-color: var(--cyan-neon); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* =========================================
-           4. DOWNLOAD MANAGER UI
-           ========================================= */
-        #dl-manager {
-            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 400px; background: rgba(10, 10, 15, 0.95); border: 1px solid var(--cyan-neon);
-            border-radius: 10px; padding: 15px; z-index: 5000; transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-        }
-        #dl-manager.active { bottom: 20px; }
-        .dl-info { display: flex; justify-content: space-between; font-family: var(--font-code); font-size: 12px; color: #fff; }
-        .progress-bar { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
-        .progress-fill { width: 0%; height: 100%; background: var(--cyan-neon); box-shadow: 0 0 10px var(--cyan-neon); transition: width 0.1s linear; }
-
-    </style>
-</head>
-<body>
-
-    <div class="cyber-grid"></div>
-
-    <header>
-        <div class="logo">TOKYO<span>_X</span></div>
-        <div class="sys-stats">
-            <div class="stat-box" id="stat-nodes">NODES: 0</div>
-            <div class="stat-box">LINK: SECURE</div>
-        </div>
-    </header>
-
-    <div class="main-container">
-        <div class="info-banner">⚠ INFINITY CORE ENGAGED: UNLIMITED GENERATION ACTIVE</div>
-        
-        <div class="masonry-grid" id="gallery">
-            </div>
-
-        <div id="scroll-anchor" style="height: 20px; width: 100%;"></div>
-        <div id="loader-core"><div class="core-spinner"></div></div>
-    </div>
-
-    <div id="dl-manager">
-        <div class="dl-info">
-            <span id="dl-filename">ASSET_4892.jpg</span>
-            <span id="dl-percentage">0%</span>
-        </div>
-        <div class="progress-bar">
-            <div class="progress-fill" id="dl-fill"></div>
-        </div>
-        <div style="font-size: 10px; color: var(--magenta-neon); text-align: center; font-family: var(--font-code);" id="dl-status">Extracting from mainframe...</div>
-    </div>
-
-    <script>
-        /* =========================================================================
-           INFINITY ENGINE (ALGORITHMIC GENERATION)
-           ========================================================================= */
-        
-        const gallery = document.getElementById('gallery');
-        const loader = document.getElementById('loader-core');
-        const nodeStat = document.getElementById('stat-nodes');
-        let isLoading = false;
-        let totalNodes = 0;
-
-        // Start Engine on Load
-        window.onload = () => {
-            generateBatch(12); // Initial load
-        };
-
-        // --- 1. TRUE INFINITE SCROLL OBSERVER ---
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !isLoading) {
-                isLoading = true;
-                loader.style.display = 'block';
-                // Artificial delay to simulate "hacking the mainframe"
-                setTimeout(() => {
-                    generateBatch(8);
-                }, 800);
-            }
-        }, { rootMargin: '1000px' }); // Triggers before user hits bottom
-
-        observer.observe(document.getElementById('scroll-anchor'));
-
-        // --- 2. DYNAMIC IMAGE GENERATOR ---
-        function generateBatch(count) {
-            const fragment = document.createDocumentFragment();
-            
-            for (let i = 0; i < count; i++) {
-                // Generate a random seed and random dimensions for Masonry variety
-                const seed = Math.floor(Math.random() * 9999999);
-                const heights = [600, 700, 800, 900, 1000];
-                const h = heights[Math.floor(Math.random() * heights.length)];
+                let reply = "";
+                const lower = text.toLowerCase();
                 
-                // Using Picsum API for infinite free random images
-                const imgUrl = `https://picsum.photos/seed/${seed}/600/${h}`;
-                const hdUrl = `https://picsum.photos/seed/${seed}/2000/${Math.floor(h * 3.33)}`; // 4K equivalent
+                if (lower.includes('hello') || lower.includes('hi')) reply = "Meow! Ki khobor boss? 🐾";
+                else if (lower.includes('boro code')) reply = "Haa bhai, code to onek boro diyechi! Ekhon khushi? 😂";
+                else if (lower.includes('love')) reply = "Amar jonno love? Aww! Kintu ami shudhu mach valobashi. 🐟";
+                else if (lower.includes('free')) reply = "Haa sob free! Kono premium subscription lagbe na.";
+                else reply = catJokes[Math.floor(Math.random() * catJokes.length)];
 
-                const card = document.createElement('div');
-                card.className = 'img-card';
-                card.innerHTML = `
-                    <img src="${imgUrl}" loading="lazy" alt="Generated Node">
-                    <div class="card-ui">
-                        <span class="img-id">SEQ_${seed.toString(16).toUpperCase()}</span>
-                        <button class="dl-btn" onclick="startDownload('${hdUrl}', 'TX_CORE_${seed}')">Get 4K</button>
-                    </div>
-                `;
-                fragment.appendChild(card);
-                totalNodes++;
-            }
-
-            gallery.appendChild(fragment);
-            nodeStat.innerText = `NODES: ${totalNodes}`;
-            isLoading = false;
-            loader.style.display = 'none';
-        }
-
-        // --- 3. ADVANCED DOWNLOAD MANAGER ---
-        async function startDownload(url, filename) {
-            if(navigator.vibrate) navigator.vibrate([30, 50]);
-            
-            const manager = document.getElementById('dl-manager');
-            const fill = document.getElementById('dl-fill');
-            const perc = document.getElementById('dl-percentage');
-            const status = document.getElementById('dl-status');
-            
-            document.getElementById('dl-filename').innerText = filename + '.jpg';
-            manager.classList.add('active');
-            fill.style.width = '0%';
-            perc.innerText = '0%';
-            status.innerText = "Establishing secure connection...";
-            status.style.color = "var(--magenta-neon)";
-
-            try {
-                // Fetch the image as a Blob
-                const response = await fetch(url);
-                if (!response.ok) throw new Error("Network response failed");
-                
-                // Simulate progress bar 
-                let progress = 0;
-                const simInterval = setInterval(() => {
-                    progress += Math.random() * 20;
-                    if (progress > 95) progress = 95; 
-                    fill.style.width = `${progress}%`;
-                    perc.innerText = `${Math.floor(progress)}%`;
-                    status.innerText = "Downloading encrypted data...";
-                }, 200);
-
-                const blob = await response.blob();
-                clearInterval(simInterval);
-
-                // Complete progress
-                fill.style.width = '100%';
-                perc.innerText = '100%';
-                status.innerText = "DECRYPTION COMPLETE. SAVING...";
-                status.style.color = "var(--cyan-neon)";
-
-                // Trigger download
-                setTimeout(() => {
-                    const blobUrl = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = blobUrl;
-                    a.download = `${filename}.jpg`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    window.URL.revokeObjectURL(blobUrl);
-                    
-                    // Hide manager
-                    setTimeout(() => {
-                        manager.classList.remove('active');
-                    }, 2000);
-                }, 600);
-
-            } catch (err) {
-                // Fallback if CORS blocks the blob download
-                clearInterval(simInterval);
-                status.innerText = "FIREWALL BLOCKED. OPENING DIRECT LINK...";
-                status.style.color = "#ff003c";
-                setTimeout(() => {
-                    window.open(url, '_blank');
-                    manager.classList.remove('active');
-                }, 1500);
-            }
+                catChat(reply);
+            }, 800);
         }
     </script>
 </body>
