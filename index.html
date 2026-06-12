@@ -1,476 +1,416 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cyber">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOKYO PRO MAX | Unlimited Future</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TOKYO PRO MAX | Future App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #030009;
-            --text-color: #e0e0e0;
-            --primary-neon: #00f0ff;
-            --secondary-neon: #ff0055;
-            --accent-purple: #9d00ff;
-            --nav-bg: rgba(3, 0, 9, 0.85);
-            --card-bg: rgba(15, 15, 25, 0.6);
-            --font-head: 'Syncopate', sans-serif;
-            --font-body: 'Space Grotesk', sans-serif;
+            --bg-color: #050508;
+            --text-color: #ffffff;
+            --text-muted: #8e8e93;
+            --primary: #00d4ff;
+            --secondary: #9d00ff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --app-nav-bg: rgba(10, 10, 15, 0.85);
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
         }
 
         [data-theme="light"] {
-            --bg-color: #f4f4f9;
-            --text-color: #0b0b1a;
-            --primary-neon: #0044ff;
-            --secondary-neon: #ff0055;
-            --accent-purple: #8a2be2;
-            --nav-bg: rgba(255, 255, 255, 0.9);
-            --card-bg: rgba(230, 230, 240, 0.8);
+            --bg-color: #f2f2f7;
+            --text-color: #1c1c1e;
+            --text-muted: #8e8e93;
+            --glass-bg: rgba(0, 0, 0, 0.04);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --app-nav-bg: rgba(255, 255, 255, 0.85);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: var(--primary-neon); border-radius: 5px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--secondary-neon); }
-
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            transition: background-color 0.4s, color 0.4s, border-color 0.4s;
-            cursor: none; /* Hide default cursor for custom neon cursor */
-        }
+        /* Hide Scrollbar for App Feel */
+        ::-webkit-scrollbar { display: none; }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: var(--font-body);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
+            font-family: var(--font-main); background-color: var(--bg-color);
+            color: var(--text-color); overflow-x: hidden; scroll-behavior: smooth;
+            transition: background-color 0.4s, color 0.4s;
         }
 
-        /* Custom Neon Cursor */
-        .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 9999; pointer-events: none;
-        }
-        .cursor-dot { width: 8px; height: 8px; background-color: var(--primary-neon); }
-        .cursor-outline {
-            width: 40px; height: 40px; border: 2px solid var(--secondary-neon);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-            box-shadow: 0 0 15px var(--secondary-neon);
-        }
-
-        /* End-to-End Privacy Banner */
-        .privacy-banner {
-            background: linear-gradient(90deg, var(--accent-purple), var(--primary-neon));
-            color: #fff; text-align: center; font-size: 11px; font-weight: 700;
-            padding: 8px; font-family: var(--font-head); letter-spacing: 3px;
-            z-index: 1001; position: relative; text-shadow: 0px 0px 5px #000;
-        }
-
-        /* Ultra Premium Navbar */
-        nav {
-            position: sticky; top: 0; width: 100%; padding: 15px 50px;
-            display: flex; flex-direction: column; gap: 15px;
-            background: var(--nav-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            z-index: 1000; border-bottom: 1px solid rgba(0, 240, 255, 0.3);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-        }
-
-        .nav-top { display: flex; justify-content: space-between; align-items: center; }
-
-        .logo {
-            font-family: var(--font-head); font-size: 30px; font-weight: 700;
-            letter-spacing: 5px; color: #fff;
-            text-shadow: 0 0 10px var(--primary-neon), 0 0 20px var(--accent-purple), 0 0 40px var(--primary-neon);
-        }
-
-        .nav-links button {
-            background: transparent; color: var(--text-color);
-            border: 2px solid var(--primary-neon); padding: 10px 25px;
-            font-family: var(--font-head); font-size: 12px; font-weight: 700;
-            border-radius: 5px; text-transform: uppercase;
-            position: relative; overflow: hidden; z-index: 1;
-        }
-        .nav-links button::before {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 100%; height: 100%; background: var(--primary-neon);
-            transition: 0.4s ease; z-index: -1;
-        }
-        .nav-links button:hover::before { left: 0; }
-        .nav-links button:hover { color: #000; box-shadow: 0 0 20px var(--primary-neon); }
-
-        /* Glowing Category Menu */
-        .categories { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-        .cat-btn {
-            background: transparent; color: rgba(255,255,255,0.5); border: none;
-            font-family: var(--font-head); font-size: 13px; font-weight: 700;
-            padding: 5px 10px; position: relative;
-        }
-        .cat-btn::after {
-            content: ''; position: absolute; bottom: -5px; left: 0;
-            width: 0%; height: 2px; background: var(--secondary-neon); transition: 0.3s;
-            box-shadow: 0 0 10px var(--secondary-neon);
-        }
-        .cat-btn:hover, .cat-btn.active { color: #fff; text-shadow: 0 0 10px var(--primary-neon); }
-        .cat-btn:hover::after, .cat-btn.active::after { width: 100%; }
-
-        /* Hero Section with Verbatim Image Reference */
+        /* App Top Header */
         header {
-            height: 70vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            /* Using the exact file provided as the background */
-            background: linear-gradient(to bottom, rgba(3,0,9,0.3), var(--bg-color)), 
-                        url('1042211078598940529.jpeg') no-repeat center center/cover;
-            border-bottom: 2px solid var(--accent-purple);
-            box-shadow: 0 10px 50px rgba(157, 0, 255, 0.2);
+            position: fixed; top: 0; width: 100%; padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(to bottom, var(--bg-color) 40%, transparent);
+            z-index: 1000; pointer-events: none; /* Let clicks pass through background */
+        }
+        
+        .header-content { pointer-events: auto; display: flex; align-items: center; gap: 15px; }
+
+        .app-title {
+            font-family: var(--font-display); font-size: 24px; font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
 
-        /* Cyberpunk Glitch Effect */
-        .glitch-wrapper { position: relative; margin-bottom: 20px; }
-        .glitch {
-            font-family: var(--font-head); font-size: 6rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 15px; color: #fff;
-            position: relative; text-shadow: 0 0 20px var(--primary-neon);
+        .icon-btn {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            color: var(--text-color); width: 40px; height: 40px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; backdrop-filter: blur(10px); transition: 0.3s;
+            font-size: 18px; pointer-events: auto;
         }
-        .glitch::before, .glitch::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; background: transparent;
-        }
-        .glitch::before {
-            left: 3px; text-shadow: -2px 0 var(--secondary-neon);
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
-        }
-        .glitch::after {
-            left: -3px; text-shadow: -2px 0 var(--primary-neon);
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
+        .icon-btn:hover { background: rgba(255, 255, 255, 0.15); transform: scale(1.05); }
 
-        @keyframes glitch-anim-1 {
-            0% { clip-path: inset(20% 0 80% 0); }
-            20% { clip-path: inset(60% 0 10% 0); }
-            40% { clip-path: inset(40% 0 50% 0); }
-            60% { clip-path: inset(80% 0 5% 0); }
-            80% { clip-path: inset(10% 0 70% 0); }
-            100% { clip-path: inset(30% 0 20% 0); }
+        /* Welcome Section */
+        .hero {
+            padding: 120px 5% 40px; text-align: center;
         }
-        @keyframes glitch-anim-2 {
-            0% { clip-path: inset(10% 0 60% 0); }
-            20% { clip-path: inset(30% 0 20% 0); }
-            40% { clip-path: inset(70% 0 10% 0); }
-            60% { clip-path: inset(20% 0 50% 0); }
-            80% { clip-path: inset(50% 0 30% 0); }
-            100% { clip-path: inset(5% 0 80% 0); }
-        }
+        .hero h1 { font-family: var(--font-display); font-size: 3rem; margin-bottom: 10px; font-weight: 700; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; }
 
-        p.subtitle {
-            font-size: 1.3rem; max-width: 700px; color: #fff; font-weight: 600;
-            letter-spacing: 2px; text-transform: uppercase;
-            background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 5px;
-            border-left: 4px solid var(--primary-neon);
-        }
-
-        /* 1000x Advanced Gallery Grid */
-        .gallery-container { padding: 40px 50px; }
+        /* Masonry-style Grid */
+        .gallery-container { padding: 0 5% 120px; min-height: 100vh; }
         .grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
+        /* App-like Cards */
         .grid-item {
-            position: relative; border-radius: 10px; overflow: hidden;
-            background: var(--card-bg); border: 1px solid rgba(0, 240, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            opacity: 0; transform: translateY(40px) scale(0.95);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; border-radius: 20px; overflow: hidden;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            opacity: 0; transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            aspect-ratio: 3/4; /* Consistent app-like card ratio */
         }
 
-        .grid-item.visible { opacity: 1; transform: translateY(0) scale(1); }
+        .grid-item.visible { opacity: 1; transform: translateY(0); }
 
         .grid-item img {
-            width: 100%; height: 420px; object-fit: cover; display: block;
-            filter: brightness(0.7) contrast(1.2); transition: 0.6s ease;
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            transition: transform 0.8s ease;
         }
 
-        .grid-item:hover {
-            border-color: var(--primary-neon);
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
-            transform: translateY(-10px); z-index: 10;
+        .grid-item:hover img { transform: scale(1.05); }
+
+        /* Clean Overlay Controls */
+        .card-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            display: flex; justify-content: space-between; align-items: flex-end;
+            opacity: 0; transition: 0.3s ease;
+        }
+        .grid-item:hover .card-overlay { opacity: 1; }
+
+        .btn-action {
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.3); color: #fff;
+            padding: 10px 20px; border-radius: 30px; font-weight: 600;
+            font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 8px;
+            transition: 0.3s; cursor: pointer;
+        }
+        .btn-action:hover { background: #fff; color: #000; }
+        
+        .btn-heart {
+            width: 42px; height: 42px; padding: 0; display: flex; justify-content: center; border-radius: 50%;
+        }
+        .btn-heart.liked { background: #ff2d55; border-color: #ff2d55; color: #fff; }
+
+        /* Floating Bottom Nav (App Feel) */
+        .bottom-nav {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: var(--app-nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 40px;
+            display: flex; gap: 5px; padding: 8px; z-index: 1000;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .grid-item:hover img { filter: brightness(1.1) contrast(1.1); transform: scale(1.05); }
-
-        /* Dynamic Glass Overlay */
-        .overlay {
-            position: absolute; bottom: -80px; left: 0; width: 100%; padding: 25px 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.6), transparent);
-            display: flex; justify-content: space-between; align-items: center;
-            opacity: 0; transition: 0.4s ease-in-out;
+        .nav-pill {
+            background: transparent; color: var(--text-muted); border: none;
+            padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 14px;
+            cursor: pointer; transition: 0.3s; font-family: var(--font-main);
         }
-        .grid-item:hover .overlay { bottom: 0; opacity: 1; }
-
-        .action-btn {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff; padding: 10px 18px; border-radius: 5px;
-            font-family: var(--font-head); font-weight: 700; font-size: 11px;
-            backdrop-filter: blur(10px); display: flex; align-items: center; gap: 8px;
-            text-decoration: none; transition: 0.3s; text-transform: uppercase;
-        }
-        .action-btn:hover { background: var(--secondary-neon); border-color: var(--secondary-neon); color: #fff; }
-
-        .btn-like { font-size: 1.2rem; padding: 8px 15px; border-radius: 50%; }
-        .liked {
-            color: #fff !important; background: var(--secondary-neon) !important;
-            border-color: var(--secondary-neon) !important; animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 20px var(--secondary-neon);
+        .nav-pill:hover { color: var(--text-color); }
+        .nav-pill.active {
+            background: var(--text-color); color: var(--bg-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.5) rotate(-10deg); }
-            100% { transform: scale(1); }
+        /* Smart AI Assistant (Cat) */
+        .ai-assistant {
+            position: fixed; top: 90px; right: 5%; z-index: 2000;
+            display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+        }
+        
+        .ai-header {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 15px;
+            backdrop-filter: blur(10px);
         }
 
-        /* Sentinel for Intersection Observer */
-        #scroll-sentinel { width: 100%; height: 50px; }
+        .ai-close { color: var(--text-muted); cursor: pointer; border: none; background: transparent; font-size: 12px; }
+        .ai-close:hover { color: #ff2d55; }
+
+        .ai-cat {
+            width: 80px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+            cursor: pointer; transition: 0.3s;
+        }
+        .ai-cat:hover { transform: scale(1.1); filter: drop-shadow(0 0 20px var(--primary)); }
+
+        .ai-bubble {
+            background: var(--text-color); color: var(--bg-color); padding: 12px 18px;
+            border-radius: 16px; border-top-right-radius: 4px; font-weight: 500;
+            font-size: 13px; opacity: 0; transition: 0.3s; transform: translateY(10px);
+            pointer-events: none; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .ai-assistant:hover .ai-bubble { opacity: 1; transform: translateY(0); }
+
+        /* Clean Login Modal */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); z-index: 3000;
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: var(--bg-color); padding: 40px; border-radius: 24px;
+            border: 1px solid var(--glass-border); width: 90%; max-width: 400px; text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5); position: relative;
+        }
+        .modal-content h2 { font-family: var(--font-display); margin-bottom: 8px; font-size: 24px; }
+        .modal-content p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .modal-content input {
+            width: 100%; padding: 16px; border-radius: 12px;
+            border: 1px solid var(--glass-border); background: var(--glass-bg);
+            color: var(--text-color); font-family: var(--font-main); outline: none; transition: 0.3s;
+        }
+        .modal-content input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
+        .btn-primary {
+            width: 100%; padding: 16px; border-radius: 12px; border: none;
+            background: var(--text-color); color: var(--bg-color); font-weight: 700;
+            font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 10px;
+        }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        .close-modal {
+            position: absolute; top: 20px; right: 20px; color: var(--text-muted);
+            cursor: pointer; background: var(--glass-bg); width: 32px; height: 32px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center; padding: 20px; color: var(--text-muted); font-size: 12px;
+            margin-bottom: 80px; /* Space for bottom nav */
+        }
 
         /* Loader */
         .loader {
-            text-align: center; padding: 40px; font-family: var(--font-head);
-            color: var(--primary-neon); font-size: 20px; font-weight: 700;
-            letter-spacing: 5px; display: none; text-shadow: 0 0 10px var(--primary-neon);
-            animation: pulse 1.5s infinite;
+            text-align: center; padding: 20px;
+            display: none;
         }
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; text-shadow: 0 0 20px var(--primary-neon); } 100% { opacity: 0.5; } }
+        .spinner {
+            width: 30px; height: 30px; border: 3px solid var(--glass-border);
+            border-top-color: var(--primary); border-radius: 50%;
+            animation: spin 1s linear infinite; margin: 0 auto;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        
+        #scroll-sentinel { width: 100%; height: 10px; }
 
-        /* Upgraded Cyber Cat 9000 */
-        .funny-cat {
-            position: fixed; bottom: 30px; right: 30px; width: 140px;
-            z-index: 2000; filter: drop-shadow(0 0 15px var(--accent-purple));
-            transition: 0.4s; animation: hoverCat 4s infinite ease-in-out;
+        @media (max-width: 768px) {
+            .bottom-nav { width: 90%; justify-content: space-between; overflow-x: auto; padding: 8px 15px; }
+            .nav-pill { padding: 10px 15px; font-size: 12px; white-space: nowrap; }
+            .card-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.7) 10%, transparent); }
         }
-        .funny-cat:hover {
-            transform: scale(1.3) translateY(-20px);
-            filter: drop-shadow(0 0 25px var(--primary-neon));
-        }
-        @keyframes hoverCat {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .cat-bubble {
-            position: fixed; bottom: 170px; right: 40px;
-            background: rgba(0, 240, 255, 0.2); border: 1px solid var(--primary-neon);
-            backdrop-filter: blur(10px); color: #fff; padding: 15px 20px;
-            border-radius: 10px; font-weight: bold; font-family: var(--font-body);
-            font-size: 14px; opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 2000; pointer-events: none; box-shadow: 0 0 20px rgba(0,240,255,0.3);
-        }
-        .funny-cat:hover + .cat-bubble { opacity: 1; transform: translateY(-15px) scale(1.1); }
-
     </style>
 </head>
 <body>
 
-    <!-- Custom Cursor Elements -->
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-outline" id="cursor-outline"></div>
-
-    <div class="privacy-banner">SYSTEM ENCRYPTED // MILITARY GRADE SECURITY // 0% LOGS</div>
-
-    <nav>
-        <div class="nav-top">
-            <div class="logo">TOKYO X</div>
-            <div class="nav-links">
-                <button onclick="toggleTheme()" onmouseenter="cursorHover()" onmouseleave="cursorLeave()">SYSTEM THEME</button>
-            </div>
-        </div>
-        
-        <div class="categories">
-            <button class="cat-btn active" onclick="changeCategory('Cyberpunk', this)" onmouseenter="cursorHover()" onmouseleave="cursorLeave()">CYBERPUNK</button>
-            <button class="cat-btn" onclick="changeCategory('Neon Alley', this)" onmouseenter="cursorHover()" onmouseleave="cursorLeave()">NEON ALLEY</button>
-            <button class="cat-btn" onclick="changeCategory('Neo Tokyo', this)" onmouseenter="cursorHover()" onmouseleave="cursorLeave()">NEO TOKYO</button>
-            <button class="cat-btn" onclick="changeCategory('Mecha Core', this)" onmouseenter="cursorHover()" onmouseleave="cursorLeave()">MECHA CORE</button>
-            <button class="cat-btn" onclick="changeCategory('Synthwave', this)" onmouseenter="cursorHover()" onmouseleave="cursorLeave()">SYNTHWAVE</button>
-        </div>
-    </nav>
-
     <header>
-        <div class="glitch-wrapper">
-            <h1 class="glitch" data-text="TOKYO" id="header-title">TOKYO</h1>
+        <div class="header-content">
+            <div class="app-title">TOKYO X</div>
         </div>
-        <p class="subtitle" id="header-sub">3000x HD • Zero Lag Engine • Unlimited Scroll</p>
+        <div class="header-content">
+            <button class="icon-btn" onclick="toggleTheme()" title="Switch Theme">🌗</button>
+            <button class="icon-btn" onclick="openLogin()" title="User Profile">👤</button>
+        </div>
     </header>
+
+    <div class="ai-assistant" id="cat-widget">
+        <div class="ai-header">
+            <span style="color:var(--text-muted); font-size:11px; font-weight:600;">AI Helper</span>
+            <button class="ai-close" onclick="removeCat()">✕</button>
+        </div>
+        <img src="https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif" alt="AI Cat" class="ai-cat" onclick="meow()">
+        <div class="ai-bubble" id="bubble">Hello! I'm your gallery AI. ✨</div>
+    </div>
+
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeLogin()">✕</div>
+            <h2>Welcome Back</h2>
+            <p>Sign in to sync your favorite Tokyo futures.</p>
+            <div class="input-group">
+                <input type="email" placeholder="Email address">
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Password">
+            </div>
+            <button class="btn-primary" onclick="closeLogin()">Sign In</button>
+        </div>
+    </div>
+
+    <section class="hero">
+        <h1 id="header-title">Cyberpunk City</h1>
+        <p>Curated unlimited gallery. Tap to download in 3000x HD.</p>
+    </section>
 
     <section class="gallery-container">
         <div class="grid" id="photo-grid"></div>
-        <!-- Sentinel for Intersection Observer -->
         <div id="scroll-sentinel"></div>
-        <div class="loader" id="loader">EXTRACTING NEON DATA...</div>
+        <div class="loader" id="loader"><div class="spinner"></div></div>
     </section>
 
-    <!-- Upgraded Interactive Cat -->
-    <img src="https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif" alt="Funny Cyber Cat" class="funny-cat" onclick="meow()" onmouseenter="cursorHover()" onmouseleave="cursorLeave()">
-    <div class="cat-bubble" id="bubble">System Override! Pet me! 🐾</div>
+    <nav class="bottom-nav">
+        <button class="nav-pill active" onclick="changeCategory('Cyberpunk', this)">Cyberpunk</button>
+        <button class="nav-pill" onclick="changeCategory('Neo Tokyo', this)">Neo Tokyo</button>
+        <button class="nav-pill" onclick="changeCategory('Nightscape', this)">Nightscape</button>
+        <button class="nav-pill" onclick="changeCategory('Architecture', this)">Architecture</button>
+    </nav>
+
+    <footer>
+        TOKYO X App © 2026 • Support: iftekharc78@gmail.com
+    </footer>
 
     <script>
-        // --- CUSTOM NEON CURSOR LOGIC ---
-        const cursorDot = document.getElementById("cursor-dot");
-        const cursorOutline = document.getElementById("cursor-outline");
-
-        window.addEventListener("mousemove", function (e) {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            // Add a slight delay for the outline for a smooth effect
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        function cursorHover() {
-            cursorOutline.style.width = "60px";
-            cursorOutline.style.height = "60px";
-            cursorOutline.style.backgroundColor = "rgba(0, 240, 255, 0.1)";
-        }
-        function cursorLeave() {
-            cursorOutline.style.width = "40px";
-            cursorOutline.style.height = "40px";
-            cursorOutline.style.backgroundColor = "transparent";
-        }
-
-        // --- MASSIVE 3000x PHOTO ENGINE ---
-        // Expanded array for max variety
-        const photoIds = [
+        // --- EXPANDED MASSIVE PHOTO POOL (Ultra Premium App Feel) ---
+        const photoPool = [
             '1540959733332-eab4deabeeaf', '1554797589-7241bb691973', '1503899036084-c55cdd92da26',
-            '1518005020951-eccb494ad742', '1528360983277-13d401cdc186', '1532054041103-625d57b54a23',
-            '1493976040381-c1f9610f94f2', '1522850655386-81f1480f785b', '1551482850-a92bd0325bdf',
-            '1524413840845-310c14a58d18', '1579684126759-8664c120bf9c', '1542051841857-5f90071e7989',
-            '1503899036084-c55cdd92da26', '1601042879362-f3b1f240d9ce', '1554797589-7241bb691973'
+            '1528360983277-13d401cdc186', '1518005020951-eccb494ad742', '1493976040381-c1f9610f94f2',
+            '1522850655386-81f1480f785b', '1551482850-a92bd0325bdf', '1524413840845-310c14a58d18',
+            '1579684126759-8664c120bf9c', '1532054041103-625d57b54a23', '1601042879362-f3b1f240d9ce',
+            '1515634928627-2a4e0a5bf533', '1519608487963-8afffb523363', '1545638162-850f3b48f9ec',
+            '1564753063852-c32ab51416fb', '1550566373-81b49f972b22', '1517411032315-54ef2cb783bb',
+            '1563089145-599997674d42', '1571210190-3b0274719c8f', '1598875706266-96a8ebba0c31',
+            '1580659328266-340798eb82f1', '1605333552084-780c85ee2e69', '1575279624508-3ab9da253dd3',
+            '1570146059178-57cb5a909fc7', '1556094042-4e63e2d6342d', '1618331835717-801e976710b2'
         ];
 
-        let currentCategory = 'Cyberpunk';
+        let shownPhotos = []; 
         let isLoading = false;
         let imageCount = 0; 
         const grid = document.getElementById('photo-grid');
 
         // Initial Load
-        window.onload = () => {
-            loadImages(12);
-        };
+        window.onload = () => { loadImages(10); };
 
-        // --- PRO-LEVEL INTERSECTION OBSERVER (ZERO LAG) ---
-        // This is 1000x better than window.onscroll
+        // Seamless Infinite Scroll
         const sentinel = document.getElementById('scroll-sentinel');
-        
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting && !isLoading) {
                 showLoader();
-                setTimeout(() => {
-                    loadImages(8); // Load batches of 8 smoothly
-                    hideLoader();
-                }, 600);
+                setTimeout(() => { loadImages(6); hideLoader(); }, 600);
             }
-        }, { rootMargin: '200px' }); // Trigger 200px before reaching the bottom
-
+        }, { rootMargin: '400px' }); // Load way before reaching bottom for zero wait
         observer.observe(sentinel);
 
         function loadImages(count) {
             for (let i = 0; i < count; i++) {
                 imageCount++;
-                const randomId = photoIds[Math.floor(Math.random() * photoIds.length)];
                 
-                // Add Math.random() to simulate 3000+ totally unique API hits
-                const imgUrl = `https://images.unsplash.com/photo-${randomId}?auto=format&fit=crop&w=800&q=80&sig=${Math.random()}`;
-                const hdUrl = `https://images.unsplash.com/photo-${randomId}?auto=format&fit=crop&w=3000&q=100&sig=${Math.random()}`;
+                let availablePhotos = photoPool.filter(id => !shownPhotos.includes(id));
+                
+                // Infinite Loop mechanism
+                if (availablePhotos.length === 0) {
+                    shownPhotos = [];
+                    availablePhotos = photoPool;
+                }
+
+                const randomId = availablePhotos[Math.floor(Math.random() * availablePhotos.length)];
+                shownPhotos.push(randomId);
+                
+                // Construct URL
+                const cacheBuster = Math.random().toString(36).substring(7);
+                const imgUrl = `https://images.unsplash.com/photo-${randomId}?auto=format&fit=crop&w=800&q=80&sig=${cacheBuster}`;
+                const hdUrl = `https://images.unsplash.com/photo-${randomId}?auto=format&fit=crop&w=3000&q=100`;
 
                 const item = document.createElement('div');
                 item.className = 'grid-item';
                 
-                // Onload event triggers the CSS fade-in animation for each specific image
                 item.innerHTML = `
-                    <img src="${imgUrl}" loading="lazy" alt="${currentCategory} Future ${imageCount}" onload="this.parentElement.classList.add('visible')">
-                    <div class="overlay">
-                        <button class="action-btn btn-like" onclick="toggleLike(this)" onmouseenter="cursorHover()" onmouseleave="cursorLeave()">🤍</button>
-                        <a href="${hdUrl}" download="TOKYO_X_${imageCount}.jpg" target="_blank" class="action-btn" onmouseenter="cursorHover()" onmouseleave="cursorLeave()">⬇️ 3000x RAW</a>
+                    <img src="${imgUrl}" loading="lazy" alt="Tokyo Visual" onload="this.parentElement.classList.add('visible')">
+                    <div class="card-overlay">
+                        <button class="btn-action btn-heart" onclick="toggleLike(this)">♡</button>
+                        <a href="${hdUrl}" download="TOKYO_X_${imageCount}.jpg" target="_blank" class="btn-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Get HD
+                        </a>
                     </div>
                 `;
                 grid.appendChild(item);
             }
         }
 
-        function showLoader() {
-            isLoading = true;
-            document.getElementById('loader').style.display = 'block';
-        }
+        function showLoader() { isLoading = true; document.getElementById('loader').style.display = 'block'; }
+        function hideLoader() { isLoading = false; document.getElementById('loader').style.display = 'none'; }
 
-        function hideLoader() {
-            isLoading = false;
-            document.getElementById('loader').style.display = 'none';
-        }
-
-        // --- CATEGORY ENGINE ---
+        // --- BOTTOM NAV ENGINE ---
         function changeCategory(category, btn) {
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.nav-pill').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            currentCategory = category;
             
-            // Update Glitch Text Data Attribute
-            const titleElement = document.getElementById('header-title');
-            titleElement.innerText = category.toUpperCase();
-            titleElement.setAttribute('data-text', category.toUpperCase());
-            
+            document.getElementById('header-title').innerText = category;
             grid.innerHTML = '';
+            shownPhotos = []; 
             imageCount = 0;
             
             showLoader();
-            setTimeout(() => {
-                hideLoader();
-                loadImages(12);
-            }, 500);
+            // Smooth scroll to top on category change
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => { hideLoader(); loadImages(10); }, 300);
         }
 
-        // --- LIKE ANIMATION ---
+        // --- APP MICRO-INTERACTIONS ---
         function toggleLike(btn) {
             btn.classList.toggle('liked');
-            btn.innerHTML = btn.classList.contains('liked') ? '❤️' : '🤍';
+            btn.innerHTML = btn.classList.contains('liked') ? '♥' : '♡';
+            
+            // Add a slight popup animation
+            btn.style.transform = "scale(1.2)";
+            setTimeout(() => { btn.style.transform = "scale(1)"; }, 150);
         }
 
-        // --- THEME TOGGLE ---
         function toggleTheme() {
             const htmlTag = document.documentElement;
-            htmlTag.setAttribute('data-theme', htmlTag.getAttribute('data-theme') === 'cyber' ? 'light' : 'cyber');
+            htmlTag.setAttribute('data-theme', htmlTag.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
         }
 
-        // --- UPGRADED CAT AI ---
-        const catJokes = [
-            "Purr-fect Code Compiled! 🐾", 
-            "Bypassing Mainframe... Meow! 😼", 
-            "Activating 3000x Overdrive! 🚀",
-            "Error 404: Dog Not Found 🐶❌",
-            "Are you hacking or scrolling? 🐱💻",
-            "Stealing your RAM... just kidding! 😻"
-        ];
-        
+        // --- AI ASSISTANT ---
+        function removeCat() { document.getElementById('cat-widget').style.display = 'none'; }
+
+        const aiResponses = ["Everything is optimized! ⚡", "Photos are ready! 🖼️", "Welcome to Tokyo X! 🇯🇵", "Zero limits reached. 🚀"];
         function meow() {
             const bubble = document.getElementById('bubble');
-            const randomJoke = catJokes[Math.floor(Math.random() * catJokes.length)];
+            bubble.innerText = aiResponses[Math.floor(Math.random() * aiResponses.length)];
             
-            bubble.innerText = randomJoke;
-            bubble.style.opacity = '1';
-            bubble.style.transform = 'translateY(-20px) scale(1.2)';
-            bubble.style.color = 'var(--secondary-neon)';
-            bubble.style.borderColor = 'var(--secondary-neon)';
-            
-            setTimeout(() => {
-                bubble.style.opacity = '0';
-                bubble.style.transform = 'translateY(0) scale(1)';
-                bubble.style.color = '#fff';
-                bubble.style.borderColor = 'var(--primary-neon)';
-            }, 3000);
+            // Small bounce animation on the cat
+            const cat = document.querySelector('.ai-cat');
+            cat.style.transform = "scale(1.2) translateY(-10px)";
+            setTimeout(() => { cat.style.transform = "scale(1) translateY(0)"; }, 300);
+        }
+
+        // --- MODAL ---
+        function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target === modal) { modal.style.display = "none"; }
         }
     </script>
 </body>
