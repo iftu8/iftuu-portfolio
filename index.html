@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO PRO MAX | Future App</title>
+    <title>TOKYO PRO MAX | Ultra Fast</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
@@ -29,9 +29,7 @@
             --app-nav-bg: rgba(255, 255, 255, 0.85);
         }
 
-        /* Hide Scrollbar for App Feel */
         ::-webkit-scrollbar { display: none; }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
@@ -45,7 +43,7 @@
             position: fixed; top: 0; width: 100%; padding: 20px 5%;
             display: flex; justify-content: space-between; align-items: center;
             background: linear-gradient(to bottom, var(--bg-color) 40%, transparent);
-            z-index: 1000; pointer-events: none; /* Let clicks pass through background */
+            z-index: 1000; pointer-events: none;
         }
         
         .header-content { pointer-events: auto; display: flex; align-items: center; gap: 15px; }
@@ -67,38 +65,32 @@
         .icon-btn:hover { background: rgba(255, 255, 255, 0.15); transform: scale(1.05); }
 
         /* Welcome Section */
-        .hero {
-            padding: 120px 5% 40px; text-align: center;
-        }
+        .hero { padding: 120px 5% 40px; text-align: center; }
         .hero h1 { font-family: var(--font-display); font-size: 3rem; margin-bottom: 10px; font-weight: 700; }
         .hero p { color: var(--text-muted); font-size: 1.1rem; }
 
-        /* Masonry-style Grid */
+        /* Fast Masonry Grid */
         .gallery-container { padding: 0 5% 120px; min-height: 100vh; }
         .grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
         }
 
-        /* App-like Cards */
         .grid-item {
             position: relative; border-radius: 20px; overflow: hidden;
             background: var(--glass-bg); border: 1px solid var(--glass-border);
-            opacity: 0; transform: translateY(30px);
-            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-            aspect-ratio: 3/4; /* Consistent app-like card ratio */
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            aspect-ratio: 3/4;
         }
-
         .grid-item.visible { opacity: 1; transform: translateY(0); }
 
         .grid-item img {
             width: 100%; height: 100%; object-fit: cover; display: block;
-            transition: transform 0.8s ease;
+            transition: transform 0.6s ease; background-color: var(--glass-bg);
         }
+        .grid-item:hover img { transform: scale(1.04); }
 
-        .grid-item:hover img { transform: scale(1.05); }
-
-        /* Clean Overlay Controls */
+        /* Card Controls */
         .card-overlay {
             position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px 20px;
             background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
@@ -112,16 +104,14 @@
             border: 1px solid rgba(255,255,255,0.3); color: #fff;
             padding: 10px 20px; border-radius: 30px; font-weight: 600;
             font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 8px;
-            transition: 0.3s; cursor: pointer;
+            transition: 0.2s; cursor: pointer;
         }
         .btn-action:hover { background: #fff; color: #000; }
         
-        .btn-heart {
-            width: 42px; height: 42px; padding: 0; display: flex; justify-content: center; border-radius: 50%;
-        }
+        .btn-heart { width: 42px; height: 42px; padding: 0; display: flex; justify-content: center; border-radius: 50%; }
         .btn-heart.liked { background: #ff2d55; border-color: #ff2d55; color: #fff; }
 
-        /* Floating Bottom Nav (App Feel) */
+        /* App Bottom Nav */
         .bottom-nav {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             background: var(--app-nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -141,7 +131,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* Smart AI Assistant (Cat) */
+        /* High Quality Animated AI Cat */
         .ai-assistant {
             position: fixed; top: 90px; right: 5%; z-index: 2000;
             display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
@@ -157,74 +147,40 @@
         .ai-close:hover { color: #ff2d55; }
 
         .ai-cat {
-            width: 80px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+            width: 85px; filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
             cursor: pointer; transition: 0.3s;
+            animation: float 4s ease-in-out infinite; /* Smooth Floating Animation */
         }
-        .ai-cat:hover { transform: scale(1.1); filter: drop-shadow(0 0 20px var(--primary)); }
+        .ai-cat:hover { transform: scale(1.15) !important; filter: drop-shadow(0 0 25px var(--primary)); animation-play-state: paused; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
 
         .ai-bubble {
             background: var(--text-color); color: var(--bg-color); padding: 12px 18px;
-            border-radius: 16px; border-top-right-radius: 4px; font-weight: 500;
+            border-radius: 16px; border-top-right-radius: 4px; font-weight: 600;
             font-size: 13px; opacity: 0; transition: 0.3s; transform: translateY(10px);
-            pointer-events: none; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            pointer-events: none; box-shadow: 0 10px 25px rgba(0,0,0,0.2); white-space: nowrap;
         }
         .ai-assistant:hover .ai-bubble { opacity: 1; transform: translateY(0); }
 
-        /* Clean Login Modal */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); z-index: 3000;
-            justify-content: center; align-items: center;
-        }
-        .modal-content {
-            background: var(--bg-color); padding: 40px; border-radius: 24px;
-            border: 1px solid var(--glass-border); width: 90%; max-width: 400px; text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5); position: relative;
-        }
-        .modal-content h2 { font-family: var(--font-display); margin-bottom: 8px; font-size: 24px; }
-        .modal-content p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
-        .input-group { margin-bottom: 15px; text-align: left; }
-        .modal-content input {
-            width: 100%; padding: 16px; border-radius: 12px;
-            border: 1px solid var(--glass-border); background: var(--glass-bg);
-            color: var(--text-color); font-family: var(--font-main); outline: none; transition: 0.3s;
-        }
-        .modal-content input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
-        .btn-primary {
-            width: 100%; padding: 16px; border-radius: 12px; border: none;
-            background: var(--text-color); color: var(--bg-color); font-weight: 700;
-            font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 10px;
-        }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-        .close-modal {
-            position: absolute; top: 20px; right: 20px; color: var(--text-muted);
-            cursor: pointer; background: var(--glass-bg); width: 32px; height: 32px;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center; padding: 20px; color: var(--text-muted); font-size: 12px;
-            margin-bottom: 80px; /* Space for bottom nav */
-        }
-
         /* Loader */
-        .loader {
-            text-align: center; padding: 20px;
-            display: none;
-        }
+        .loader { text-align: center; padding: 20px; display: none; }
         .spinner {
             width: 30px; height: 30px; border: 3px solid var(--glass-border);
             border-top-color: var(--primary); border-radius: 50%;
-            animation: spin 1s linear infinite; margin: 0 auto;
+            animation: spin 0.8s linear infinite; margin: 0 auto;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
         
-        #scroll-sentinel { width: 100%; height: 10px; }
+        #scroll-sentinel { width: 100%; height: 5px; }
 
         @media (max-width: 768px) {
-            .bottom-nav { width: 90%; justify-content: space-between; overflow-x: auto; padding: 8px 15px; }
-            .nav-pill { padding: 10px 15px; font-size: 12px; white-space: nowrap; }
+            .bottom-nav { width: 92%; justify-content: space-between; overflow-x: auto; padding: 6px 10px; }
+            .nav-pill { padding: 10px 15px; font-size: 13px; white-space: nowrap; }
             .card-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.7) 10%, transparent); }
         }
     </style>
@@ -237,37 +193,23 @@
         </div>
         <div class="header-content">
             <button class="icon-btn" onclick="toggleTheme()" title="Switch Theme">🌗</button>
-            <button class="icon-btn" onclick="openLogin()" title="User Profile">👤</button>
         </div>
     </header>
 
+    <!-- High Quality Animated Cat Widget -->
     <div class="ai-assistant" id="cat-widget">
         <div class="ai-header">
             <span style="color:var(--text-muted); font-size:11px; font-weight:600;">AI Helper</span>
             <button class="ai-close" onclick="removeCat()">✕</button>
         </div>
-        <img src="https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif" alt="AI Cat" class="ai-cat" onclick="meow()">
-        <div class="ai-bubble" id="bubble">Hello! I'm your gallery AI. ✨</div>
-    </div>
-
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <div class="close-modal" onclick="closeLogin()">✕</div>
-            <h2>Welcome Back</h2>
-            <p>Sign in to sync your favorite Tokyo futures.</p>
-            <div class="input-group">
-                <input type="email" placeholder="Email address">
-            </div>
-            <div class="input-group">
-                <input type="password" placeholder="Password">
-            </div>
-            <button class="btn-primary" onclick="closeLogin()">Sign In</button>
-        </div>
+        <!-- Using a high-quality transparent WebP animated cat -->
+        <img src="https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif" alt="AI Cat" class="ai-cat" onclick="meow()">
+        <div class="ai-bubble" id="bubble">Fast & Ready! ⚡</div>
     </div>
 
     <section class="hero">
         <h1 id="header-title">Cyberpunk City</h1>
-        <p>Curated unlimited gallery. Tap to download in 3000x HD.</p>
+        <p>Ultra-Fast rendering. Zero duplicates.</p>
     </section>
 
     <section class="gallery-container">
@@ -283,12 +225,8 @@
         <button class="nav-pill" onclick="changeCategory('Architecture', this)">Architecture</button>
     </nav>
 
-    <footer>
-        TOKYO X App © 2026 • Support: iftekharc78@gmail.com
-    </footer>
-
     <script>
-        // --- EXPANDED MASSIVE PHOTO POOL (Ultra Premium App Feel) ---
+        // MASSIVE Photo Pool (More options = less repetition)
         const photoPool = [
             '1540959733332-eab4deabeeaf', '1554797589-7241bb691973', '1503899036084-c55cdd92da26',
             '1528360983277-13d401cdc186', '1518005020951-eccb494ad742', '1493976040381-c1f9610f94f2',
@@ -298,45 +236,78 @@
             '1564753063852-c32ab51416fb', '1550566373-81b49f972b22', '1517411032315-54ef2cb783bb',
             '1563089145-599997674d42', '1571210190-3b0274719c8f', '1598875706266-96a8ebba0c31',
             '1580659328266-340798eb82f1', '1605333552084-780c85ee2e69', '1575279624508-3ab9da253dd3',
-            '1570146059178-57cb5a909fc7', '1556094042-4e63e2d6342d', '1618331835717-801e976710b2'
+            '1570146059178-57cb5a909fc7', '1556094042-4e63e2d6342d', '1618331835717-801e976710b2',
+            '1590412200986-51f116747352', '1526481280693-3bfa7568e0f3', '1533050487297-09b450131906',
+            '1601473634040-7f28ed51b9e4', '1542051841857-5f90071e7989', '1504109586052-7a52d45e46dd'
         ];
 
-        let shownPhotos = []; 
-        let isLoading = false;
+        let shuffledQueue = [];
+        let currentIndex = 0;
         let imageCount = 0; 
         const grid = document.getElementById('photo-grid');
+        let isLoading = false;
 
-        // Initial Load
-        window.onload = () => { loadImages(10); };
+        // Strict Array Shuffle (Fisher-Yates Algorithm)
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
 
-        // Seamless Infinite Scroll
+        // Initialize Queue
+        function initQueue() {
+            let newQueue = shuffleArray(photoPool);
+            
+            // Check if the last photo of the previous queue is the same as the first of the new queue
+            if (shuffledQueue.length > 0 && shuffledQueue[shuffledQueue.length - 1] === newQueue[0]) {
+                // Swap first and second element to prevent immediate duplicate
+                let temp = newQueue[0];
+                newQueue[0] = newQueue[1];
+                newQueue[1] = temp;
+            }
+            shuffledQueue = newQueue;
+            currentIndex = 0;
+        }
+
+        function getNextPhotoId() {
+            if (currentIndex >= shuffledQueue.length) {
+                initQueue(); // Reload queue infinitely without repeats
+            }
+            return shuffledQueue[currentIndex++];
+        }
+
+        window.onload = () => { 
+            initQueue(); 
+            loadImages(12); // Load more initially for fast scroll feel
+        };
+
         const sentinel = document.getElementById('scroll-sentinel');
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting && !isLoading) {
                 showLoader();
-                setTimeout(() => { loadImages(6); hideLoader(); }, 600);
+                // Fast load (minimal timeout)
+                setTimeout(() => { loadImages(6); hideLoader(); }, 150);
             }
-        }, { rootMargin: '400px' }); // Load way before reaching bottom for zero wait
+        }, { rootMargin: '800px' }); // Load way before reaching bottom for seamless feel
         observer.observe(sentinel);
 
         function loadImages(count) {
+            // Document Fragment makes rendering incredibly fast
+            const fragment = document.createDocumentFragment();
+
             for (let i = 0; i < count; i++) {
                 imageCount++;
+                const randomId = getNextPhotoId();
                 
-                let availablePhotos = photoPool.filter(id => !shownPhotos.includes(id));
+                // SPEED OPTIMIZATION: 
+                // fm=webp (Fastest format)
+                // w=500, q=60 (Perfect for grid, super small file size)
+                const imgUrl = `https://images.unsplash.com/photo-${randomId}?auto=format&fit=crop&fm=webp&w=500&q=60`;
                 
-                // Infinite Loop mechanism
-                if (availablePhotos.length === 0) {
-                    shownPhotos = [];
-                    availablePhotos = photoPool;
-                }
-
-                const randomId = availablePhotos[Math.floor(Math.random() * availablePhotos.length)];
-                shownPhotos.push(randomId);
-                
-                // Construct URL
-                const cacheBuster = Math.random().toString(36).substring(7);
-                const imgUrl = `https://images.unsplash.com/photo-${randomId}?auto=format&fit=crop&w=800&q=80&sig=${cacheBuster}`;
+                // HIGH QUALITY DOWNLOAD: (w=3000, 100% quality)
                 const hdUrl = `https://images.unsplash.com/photo-${randomId}?auto=format&fit=crop&w=3000&q=100`;
 
                 const item = document.createElement('div');
@@ -346,18 +317,24 @@
                     <img src="${imgUrl}" loading="lazy" alt="Tokyo Visual" onload="this.parentElement.classList.add('visible')">
                     <div class="card-overlay">
                         <button class="btn-action btn-heart" onclick="toggleLike(this)">♡</button>
-                        <a href="${hdUrl}" download="TOKYO_X_${imageCount}.jpg" target="_blank" class="btn-action">
+                        <a href="${hdUrl}" download="TOKYO_X_${imageCount}.jpg" target="_blank" class="btn-action" onclick="alertHD()">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                             Get HD
                         </a>
                     </div>
                 `;
-                grid.appendChild(item);
+                fragment.appendChild(item);
             }
+            grid.appendChild(fragment);
         }
 
         function showLoader() { isLoading = true; document.getElementById('loader').style.display = 'block'; }
         function hideLoader() { isLoading = false; document.getElementById('loader').style.display = 'none'; }
+        
+        function alertHD() {
+            const bubble = document.getElementById('bubble');
+            bubble.innerText = "Downloading in 3000px HD! 🚀";
+        }
 
         // --- BOTTOM NAV ENGINE ---
         function changeCategory(category, btn) {
@@ -366,21 +343,20 @@
             
             document.getElementById('header-title').innerText = category;
             grid.innerHTML = '';
-            shownPhotos = []; 
+            
+            // Re-shuffle for new category feel
+            initQueue();
             imageCount = 0;
             
             showLoader();
-            // Smooth scroll to top on category change
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            setTimeout(() => { hideLoader(); loadImages(10); }, 300);
+            setTimeout(() => { hideLoader(); loadImages(10); }, 150); // Faster transition
         }
 
         // --- APP MICRO-INTERACTIONS ---
         function toggleLike(btn) {
             btn.classList.toggle('liked');
             btn.innerHTML = btn.classList.contains('liked') ? '♥' : '♡';
-            
-            // Add a slight popup animation
             btn.style.transform = "scale(1.2)";
             setTimeout(() => { btn.style.transform = "scale(1)"; }, 150);
         }
@@ -388,29 +364,16 @@
         function toggleTheme() {
             const htmlTag = document.documentElement;
             htmlTag.setAttribute('data-theme', htmlTag.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+            document.getElementById('bubble').innerText = "Theme Switched! 🌗";
         }
 
         // --- AI ASSISTANT ---
         function removeCat() { document.getElementById('cat-widget').style.display = 'none'; }
 
-        const aiResponses = ["Everything is optimized! ⚡", "Photos are ready! 🖼️", "Welcome to Tokyo X! 🇯🇵", "Zero limits reached. 🚀"];
+        const aiResponses = ["No Duplicate Photos! 🚫", "WebP Fast Load Active ⚡", "I am working perfectly! 🐾", "Speed optimized 100% 🚀"];
         function meow() {
             const bubble = document.getElementById('bubble');
             bubble.innerText = aiResponses[Math.floor(Math.random() * aiResponses.length)];
-            
-            // Small bounce animation on the cat
-            const cat = document.querySelector('.ai-cat');
-            cat.style.transform = "scale(1.2) translateY(-10px)";
-            setTimeout(() => { cat.style.transform = "scale(1) translateY(0)"; }, 300);
-        }
-
-        // --- MODAL ---
-        function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
-        function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
-        
-        window.onclick = function(event) {
-            const modal = document.getElementById('loginModal');
-            if (event.target === modal) { modal.style.display = "none"; }
         }
     </script>
 </body>
