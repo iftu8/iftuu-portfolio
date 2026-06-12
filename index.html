@@ -683,3 +683,292 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TOKYO X | Infinity Core</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. CORE INFINITY VARIABLES
+           ========================================= */
+        :root {
+            --bg-base: #000000;
+            --bg-surface: #0a0a0f;
+            --cyan-neon: #00f3ff;
+            --magenta-neon: #ff00ea;
+            --yellow-neon: #eaff00;
+            --text-main: #e0e0e0;
+            --font-ui: 'Space Grotesk', sans-serif;
+            --font-code: 'Fira Code', monospace;
+            --glass-panel: rgba(10, 10, 15, 0.7);
+            --border-glow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-ui); background: var(--bg-base); color: var(--text-main); overflow-x: hidden; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan-neon), var(--magenta-neon)); border-radius: 10px; }
+
+        /* Background Grid */
+        .cyber-grid {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background-image: linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px; transform: perspective(500px) rotateX(60deg);
+            transform-origin: top; animation: gridMove 20s linear infinite; opacity: 0.4;
+        }
+        @keyframes gridMove { 100% { background-position: 0 40px, 40px 0; } }
+
+        /* =========================================
+           2. HEADER & LIVE STATS
+           ========================================= */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 15px 20px;
+            background: var(--glass-panel); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2); z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 28px; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 0 0 10px var(--cyan-neon); }
+        .logo span { color: var(--magenta-neon); }
+        
+        .sys-stats { font-family: var(--font-code); font-size: 11px; display: flex; gap: 15px; color: var(--cyan-neon); }
+        .stat-box { background: rgba(0,243,255,0.1); padding: 5px 10px; border: 1px solid rgba(0,243,255,0.3); border-radius: 4px; }
+
+        /* =========================================
+           3. INFINITE GALLERY (MASONRY LAYOUT)
+           ========================================= */
+        .main-container { padding: 90px 15px 100px; }
+        .info-banner { text-align: center; margin-bottom: 20px; font-family: var(--font-code); font-size: 12px; color: var(--yellow-neon); }
+        
+        .masonry-grid {
+            column-count: 1; column-gap: 15px; width: 100%;
+        }
+        @media (min-width: 600px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 900px) { .masonry-grid { column-count: 3; } }
+        @media (min-width: 1200px) { .masonry-grid { column-count: 4; } }
+
+        .img-card {
+            break-inside: avoid; margin-bottom: 15px; position: relative; border-radius: 12px;
+            overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #111;
+        }
+        
+        /* Auto Cyber-Grading Filter */
+        .img-card img {
+            width: 100%; display: block; object-fit: cover;
+            filter: contrast(1.15) saturate(1.3) hue-rotate(-5deg);
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+        .img-card:hover img { transform: scale(1.05); filter: contrast(1.2) saturate(1.5) brightness(1.1); }
+
+        .card-ui {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 15px 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            display: flex; justify-content: space-between; align-items: flex-end;
+            opacity: 0; transition: 0.3s;
+        }
+        .img-card:hover .card-ui { opacity: 1; }
+
+        .img-id { font-family: var(--font-code); font-size: 10px; color: var(--cyan-neon); background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--cyan-neon); }
+        
+        .dl-btn {
+            background: var(--cyan-neon); color: #000; border: none; padding: 10px 20px;
+            border-radius: 30px; font-weight: 900; cursor: pointer; text-transform: uppercase;
+            font-size: 12px; box-shadow: 0 0 15px rgba(0,243,255,0.4); transition: 0.2s;
+        }
+        .dl-btn:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 0 20px #fff; }
+
+        /* Loader & Sentinel */
+        #loader-core { text-align: center; padding: 40px 0; display: none; }
+        .core-spinner { width: 40px; height: 40px; border: 3px solid transparent; border-top-color: var(--magenta-neon); border-bottom-color: var(--cyan-neon); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* =========================================
+           4. DOWNLOAD MANAGER UI
+           ========================================= */
+        #dl-manager {
+            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; background: rgba(10, 10, 15, 0.95); border: 1px solid var(--cyan-neon);
+            border-radius: 10px; padding: 15px; z-index: 5000; transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+        }
+        #dl-manager.active { bottom: 20px; }
+        .dl-info { display: flex; justify-content: space-between; font-family: var(--font-code); font-size: 12px; color: #fff; }
+        .progress-bar { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+        .progress-fill { width: 0%; height: 100%; background: var(--cyan-neon); box-shadow: 0 0 10px var(--cyan-neon); transition: width 0.1s linear; }
+
+    </style>
+</head>
+<body>
+
+    <div class="cyber-grid"></div>
+
+    <header>
+        <div class="logo">TOKYO<span>_X</span></div>
+        <div class="sys-stats">
+            <div class="stat-box" id="stat-nodes">NODES: 0</div>
+            <div class="stat-box">LINK: SECURE</div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="info-banner">⚠ INFINITY CORE ENGAGED: UNLIMITED GENERATION ACTIVE</div>
+        
+        <div class="masonry-grid" id="gallery">
+            </div>
+
+        <div id="scroll-anchor" style="height: 20px; width: 100%;"></div>
+        <div id="loader-core"><div class="core-spinner"></div></div>
+    </div>
+
+    <div id="dl-manager">
+        <div class="dl-info">
+            <span id="dl-filename">ASSET_4892.jpg</span>
+            <span id="dl-percentage">0%</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="dl-fill"></div>
+        </div>
+        <div style="font-size: 10px; color: var(--magenta-neon); text-align: center; font-family: var(--font-code);" id="dl-status">Extracting from mainframe...</div>
+    </div>
+
+    <script>
+        /* =========================================================================
+           INFINITY ENGINE (ALGORITHMIC GENERATION)
+           ========================================================================= */
+        
+        const gallery = document.getElementById('gallery');
+        const loader = document.getElementById('loader-core');
+        const nodeStat = document.getElementById('stat-nodes');
+        let isLoading = false;
+        let totalNodes = 0;
+
+        // Start Engine on Load
+        window.onload = () => {
+            generateBatch(12); // Initial load
+        };
+
+        // --- 1. TRUE INFINITE SCROLL OBSERVER ---
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !isLoading) {
+                isLoading = true;
+                loader.style.display = 'block';
+                // Artificial delay to simulate "hacking the mainframe"
+                setTimeout(() => {
+                    generateBatch(8);
+                }, 800);
+            }
+        }, { rootMargin: '1000px' }); // Triggers before user hits bottom
+
+        observer.observe(document.getElementById('scroll-anchor'));
+
+        // --- 2. DYNAMIC IMAGE GENERATOR ---
+        function generateBatch(count) {
+            const fragment = document.createDocumentFragment();
+            
+            for (let i = 0; i < count; i++) {
+                // Generate a random seed and random dimensions for Masonry variety
+                const seed = Math.floor(Math.random() * 9999999);
+                const heights = [600, 700, 800, 900, 1000];
+                const h = heights[Math.floor(Math.random() * heights.length)];
+                
+                // Using Picsum API for infinite free random images
+                const imgUrl = `https://picsum.photos/seed/${seed}/600/${h}`;
+                const hdUrl = `https://picsum.photos/seed/${seed}/2000/${Math.floor(h * 3.33)}`; // 4K equivalent
+
+                const card = document.createElement('div');
+                card.className = 'img-card';
+                card.innerHTML = `
+                    <img src="${imgUrl}" loading="lazy" alt="Generated Node">
+                    <div class="card-ui">
+                        <span class="img-id">SEQ_${seed.toString(16).toUpperCase()}</span>
+                        <button class="dl-btn" onclick="startDownload('${hdUrl}', 'TX_CORE_${seed}')">Get 4K</button>
+                    </div>
+                `;
+                fragment.appendChild(card);
+                totalNodes++;
+            }
+
+            gallery.appendChild(fragment);
+            nodeStat.innerText = `NODES: ${totalNodes}`;
+            isLoading = false;
+            loader.style.display = 'none';
+        }
+
+        // --- 3. ADVANCED DOWNLOAD MANAGER ---
+        async function startDownload(url, filename) {
+            if(navigator.vibrate) navigator.vibrate([30, 50]);
+            
+            const manager = document.getElementById('dl-manager');
+            const fill = document.getElementById('dl-fill');
+            const perc = document.getElementById('dl-percentage');
+            const status = document.getElementById('dl-status');
+            
+            document.getElementById('dl-filename').innerText = filename + '.jpg';
+            manager.classList.add('active');
+            fill.style.width = '0%';
+            perc.innerText = '0%';
+            status.innerText = "Establishing secure connection...";
+            status.style.color = "var(--magenta-neon)";
+
+            try {
+                // Fetch the image as a Blob
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Network response failed");
+                
+                // Simulate progress bar 
+                let progress = 0;
+                const simInterval = setInterval(() => {
+                    progress += Math.random() * 20;
+                    if (progress > 95) progress = 95; 
+                    fill.style.width = `${progress}%`;
+                    perc.innerText = `${Math.floor(progress)}%`;
+                    status.innerText = "Downloading encrypted data...";
+                }, 200);
+
+                const blob = await response.blob();
+                clearInterval(simInterval);
+
+                // Complete progress
+                fill.style.width = '100%';
+                perc.innerText = '100%';
+                status.innerText = "DECRYPTION COMPLETE. SAVING...";
+                status.style.color = "var(--cyan-neon)";
+
+                // Trigger download
+                setTimeout(() => {
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = `${filename}.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(blobUrl);
+                    
+                    // Hide manager
+                    setTimeout(() => {
+                        manager.classList.remove('active');
+                    }, 2000);
+                }, 600);
+
+            } catch (err) {
+                // Fallback if CORS blocks the blob download
+                clearInterval(simInterval);
+                status.innerText = "FIREWALL BLOCKED. OPENING DIRECT LINK...";
+                status.style.color = "#ff003c";
+                setTimeout(() => {
+                    window.open(url, '_blank');
+                    manager.classList.remove('active');
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>
