@@ -2,10 +2,14 @@
 
 # 🌃 TOKYO 3000 : FUTURE UNLIMITED 🚀
 
-<img src="https://i.pinimg.com/originals/a4/89/3e/a4893e4a282901ee7c00e6c641be2a09.gif" alt="Cyberpunk Cityscape" width="100%" style="border-radius: 15px; border: 2px solid #00f0ff; box-shadow: 0 0 20px #00f0ff;">
+<img src="https://i.pinimg.com/originals/2b/86/e5/2b86e589133bd55ab645a2779af3aeb2.gif" alt="Cyberpunk Cityscape" width="100%" style="border-radius: 15px; border: 2px solid #00f0ff; box-shadow: 0 0 20px #00f0ff;">
 
 ### Welcome to the next generation of web experience. 
 **Premium Futuristic Portfolio | Ultra-Fast | Cyberpunk Aesthetics**
+
+<br>
+
+[![Live Website](https://img.shields.io/badge/🚀_LIVE_PREVIEW_-_CLICK_HERE-00f0ff?style=for-the-badge&logoColor=black)](https://iftu8.github.io/iftuu-portfolio/)
 
 <br>
 
@@ -13,6 +17,15 @@
 [![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)](#)
 [![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)](#)
 
+</div>
+
+---
+
+## 🔮 System Mood / Daily Vibe
+*The Tokyo 3000 system dynamically generates a new tech thought every day:*
+
+<div align="center">
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight" alt="Dynamic Daily Mood" width="80%">
 </div>
 
 ---
@@ -45,7 +58,7 @@ Let's connect and build the future together!
 
 <br>
 
-<img src="https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif" width="250">
+<img src="https://i.pinimg.com/originals/8a/0a/75/8a0a75f0a055d7f1d43a7da8352697b4.gif" width="300" style="border-radius: 10px; border: 1px solid #7000ff;">
 
 </div>
 
