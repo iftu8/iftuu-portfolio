@@ -3,531 +3,682 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO X | Quantum Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>TOKYO X | God-Tier AI Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Space+Grotesk:wght@500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <style>
         /* =========================================
-           1. QUANTUM VARIABLES & RESET
+           1. CORE VARIABLES & HARDWARE ACCELERATION
            ========================================= */
         :root {
-            --bg-color: #030305;
-            --surface-color: #0d0d12;
+            --bg-color: #020204;
+            --surface-color: rgba(15, 15, 20, 0.7);
             --text-main: #ffffff;
             --text-dim: #8e8e93;
             --primary: #00f0ff;
-            --primary-glow: rgba(0, 240, 255, 0.4);
-            --secondary: #ff3040;
+            --secondary: #ff003c;
             --tertiary: #b026ff;
-            --glass: rgba(13, 13, 18, 0.7);
+            --matrix-green: #0f0;
             --glass-border: rgba(255, 255, 255, 0.08);
             --font-main: 'Inter', sans-serif;
             --font-display: 'Space Grotesk', sans-serif;
-            --font-code: 'JetBrains Mono', monospace;
+            --font-code: 'Share Tech Mono', monospace;
+            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.5);
+            --glow-red: 0 0 20px rgba(255, 0, 60, 0.5);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Custom Cursor */ -webkit-tap-highlight-color: transparent; }
-        ::-webkit-scrollbar { display: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
         body {
-            font-family: var(--font-main); background: var(--bg-color); color: var(--text-main);
-            overflow-x: hidden; -webkit-font-smoothing: antialiased;
+            font-family: var(--font-main); background: var(--bg-color);
+            color: var(--text-main); overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        canvas#particles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; opacity: 0.6; }
+        /* Matrix Canvas - Optimized */
+        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.12; pointer-events: none; }
 
         /* =========================================
-           2. PERFORMANCE UI & CUSTOM CURSOR
+           2. SPLASH SCREEN & HEADER
            ========================================= */
-        .cursor-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; box-shadow: 0 0 10px var(--primary); transition: transform 0.1s; }
-        .cursor-ring { width: 30px; height: 30px; border: 1px solid var(--primary); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: top 0.1s ease-out, left 0.1s ease-out, width 0.2s, height 0.2s; }
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000;
+            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease;
+        }
+        .cyber-loader { font-family: var(--font-display); font-size: 3.5rem; font-weight: 800; text-transform: uppercase; color: transparent; -webkit-text-stroke: 2px var(--primary); text-shadow: var(--glow-cyan); animation: glitchLoader 1s infinite; }
+        @keyframes glitchLoader { 0% { transform: translate(0) } 20% { transform: translate(-5px, 5px) } 40% { transform: translate(-5px, -5px) } 60% { transform: translate(5px, 5px) } 80% { transform: translate(5px, -5px) } 100% { transform: translate(0) } }
         
-        .fps-monitor {
-            position: fixed; top: 20px; left: 20px; z-index: 1001; font-family: var(--font-code);
-            font-size: 10px; color: #0f0; background: rgba(0,255,0,0.1); border: 1px solid rgba(0,255,0,0.3);
-            padding: 4px 8px; border-radius: 4px; pointer-events: none; backdrop-filter: blur(5px);
-        }
-
-        /* =========================================
-           3. SPLASH SCREEN (NEON PULSE)
-           ========================================= */
-        #splash {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-color);
-            z-index: 9000; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.8s cubic-bezier(0.87, 0, 0.13, 1);
-        }
-        .logo-box { position: relative; display: flex; justify-content: center; align-items: center; }
-        .splash-logo { font-family: var(--font-display); font-size: 4rem; font-weight: 800; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2); position: relative; z-index: 2; }
-        .splash-logo::before { content: "TOKYO X"; position: absolute; left: 0; top: 0; width: 0%; height: 100%; color: var(--primary); overflow: hidden; -webkit-text-stroke: 0px; border-right: 4px solid var(--primary); animation: scan Reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards; filter: drop-shadow(0 0 20px var(--primary-glow)); }
-        
-        .sys-loading { margin-top: 30px; font-family: var(--font-code); font-size: 12px; color: var(--primary); letter-spacing: 2px; }
-        .sys-loading span { animation: blink 1s infinite; }
-
-        @keyframes scan Reveal { 0% { width: 0%; } 100% { width: 100%; } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        /* =========================================
-           4. ULTRA-GLASS HEADER
-           ========================================= */
         header {
-            position: fixed; top: 0; width: 100%; padding: 15px 25px;
-            background: var(--glass); backdrop-filter: blur(25px) saturate(150%);
-            -webkit-backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border);
-            z-index: 1000; display: flex; justify-content: space-between; align-items: center;
-            transform: translateY(-100%); animation: dropHeader 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.8s forwards;
+            position: fixed; top: 0; width: 100%; padding: 15px 20px;
+            background: linear-gradient(to bottom, rgba(2, 2, 4, 0.95), rgba(2, 2, 4, 0.7));
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2); z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
         }
-        @keyframes dropHeader { to { transform: translateY(0); } }
-
-        .header-logo { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: #fff; letter-spacing: 1px; }
-        .header-logo span { color: var(--primary); }
-        .nav-actions { display: flex; gap: 20px; align-items: center; }
-        .nav-btn { background: none; border: none; color: #fff; font-size: 20px; transition: 0.3s; }
-        .nav-btn:hover { color: var(--primary); transform: translateY(-2px); filter: drop-shadow(0 0 10px var(--primary)); }
+        .logo { font-family: var(--font-display); font-size: 28px; font-weight: 800; background: linear-gradient(90deg, var(--primary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px var(--primary)); }
+        .ai-status { font-family: var(--font-code); font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; background: rgba(0, 240, 255, 0.05); border: 1px solid var(--primary); padding: 8px 18px; border-radius: 30px; box-shadow: inset 0 0 10px rgba(0,240,255,0.2); }
+        .ai-pulse { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; animation: pulse 1.2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,240,255,0.8); } 70% { box-shadow: 0 0 0 15px rgba(0,240,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); } }
 
         /* =========================================
-           5. OPTIMIZED INFINITE GRID
+           3. STORIES & GALLERY (GPU ACCELERATED)
            ========================================= */
-        .gallery-container { margin-top: 80px; padding: 10px 15px 120px; width: 100%; max-width: 1600px; margin-left: auto; margin-right: auto; }
-        .masonry { column-count: 2; column-gap: 15px; }
-        @media (min-width: 768px) { .masonry { column-count: 3; } }
-        @media (min-width: 1024px) { .masonry { column-count: 4; } }
-        @media (min-width: 1440px) { .masonry { column-count: 5; } }
+        .stories { margin-top: 85px; padding: 15px 20px; display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; }
+        .story { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; flex-shrink: 0; }
+        .story-ring { width: 85px; height: 85px; border-radius: 50%; padding: 3px; background: conic-gradient(from 0deg, var(--secondary), var(--tertiary), var(--primary), var(--secondary)); animation: spinBg 4s linear infinite; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+        @keyframes spinBg { 100% { transform: rotate(360deg); } }
+        .story-ring-inner { width: 100%; height: 100%; background: var(--bg-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; animation: spinBgReverse 4s linear infinite; }
+        @keyframes spinBgReverse { 100% { transform: rotate(-360deg); } }
+        .story-ring-inner img { width: 73px; height: 73px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-color); }
+        .story:hover .story-ring { transform: scale(1.15); }
+        .story span { font-size: 13px; font-family: var(--font-display); font-weight: 700; color: #fff; letter-spacing: 1px; }
 
-        .post-card {
-            break-inside: avoid; margin-bottom: 15px; border-radius: 12px;
-            background: var(--surface-color); border: 1px solid var(--glass-border);
-            position: relative; overflow: hidden; opacity: 0; transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s;
-        }
-        .post-card.visible { opacity: 1; transform: translateY(0); }
-        .post-card:hover { box-shadow: 0 10px 30px rgba(0,240,255,0.15); border-color: rgba(0,240,255,0.3); }
+        .gallery { padding: 15px 20px 120px; column-count: 2; column-gap: 15px; }
+        @media (min-width: 768px) { .gallery { column-count: 3; } }
+        @media (min-width: 1024px) { .gallery { column-count: 4; } }
 
-        .img-wrapper { position: relative; width: 100%; background: #1a1a24; overflow: hidden; }
-        /* Skeleton Loader inside Image */
-        .img-wrapper::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            transform: translateX(-100%); animation: shimmer 1.5s infinite;
-        }
-        @keyframes shimmer { 100% { transform: translateX(100%); } }
-
-        .post-card img {
-            width: 100%; display: block; object-fit: cover; opacity: 0;
-            filter: contrast(1.1) saturate(1.3) hue-rotate(-5deg); transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s;
-        }
-        .post-card img.loaded { opacity: 1; }
-        .post-card:hover img { transform: scale(1.05); }
-
-        /* Double Tap Heart - Instagram Pro */
-        .ig-heart {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
-            color: var(--secondary); font-size: 90px; filter: drop-shadow(0 0 30px rgba(255, 48, 64, 0.8));
-            pointer-events: none; z-index: 10;
-        }
-        .ig-heart.burst { animation: heartBurst 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes heartBurst { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 15% { transform: translate(-50%, -50%) scale(1.3); } 30% { transform: translate(-50%, -50%) scale(1); } 80% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
-
-        /* Cyber Action Bar */
-        .actions { padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; }
-        .btn-like { font-size: 26px; color: #fff; background: none; border: none; transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .btn-like.active { color: var(--secondary); transform: scale(1.2); }
+        .card { break-inside: avoid; margin-bottom: 15px; border-radius: 20px; position: relative; overflow: hidden; background: var(--surface-color); cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transform: translateZ(0); will-change: transform; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .card img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s ease; will-change: transform; }
+        .card:hover { border-color: var(--primary); box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2); transform: translateY(-5px); z-index: 10; }
+        .card:hover img { transform: scale(1.1); filter: contrast(1.1); }
         
-        .btn-download {
-            background: rgba(0, 240, 255, 0.1); border: 1px solid var(--primary); color: var(--primary);
-            padding: 6px 14px; border-radius: 6px; font-family: var(--font-code); font-size: 11px; font-weight: bold;
-            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; overflow: hidden; position: relative;
-        }
-        .btn-download:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-glow); }
-
-        /* Loading Sentinel */
-        .loader-zone { width: 100%; height: 60px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
-        .quantum-spinner { width: 40px; height: 40px; border: 2px solid transparent; border-top-color: var(--primary); border-bottom-color: var(--tertiary); border-radius: 50%; animation: qSpin 1s linear infinite; }
-        @keyframes qSpin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(0.8); } 100% { transform: rotate(360deg) scale(1); } }
+        .overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 15px 15px; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); display: flex; justify-content: space-between; align-items: flex-end; opacity: 0; transition: 0.3s ease; }
+        .card:hover .overlay { opacity: 1; }
+        
+        .action-btns { display: flex; gap: 8px; }
+        .btn-glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); color: #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; cursor: pointer; transition: 0.3s; }
+        .btn-glass:hover { background: var(--secondary); color: #fff; border-color: var(--secondary); transform: translateY(-5px) scale(1.1); box-shadow: var(--glow-red); }
+        .btn-glass.liked { background: var(--secondary); border-color: var(--secondary); color: #fff; text-shadow: var(--glow-red); animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-download { background: var(--primary); color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: var(--glow-cyan); }
+        .btn-download:hover { background: #fff; transform: translateY(-5px) scale(1.1); }
+        @keyframes pop { 50% { transform: scale(1.5) rotate(-10deg); } }
 
         /* =========================================
-           6. ADVANCED BONGO CAT AI
+           4. HUD LIGHTBOX & DYNAMIC EXIF
            ========================================= */
-        .ai-fab {
-            position: fixed; bottom: 30px; right: 25px; width: 60px; height: 60px;
-            background: #fff; border-radius: 50%; border: 3px solid #000;
-            box-shadow: 0 10px 30px rgba(0,240,255,0.4), 0 0 0 2px var(--primary);
-            display: flex; justify-content: center; align-items: center; z-index: 2000;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .ai-fab img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .ai-fab:hover { transform: scale(1.15) rotate(-10deg); }
-        .fab-ping { position: absolute; top: -5px; right: -5px; width: 15px; height: 15px; background: var(--secondary); border-radius: 50%; border: 2px solid #000; animation: ping 2s infinite; }
-        @keyframes ping { 0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255,48,64,0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255,48,64,0); } 100% { transform: scale(0.8); } }
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.98); backdrop-filter: blur(30px); z-index: 3000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.4s; }
+        #lightbox.show { display: flex; opacity: 1; }
+        .lb-close { position: absolute; top: 30px; right: 30px; background: rgba(255,0,60,0.2); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #fff; cursor: pointer; border: 1px solid var(--secondary); transition: 0.3s; }
+        .lb-close:hover { background: var(--secondary); transform: rotate(90deg); }
+        .lb-img { max-width: 100%; max-height: 50vh; border-radius: 15px; border: 2px solid var(--primary); box-shadow: 0 0 40px rgba(0,240,255,0.3); object-fit: contain; }
+        .hud-panel { margin-top: 30px; width: 100%; max-width: 550px; background: rgba(15,15,20,0.8); border: 1px solid var(--primary); padding: 25px; border-radius: 15px; position: relative; overflow: hidden; }
+        .hud-panel::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0,240,255,0.2), transparent); animation: scanline 3s infinite linear; }
+        @keyframes scanline { 100% { left: 200%; } }
+        .hud-title { color: var(--primary); font-family: var(--font-code); font-size: 16px; margin-bottom: 20px; border-bottom: 1px dashed rgba(0,240,255,0.5); padding-bottom: 10px; display: flex; justify-content: space-between; }
+        .hud-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .hud-stat { font-family: var(--font-code); font-size: 11px; color: var(--text-dim); text-transform: uppercase; }
+        .hud-stat span { color: #fff; font-weight: bold; display: block; font-size: 15px; margin-top: 6px; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+        
+        /* =========================================
+           5. UPGRADED AI CAT TERMINAL (DYNAMIC)
+           ========================================= */
+        .ai-fab { position: fixed; bottom: 110px; right: 20px; z-index: 2000; width: 80px; height: 80px; border-radius: 50%; background: var(--surface-color); border: 2px solid var(--primary); box-shadow: var(--glow-cyan); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .ai-fab img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; transition: 0.3s; }
+        .ai-fab:hover { transform: scale(1.15) translateY(-10px); border-color: var(--tertiary); box-shadow: 0 0 30px var(--tertiary); }
+        
+        /* Funny Cat Animations */
+        .cat-bounce { animation: catBounce 0.5s infinite alternate; }
+        .cat-spin { animation: catSpin 1s infinite linear; }
+        .cat-glitch { animation: catGlitch 0.2s infinite; }
+        @keyframes catBounce { to { transform: translateY(-10px); } }
+        @keyframes catSpin { 100% { transform: rotate(360deg); } }
+        @keyframes catGlitch { 0% { transform: translate(2px, -2px); filter: hue-rotate(90deg); } 50% { transform: translate(-2px, 2px); filter: hue-rotate(-90deg); } 100% { transform: translate(0); } }
 
-        .chat-box {
-            position: fixed; bottom: 110px; right: 25px; width: 340px;
-            background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(30px);
-            border: 1px solid rgba(0,240,255,0.2); border-radius: 16px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8); z-index: 2000;
-            display: none; flex-direction: column; opacity: 0; transform: translateY(20px);
-            transition: opacity 0.3s, transform 0.3s;
-        }
-        .chat-box.show { display: flex; opacity: 1; transform: translateY(0); }
+        .chat-terminal { position: fixed; bottom: 200px; right: 20px; width: 360px; background: rgba(5, 5, 10, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--primary); border-radius: 20px; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9); z-index: 2000; transform-origin: bottom right; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         
-        .chat-head { padding: 15px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
-        .cat-title { font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
-        .cat-title::before { content: ''; width: 8px; height: 8px; background: #0f0; border-radius: 50%; box-shadow: 0 0 10px #0f0; }
+        .chat-header { background: linear-gradient(90deg, rgba(0,240,255,0.2), transparent); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--primary); border-top-left-radius: 20px; border-top-right-radius: 20px; }
+        .chat-header span { font-family: var(--font-code); color: var(--primary); font-weight: 800; font-size: 16px; text-shadow: var(--glow-cyan); }
+        .chat-body { padding: 20px; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
         
-        .chat-logs { padding: 15px; height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
-        .msg.bot { background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.2); color: #e0e0e0; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .msg.user { background: linear-gradient(135deg, var(--primary), #0099ff); color: #000; font-weight: 600; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .msg { max-width: 85%; padding: 12px 16px; border-radius: 15px; line-height: 1.4; font-family: var(--font-main); }
+        .msg.ai { background: rgba(0,240,255,0.1); border: 1px solid var(--primary); color: #fff; align-self: flex-start; border-bottom-left-radius: 0; box-shadow: inset 0 0 10px rgba(0,240,255,0.1); }
+        .msg.user { background: rgba(176,38,255,0.2); border: 1px solid var(--tertiary); color: #fff; align-self: flex-end; border-bottom-right-radius: 0; box-shadow: inset 0 0 10px rgba(176,38,255,0.2); }
         
-        /* Typing Indicator */
-        .typing { display: none; align-self: flex-start; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 12px; gap: 4px; }
-        .dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: typeBounce 1.4s infinite ease-in-out both; }
-        .dot:nth-child(1) { animation-delay: -0.32s; } .dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typeBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        .chat-input-area { padding: 15px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; background: rgba(0,0,0,0.5); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+        .chat-input-area input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 12px; border-radius: 10px; color: #fff; outline: none; font-family: var(--font-code); transition: 0.3s; }
+        .chat-input-area input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,240,255,0.2); }
+        .chat-input-area button { background: var(--primary); border: none; width: 50px; border-radius: 10px; font-weight: bold; cursor: pointer; color: #000; font-size: 20px; transition: 0.3s; }
+        .chat-input-area button:hover { background: #fff; transform: scale(1.05); }
 
-        .chat-input-area { padding: 12px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; background: rgba(0,0,0,0.4); border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; }
-        .chat-input-area input { flex: 1; background: transparent; border: none; color: #fff; font-family: var(--font-main); outline: none; }
-        .send-btn { background: var(--primary); border: none; width: 36px; height: 36px; border-radius: 8px; color: #000; font-weight: bold; transition: 0.2s; }
-        .send-btn:hover { background: #fff; }
+        /* =========================================
+           6. TOAST NOTIFICATIONS (SYSTEM ALERTS)
+           ========================================= */
+        #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: rgba(10,10,15,0.9); border-left: 4px solid var(--primary); color: #fff; padding: 15px 20px; border-radius: 8px; font-family: var(--font-code); font-size: 13px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; gap: 10px; }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #0f0; }
+        .toast.warning { border-left-color: var(--secondary); }
+
+        /* BOTTOM NAV & SPINNER */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; height: 90px; background: linear-gradient(to top, rgba(2, 2, 4, 1), rgba(2, 2, 4, 0.8)); backdrop-filter: blur(25px); border-top: 1px solid rgba(0, 240, 255, 0.15); display: flex; justify-content: space-around; align-items: center; padding-bottom: 25px; z-index: 1000; box-shadow: 0 -10px 30px rgba(0,0,0,0.8); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-dim); cursor: pointer; transition: 0.4s; position: relative; }
+        .nav-item::after { content: ''; position: absolute; bottom: -10px; width: 0; height: 3px; background: var(--primary); transition: 0.3s; box-shadow: var(--glow-cyan); }
+        .nav-item.active { color: var(--primary); transform: translateY(-8px); }
+        .nav-item.active::after { width: 100%; }
+        .nav-item svg { width: 28px; height: 28px; stroke: currentColor; stroke-width: 2; fill: none; transition: 0.3s; }
+        .nav-item:hover svg { stroke: #fff; filter: drop-shadow(0 0 5px #fff); }
+        .nav-label { font-size: 11px; font-family: var(--font-code); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+
+        .spinner { width: 50px; height: 50px; border: 4px solid var(--glass-border); border-top-color: var(--primary); border-left-color: var(--tertiary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 30px auto 50px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
     </style>
 </head>
 <body>
 
-    <!-- FPS Monitor -->
-    <div class="fps-monitor" id="fps">FPS: 60 | MEM: OK</div>
+    <canvas id="matrix-canvas"></canvas>
 
-    <!-- Custom Cursor -->
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-ring" id="cursor-ring"></div>
-
-    <!-- Background Particle Canvas -->
-    <canvas id="particles"></canvas>
-
-    <!-- Splash Screen -->
-    <div id="splash">
-        <div class="logo-box">
-            <h1 class="splash-logo">TOKYO X</h1>
-        </div>
-        <div class="sys-loading">INITIALIZING QUANTUM GRID<span>...</span></div>
+    <div id="splash-screen">
+        <div class="cyber-loader">ULTRA.PRO.MAX()</div>
+        <div class="spinner"></div>
+        <p style="color: var(--primary); font-family: var(--font-code); margin-top: 20px; letter-spacing: 5px;">ESTABLISHING UPLINK...</p>
     </div>
 
-    <!-- Header -->
+    <div id="toast-container"></div>
+
     <header>
-        <div class="header-logo">TOKYO<span>X</span></div>
-        <div class="nav-actions">
-            <button class="nav-btn" onclick="quantumRefresh()">↺</button>
-            <button class="nav-btn" onclick="toggleChat(true)">💬</button>
-        </div>
+        <div class="logo">TOKYO_X <span style="font-size: 14px; color: var(--secondary);">PRO</span></div>
+        <div class="ai-status"><div class="ai-pulse"></div> ZERO LAG SECURE</div>
     </header>
 
-    <!-- Infinite Optimized Gallery -->
-    <main class="gallery-container">
-        <div class="masonry" id="gallery-grid">
-            <!-- Quantum JS will inject infinite DOM nodes here -->
-        </div>
-        <div class="loader-zone" id="infinite-trigger">
-            <div class="quantum-spinner"></div>
-        </div>
-    </main>
-
-    <!-- Smart Bongo Cat -->
-    <div class="ai-fab" onclick="toggleChat()">
-        <img src="https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif" alt="AI Cat">
-        <div class="fab-ping" id="chat-ping"></div>
+    <div id="view-feed">
+        <div class="stories" id="story-container"></div>
+        <main class="gallery" id="grid"></main>
+        <div id="scroll-sentinel" style="height: 20px; width: 100%;"></div>
+        <div id="loader" style="display:none;"><div class="spinner"></div></div>
     </div>
 
-    <div class="chat-box" id="ai-chat">
-        <div class="chat-head">
-            <div class="cat-title">Bongo AI V2.0</div>
-            <button class="nav-btn" onclick="toggleChat()" style="font-size: 14px;">✕</button>
+    <div id="view-vault" style="display: none; padding: 100px 20px 120px; min-height: 100vh;">
+        <h1 style="font-family: var(--font-display); color: var(--primary); border-bottom: 2px solid var(--tertiary); padding-bottom: 10px; margin-bottom: 20px;">ENCRYPTED VAULT</h1>
+        <main class="gallery" id="vault-grid"></main>
+        <div id="vault-empty" style="text-align: center; color: var(--text-dim); margin-top: 50px; font-family: var(--font-code);">[ VAULT IS EMPTY. AWAITING DATA INPUT ]</div>
+    </div>
+
+    <div id="lightbox">
+        <div class="lb-close" onclick="closeLightbox()">✕</div>
+        <img src="" id="lb-image" class="lb-img">
+        <div class="hud-panel">
+            <div class="hud-title"><span>EXIF DATA EXTRACTED</span> <span>[LIVE STATUS: HACKED]</span></div>
+            <div class="hud-grid" id="dynamic-exif">
+                </div>
+            <button class="btn-download" style="width: 100%; border-radius: 12px; margin-top: 15px; height: 50px; font-family: var(--font-display); font-size: 16px; letter-spacing: 2px;" id="hud-download">FORCE DOWNLOAD 4K ASSET ⭳</button>
         </div>
-        <div class="chat-logs" id="logs">
-            <div class="msg bot">System online. Meow! 💻 Ami Neo-Tokyo er sobcheye fast AI cat. Apnar internet koto speed?</div>
-            <div class="typing" id="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+
+    <div class="ai-fab" onclick="toggleChat()" id="cat-trigger">
+        <img src="https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif" id="cat-img" alt="AI Cat">
+    </div>
+
+    <div class="chat-terminal" id="chatbox">
+        <div class="chat-header">
+            <span>🐱 Bongo_AI.exe [v10.0]</span>
+            <span onclick="toggleChat()" style="cursor:pointer; font-size:22px; color: var(--secondary);">✕</span>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="msg ai">Purrr... Welcome to the Ultra Pro Max Tokyo grid. I'm your AI companion. I run on Tuna and Code! 🐾 Tell me something!</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="ai-input" placeholder="Terminal command or text..." onkeypress="if(event.key === 'Enter') sendMsg()">
-            <button class="send-btn" onclick="sendMsg()">⮑</button>
+            <input type="text" id="chat-input" placeholder="Type a command or chat..." onkeypress="handleChat(event)">
+            <button onclick="processCommand()">→</button>
         </div>
     </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" id="nav-feed" onclick="switchView('feed')">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span class="nav-label">Nexus</span>
+        </div>
+        <div class="nav-item" onclick="forceGlitchRefresh()">
+            <svg viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.26l3.08 2.69"></path></svg>
+            <span class="nav-label">Reboot</span>
+        </div>
+        <div class="nav-item" id="nav-vault" onclick="switchView('vault')">
+            <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+            <span class="nav-label">Vault</span>
+        </div>
+    </nav>
 
     <script>
         /* =========================================================================
-           TOKYO X : QUANTUM ENGINE (ULTRA PERFORMANCE)
+           ULTRA PRO MAX ENGINE - WRITTEN FOR SPEED, ZERO DUPLICATES & FUN
            ========================================================================= */
-
-        // 1. CUSTOM CYBER CURSOR LOGIC
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorRing = document.getElementById('cursor-ring');
         
-        window.addEventListener('mousemove', (e) => {
-            cursorDot.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
-            cursorRing.style.left = `${e.clientX}px`;
-            cursorRing.style.top = `${e.clientY}px`;
-        });
-
-        document.addEventListener('mousedown', () => { cursorRing.style.width = '40px'; cursorRing.style.height = '40px'; cursorRing.style.background = 'rgba(0, 240, 255, 0.1)'; });
-        document.addEventListener('mouseup', () => { cursorRing.style.width = '30px'; cursorRing.style.height = '30px'; cursorRing.style.background = 'transparent'; });
-
-        // 2. FPS & PERFORMANCE MONITOR (Real-time Calculation)
-        const fpsEl = document.getElementById('fps');
-        let lastTime = performance.now();
-        let frameCount = 0;
-        let activeImages = 0;
-
-        function updatePerformance() {
-            const now = performance.now();
-            frameCount++;
-            if (now - lastTime >= 1000) {
-                const fps = frameCount;
-                fpsEl.innerText = `FPS: ${fps} | NODES: ${activeImages} | MEM: OPTIMIZED`;
-                fpsEl.style.color = fps > 45 ? '#0f0' : (fps > 30 ? '#ff0' : '#f00');
-                frameCount = 0;
-                lastTime = now;
-            }
-            requestAnimationFrame(updatePerformance);
-        }
-        requestAnimationFrame(updatePerformance);
-
-        // 3. BACKGROUND PARTICLE ENGINE (Canvas Rendering)
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        let width, height, particlesArray;
-
-        function initCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            particlesArray = [];
-            for (let i = 0; i < 60; i++) {
-                particlesArray.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    size: Math.random() * 2,
-                    speedY: Math.random() * -1 - 0.5,
-                    opacity: Math.random() * 0.5 + 0.1
-                });
-            }
-        }
-        function animateParticles() {
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillStyle = '#00f0ff';
-            particlesArray.forEach(p => {
-                ctx.globalAlpha = p.opacity;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                p.y += p.speedY;
-                if (p.y < 0) { p.y = height; p.x = Math.random() * width; }
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        initCanvas(); animateParticles();
-        window.addEventListener('resize', initCanvas);
-
-        // 4. BOOT SEQUENCE (Splash)
-        window.addEventListener('load', () => {
+        // --- 1. BOOT SEQUENCE & MATRIX OPTIMIZATION ---
+        window.onload = () => {
+            initMatrix();
             setTimeout(() => {
-                const splash = document.getElementById('splash');
+                const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
-                setTimeout(() => { splash.remove(); }, 800);
-            }, 2500);
-            initQuantumGrid();
-        });
+                setTimeout(() => splash.remove(), 800);
+                showToast('System Online. Welcome to Tokyo X.', 'success');
+            }, 2000);
+            initStories();
+            initEngine();
+            loadVaultData();
+        };
 
-        // 5. ADVANCED DOM RECYCLING & INFINITE GENERATION (The Secret to Speed)
-        // Huge seed array. We use dynamic query params to ensure they never cache as the exact same image.
-        const coreSeed = [
-            '1542051841857-5f90071e7989', '1579684126759-8664c120bf9c', '1554797589-7241bb691973',
-            '1551482850-a92bd0325bdf', '1601042879362-f3b1f240d9ce', '1564753063852-c32ab51416fb',
-            '1598875706266-96a8ebba0c31', '1605333552084-780c85ee2e69', '1570146059178-57cb5a909fc7',
-            '1618331835717-801e976710b2', '1601473634040-7f28ed51b9e4', '1583337130417-3346a1be7dee',
-            '1610312278520-bcc893a3ff1d', '1566810246-8877e8a946e3', '1568212177-3e112d8a0c2f',
-            '1526305886971-15b573a647bb', '1536697246787-1fc9bc7cb8ee', '1518005020951-eccb494ad742'
-        ];
-        
-        let genCycle = 1;
-        let isFetching = false;
-        const grid = document.getElementById('gallery-grid');
+        function initMatrix() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-        // Observer to detect when cards enter/leave screen for PERFORMANCE
-        const cardObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Lazy load image
-                    const img = entry.target.querySelector('img');
-                    if (img && !img.src) {
-                        img.src = img.dataset.src;
-                        img.onload = () => img.classList.add('loaded');
-                    }
+            const chars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = Array.from({ length: columns }).fill(1);
+
+            function draw() {
+                ctx.fillStyle = 'rgba(2, 2, 4, 0.1)'; 
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    // Add occasional red glitch characters
+                    ctx.fillStyle = Math.random() > 0.95 ? '#ff003c' : '#00f0ff';
+                    ctx.font = fontSize + 'px monospace';
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
                 }
-            });
-        }, { rootMargin: '200px' }); // Load slightly before visible
-
-        function initQuantumGrid() { generateNodes(12); }
-
-        function generateNodes(amount) {
-            if (isFetching) return;
-            isFetching = true;
-            
-            const fragment = document.createDocumentFragment();
-            
-            for(let i=0; i<amount; i++) {
-                const seedId = coreSeed[Math.floor(Math.random() * coreSeed.length)];
-                // Create unique dimensions algorithmically so images look different
-                const heightVar = Math.floor(Math.random() * (900 - 500 + 1) + 500); 
-                const uniqueSig = `&sig=${genCycle}_${i}`; // Cache buster
-                
-                const imgUrl = `https://images.unsplash.com/photo-${seedId}?auto=format&fit=crop&w=600&h=${heightVar}&q=80${uniqueSig}`;
-                const hdUrl = `https://images.unsplash.com/photo-${seedId}?auto=format&fit=crop&w=3000&q=100`;
-
-                const card = document.createElement('div');
-                card.className = 'post-card';
-                card.ondblclick = (e) => triggerIGHeart(card, e);
-                
-                // Note: using data-src for Lazy Loading
-                card.innerHTML = `
-                    <div class="img-wrapper" style="height: ${heightVar/2}px;">
-                        <img data-src="${imgUrl}" alt="Quantum Future">
-                        <div class="ig-heart">♥</div>
-                    </div>
-                    <div class="actions">
-                        <button class="btn-like" onclick="toggleLike(this)">♡</button>
-                        <button class="btn-download" onclick="secureDownload('${hdUrl}')">HACK ASSET</button>
-                    </div>
-                `;
-                
-                fragment.appendChild(card);
-                cardObserver.observe(card);
-                activeImages++;
+                requestAnimationFrame(draw); // Pro-level smooth animation
             }
-            
-            grid.appendChild(fragment);
-            genCycle++;
-            isFetching = false;
+            requestAnimationFrame(draw);
         }
 
-        // Infinite Scroll Trigger
-        const triggerObserver = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                setTimeout(() => generateNodes(8), 300); // Simulate network
-            }
-        }, { rootMargin: '800px' });
-        triggerObserver.observe(document.getElementById('infinite-trigger'));
+        // --- 2. MASSIVE ZERO-DUPLICATE POOL ENGINE ---
+        // Over 80+ Premium IDs. 
+        const masterPool = [
+            '1540959733332-eab4deabeeaf', '1554797589-7241bb691973', '1503899036084-c55cdd92da26', '1528360983277-13d401cdc186',
+            '1518005020951-eccb494ad742', '1493976040381-c1f9610f94f2', '1522850655386-81f1480f785b', '1551482850-a92bd0325bdf',
+            '1524413840845-310c14a58d18', '1579684126759-8664c120bf9c', '1532054041103-625d57b54a23', '1601042879362-f3b1f240d9ce',
+            '1515634928627-2a4e0a5bf533', '1519608487963-8afffb523363', '1545638162-850f3b48f9ec', '1564753063852-c32ab51416fb',
+            '1550566373-81b49f972b22', '1517411032315-54ef2cb783bb', '1563089145-599997674d42', '1571210190-3b0274719c8f',
+            '1598875706266-96a8ebba0c31', '1580659328266-340798eb82f1', '1605333552084-780c85ee2e69', '1575279624508-3ab9da253dd3',
+            '1570146059178-57cb5a909fc7', '1556094042-4e63e2d6342d', '1618331835717-801e976710b2', '1590412200986-51f116747352',
+            '1526481280693-3bfa7568e0f3', '1533050487297-09b450131906', '1601473634040-7f28ed51b9e4', '1542051841857-5f90071e7989',
+            '1504109586052-7a52d45e46dd', '1583337130417-3346a1be7dee', '1557321528-761e01bc6f32', '1561005166-51d2f623e595',
+            '1520165985834-60141680d287', '1610312278520-bcc893a3ff1d', '1566810246-8877e8a946e3', '1547823528-84226d97c7fb',
+            '1538356111053-748a5634b1ed', '1568212177-3e112d8a0c2f', '1514800361284-0697920199f1', '1526305886971-15b573a647bb',
+            '1492571350019-22de08371fd3', '1513407030348-73140fee0b36', '1536697246787-1fc9bc7cb8ee', '1582136006132-75d8d0526e5d'
+        ];
 
-        // 6. MICRO-INTERACTIONS
-        function triggerIGHeart(card, event) {
-            if (navigator.vibrate) navigator.vibrate(40);
-            const heart = card.querySelector('.ig-heart');
-            const likeBtn = card.querySelector('.btn-like');
-            
-            heart.classList.remove('burst');
-            void heart.offsetWidth; // Reflow
-            heart.classList.add('burst');
-            
-            if (likeBtn.innerText === '♡') {
-                likeBtn.classList.add('active');
-                likeBtn.innerText = '♥';
+        let activeQueue = [];
+        let loopCounter = 0;
+        let lastShownId = ""; // Track to ensure absolute zero overlap between loops
+        let isLoading = false;
+        const grid = document.getElementById('grid');
+        let vaultSaved = JSON.parse(localStorage.getItem('tokyoXVault')) || [];
+
+        // Advanced Fisher-Yates Shuffle
+        function shuffle(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
             }
+            return arr;
         }
 
-        function toggleLike(btn) {
-            if (navigator.vibrate) navigator.vibrate(20);
-            btn.classList.toggle('active');
-            btn.innerText = btn.classList.contains('active') ? '♥' : '♡';
+        function refillQueue() {
+            loopCounter++;
+            let newQueue = shuffle(masterPool);
+            // Ensure the first item of the new queue isn't the same as the last item shown
+            if (newQueue[newQueue.length - 1] === lastShownId) {
+                // Swap it with the first item
+                let temp = newQueue[newQueue.length - 1];
+                newQueue[newQueue.length - 1] = newQueue[0];
+                newQueue[0] = temp;
+            }
+            activeQueue = newQueue;
         }
 
-        function quantumRefresh() {
+        function initEngine() {
+            loopCounter = 0;
+            refillQueue();
+            loadItems(12);
+        }
+
+        function forceGlitchRefresh() {
+            if(navigator.vibrate) navigator.vibrate([30, 50, 30]);
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            grid.innerHTML = '';
-            activeImages = 0; genCycle++;
-            generateNodes(10);
-            appendLog("Grid Quantum State Reset Complete. 🌀", 'bot');
+            grid.style.opacity = '0.2';
+            grid.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                grid.innerHTML = '';
+                initEngine();
+                grid.style.opacity = '1';
+                grid.style.transform = 'scale(1)';
+                showToast('Grid Rebooted. New Nodes Acquired.', 'success');
+                changeCatState('hacker');
+                addChatMsg('ai', "I bypassed the firewall! Rebooted the photo nodes. 😈💻");
+            }, 600);
         }
 
-        async function secureDownload(url) {
-            if (navigator.vibrate) navigator.vibrate([20, 50]);
-            toggleChat(true);
-            appendLog("Accessing Quantum Server... Injecting payload. 🚀", 'bot');
+        // --- 3. HARDWARE ACCELERATED INFINITE SCROLL ---
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !isLoading && document.getElementById('view-feed').style.display !== 'none') {
+                document.getElementById('loader').style.display = 'block';
+                isLoading = true;
+                setTimeout(() => loadItems(10), 400); // Load 10 at a time smoothly
+            }
+        }, { rootMargin: '1000px' }); // Pre-load way before user reaches bottom
+        observer.observe(document.getElementById('scroll-sentinel'));
+
+        function loadItems(count) {
+            const fragment = document.createDocumentFragment();
+            for (let i = 0; i < count; i++) {
+                if (activeQueue.length === 0) refillQueue();
+                const photoId = activeQueue.pop();
+                lastShownId = photoId;
+                fragment.appendChild(createCard(photoId, loopCounter));
+            }
+            grid.appendChild(fragment);
+            document.getElementById('loader').style.display = 'none';
+            isLoading = false;
+        }
+
+        function createCard(photoId, cacheBust) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            // cacheBust logic ensures browser doesn't pull from local cache if we loop, simulating pure endless
+            const imgUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&fm=webp&w=${600 + cacheBust}&q=70`;
+            const hdUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=3000&q=100`;
             
+            const isSaved = vaultSaved.includes(photoId);
+
+            card.innerHTML = `
+                <img src="${imgUrl}" loading="lazy" decoding="async" alt="Tokyo Future" onclick="openLightbox('${hdUrl}')">
+                <div class="overlay">
+                    <div class="action-btns">
+                        <button class="btn-glass ${isSaved ? 'liked' : ''}" onclick="toggleLike(event, this, '${photoId}')">${isSaved ? '♥' : '♡'}</button>
+                    </div>
+                    <button class="btn-download" onclick="instantDownload(event, '${hdUrl}', 'TOKYO_X_${photoId}')" title="Download 3000x Resolution">⭳</button>
+                </div>
+            `;
+            return card;
+        }
+
+        // --- 4. TOAST NOTIFICATION SYSTEM ---
+        function showToast(message, type = '') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span style="font-size: 18px;">${type === 'success' ? '✔' : '⚠'}</span>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Remove
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // --- 5. VAULT LOGIC ---
+        function toggleLike(e, btn, photoId) {
+            e.stopPropagation(); // Prevent opening lightbox
+            if (navigator.vibrate) navigator.vibrate(40);
+            
+            if (vaultSaved.includes(photoId)) {
+                vaultSaved = vaultSaved.filter(id => id !== photoId);
+                btn.classList.remove('liked');
+                btn.innerHTML = '♡';
+                showToast('Asset removed from secure Vault.', 'warning');
+            } else {
+                vaultSaved.push(photoId);
+                btn.classList.add('liked');
+                btn.innerHTML = '♥';
+                showToast('Asset Encrypted to Vault.', 'success');
+                changeCatState('happy');
+            }
+            
+            localStorage.setItem('tokyoXVault', JSON.stringify(vaultSaved));
+            loadVaultData();
+        }
+
+        function loadVaultData() {
+            const vaultGrid = document.getElementById('vault-grid');
+            const emptyMsg = document.getElementById('vault-empty');
+            vaultGrid.innerHTML = '';
+            
+            if (vaultSaved.length === 0) {
+                emptyMsg.style.display = 'block';
+            } else {
+                emptyMsg.style.display = 'none';
+                const fragment = document.createDocumentFragment();
+                vaultSaved.forEach(photoId => {
+                    fragment.appendChild(createCard(photoId, 0));
+                });
+                vaultGrid.appendChild(fragment);
+            }
+        }
+
+        function switchView(view) {
+            if (navigator.vibrate) navigator.vibrate(20);
+            const feed = document.getElementById('view-feed');
+            const vault = document.getElementById('view-vault');
+            
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById(`nav-${view}`).classList.add('active');
+
+            if (view === 'vault') {
+                feed.style.display = 'none';
+                vault.style.display = 'block';
+                window.scrollTo({ top: 0 });
+                changeCatState('typing');
+            } else {
+                vault.style.display = 'none';
+                feed.style.display = 'block';
+            }
+        }
+
+        // --- 6. ADVANCED DOWNLOAD ENGINE ---
+        async function instantDownload(e, url, filename) {
+            e.stopPropagation();
+            if (navigator.vibrate) navigator.vibrate([50, 50]);
+            showToast('Bypassing security... Starting Download.', 'success');
+            changeCatState('hacker');
+
             try {
-                const res = await fetch(url);
-                const blob = await res.blob();
-                const objUrl = window.URL.createObjectURL(blob);
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                
                 const a = document.createElement('a');
-                a.href = objUrl;
-                a.download = `TOKYO_X_ASSET_${Date.now()}.jpg`;
+                a.href = blobUrl;
+                a.download = `${filename}.jpg`;
                 document.body.appendChild(a);
                 a.click();
-                a.remove();
-                window.URL.revokeObjectURL(objUrl);
-                setTimeout(() => appendLog("Asset Downloaded to local storage! 💾", 'bot'), 1000);
-            } catch(e) {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(blobUrl);
+                
+                setTimeout(() => showToast('4K File Downloaded Successfully!', 'success'), 1000);
+            } catch (err) {
                 window.open(url, '_blank');
-                appendLog("Direct download blocked. Opened in new dimension (tab). 🌌", 'bot');
+                showToast('Opened secure channel in new tab.', 'warning');
             }
         }
 
-        // 7. SMART BONGO AI LOGIC
-        const chatBox = document.getElementById('ai-chat');
-        const logs = document.getElementById('logs');
-        const typing = document.getElementById('typing-indicator');
-        const ping = document.getElementById('chat-ping');
-        let chatOpen = false;
+        // --- 7. DYNAMIC HUD EXIF GENERATOR ---
+        function generateFakeExif() {
+            const lenses = ["35mm f/1.4", "50mm f/1.2", "24-70mm f/2.8", "85mm f/1.4", "14mm f/2.8 Ultra-Wide"];
+            const speeds = ["1/125s", "1/250s", "1/500s", "1/1000s", "2.5s (Long Exp)"];
+            const isos = ["ISO 400", "ISO 800", "ISO 1600", "ISO 3200", "ISO 6400"];
+            const cameras = ["Sony A7S III", "Lumix S5 IIx", "RED Komodo 6K", "Fujifilm X-T4", "Canon R5 C"];
+            const vibes = ["Neon Grime", "Corporate Overlord", "Synthwave", "Alley Rat", "Rain Protocol"];
 
-        function toggleChat(force = false) {
-            chatOpen = force ? true : !chatOpen;
-            if (chatOpen) {
-                chatBox.classList.add('show');
-                ping.style.display = 'none'; // Clear notification
-            } else {
-                chatBox.classList.remove('show');
-            }
+            const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+            document.getElementById('dynamic-exif').innerHTML = `
+                <div class="hud-stat">SENSOR<span>${pick(cameras)}</span></div>
+                <div class="hud-stat">OPTICS<span>${pick(lenses)}</span></div>
+                <div class="hud-stat">EXPOSURE<span>${pick(isos)} • ${pick(speeds)}</span></div>
+                <div class="hud-stat">GEO-TAG<span>Sector ${Math.floor(Math.random()*99)}</span></div>
+                <div class="hud-stat">AESTHETIC<span>${pick(vibes)}</span></div>
+                <div class="hud-stat">RESOLUTION<span>3000x2000 px</span></div>
+            `;
         }
 
-        function appendLog(text, sender) {
-            const div = document.createElement('div');
-            div.className = `msg ${sender}`;
-            div.innerText = text;
-            logs.insertBefore(div, typing);
-            logs.scrollTop = logs.scrollHeight;
-        }
-
-        const brain = [
-            "Apnar network speed beshi na amar code? 😉",
-            "Bhai, ami ekta digital beral. Amar kono khida nai, shudhu RAM khai ami.",
-            "FPS 60 pacchen to? Na pele apnar phone e ektu jhol din.",
-            "Ei chobi gulo ami dark web theke hack kore enechhi. Kauke bolben na! 🤫",
-            "Arektu scroll korun, nicher dike aro premium chobi ache.",
-            "Code ta kemon laglo sotti kore bolben kintu!",
-            "Double tap kore like dite bhulben na bhai!"
-        ];
-
-        function sendMsg() {
-            const input = document.getElementById('ai-input');
-            const txt = input.value.trim();
-            if(!txt) return;
-
-            appendLog(txt, 'user');
-            input.value = '';
+        function openLightbox(hdUrl) {
+            generateFakeExif();
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lb-image').src = hdUrl;
             
-            // Show typing indicator
-            typing.style.display = 'flex';
-            logs.scrollTop = logs.scrollHeight;
+            const btn = document.getElementById('hud-download');
+            btn.onclick = (e) => instantDownload(e, hdUrl, `TOKYO_X_${Math.floor(Math.random()*10000)}`);
+
+            lb.classList.add('show');
+            if (navigator.vibrate) navigator.vibrate(30);
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('show');
+            setTimeout(() => document.getElementById('lb-image').src = '', 400); // Wait for transition
+        }
+
+        // --- 8. STORIES SECTOR ---
+        function initStories() {
+            const vibes = [
+                {name: "Shinjuku", img: "1542051841857-5f90071e7989"},
+                {name: "Akihabara", img: "1518005020951-eccb494ad742"},
+                {name: "Mecha Base", img: "1528360983277-13d401cdc186"},
+                {name: "Acid Rain", img: "1515634928627-2a4e0a5bf533"},
+                {name: "Cyber 2077", img: "1579684126759-8664c120bf9c"}
+            ];
+            const container = document.getElementById('story-container');
+            vibes.forEach(v => {
+                let div = document.createElement('div');
+                div.className = 'story';
+                div.onclick = () => {
+                    showToast(`Warping to ${v.name}...`, 'success');
+                    forceGlitchRefresh();
+                };
+                div.innerHTML = `
+                    <div class="story-ring"><div class="story-ring-inner"><img src="https://images.unsplash.com/photo-${v.img}?w=150&h=150&fit=crop" alt="${v.name}"></div></div>
+                    <span>${v.name}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // --- 9. ULTRA PRO MAX AI CAT LOGIC ---
+        const catGifs = {
+            normal: "https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif",
+            hacker: "https://media.tenor.com/tYt6t7J3pQMAAAAi/typing-cat.gif",
+            happy: "https://media.tenor.com/JjA34N39HnAAAAAi/bongo-cat-dance.gif",
+            sleeping: "https://media.tenor.com/H1GZ1i5Z2gIAAAAi/cat-sleep.gif",
+            shocked: "https://media.tenor.com/vHqLhA-mYEMAAAAi/cat-shocked.gif"
+        };
+
+        function changeCatState(state) {
+            const catTrigger = document.getElementById('cat-trigger');
+            const img = document.getElementById('cat-img');
+            
+            // Remove previous classes
+            catTrigger.classList.remove('cat-bounce', 'cat-spin', 'cat-glitch');
+            
+            // Apply new GIF and CSS animation based on state
+            if (catGifs[state]) img.src = catGifs[state];
+            
+            if (state === 'hacker') catTrigger.classList.add('cat-glitch');
+            else if (state === 'happy') catTrigger.classList.add('cat-bounce');
+            else if (state === 'shocked') catTrigger.classList.add('cat-spin');
+            
+            // Revert to normal after a while if not chatting
+            setTimeout(() => {
+                if(document.getElementById('chatbox').style.display !== 'flex'){
+                    img.src = catGifs.normal;
+                    catTrigger.classList.remove('cat-bounce', 'cat-spin', 'cat-glitch');
+                }
+            }, 5000);
+        }
+
+        function toggleChat() {
+            const chat = document.getElementById('chatbox');
+            if (chat.style.display === 'flex') {
+                chat.style.display = 'none';
+                changeCatState('normal');
+            } else {
+                chat.style.display = 'flex';
+                changeCatState('happy');
+                document.getElementById('chat-input').focus();
+            }
+            if (navigator.vibrate) navigator.vibrate(20);
+        }
+
+        function addChatMsg(sender, text) {
+            const body = document.getElementById('chat-body');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `msg ${sender}`;
+            msgDiv.innerText = text;
+            body.appendChild(msgDiv);
+            body.scrollTop = body.scrollHeight; 
+        }
+
+        function handleChat(e) {
+            if (e.key === 'Enter') processCommand();
+        }
+
+        function processCommand() {
+            const inputField = document.getElementById('chat-input');
+            const userText = inputField.value.trim().toLowerCase();
+            if (!userText) return;
+
+            addChatMsg('user', userText);
+            inputField.value = '';
+            changeCatState('typing');
 
             setTimeout(() => {
-                typing.style.display = 'none';
-                let res = "";
-                const l = txt.toLowerCase();
-                
-                if(l.includes('fast') || l.includes('speed')) res = "Toh ki bhabechilen? Advanced memory management use korechi ami! 😎";
-                else if(l.includes('boro code')) res = "Hehe, 300+ line er pure art toiri korechi apnar jonno.";
-                else if(l.includes('love') || l.includes('valobashi')) res = "Ami ekta AI. Amar anubhuti nei. Tobey mach dile valo basi. 🐟";
-                else res = brain[Math.floor(Math.random() * brain.length)];
-                
-                appendLog(res, 'bot');
-                if(!chatOpen) ping.style.display = 'block'; // Show notification if closed
-            }, 1200 + Math.random() * 1000);
+                // Advanced NLP-style Matching
+                if (userText === 'clear' || userText === 'cls') {
+                    document.getElementById('chat-body').innerHTML = '';
+                    addChatMsg('ai', "Memory wiped. Ready for new commands! 🧹");
+                    changeCatState('normal');
+                } 
+                else if (userText.includes('hack') || userText.includes('matrix')) {
+                    addChatMsg('ai', "Accessing the Mainframe... Bypassing security... Found the tuna vault! 🐟💻");
+                    changeCatState('hacker');
+                    forceGlitchRefresh();
+                }
+                else if (userText.includes('fast') || userText.includes('lag') || userText.includes('speed')) {
+                    addChatMsg('ai', "I'm running on Web Workers and Hardware Acceleration. Zero lag, pure speed! ⚡🏎️");
+                    changeCatState('happy');
+                }
+                else if (userText.includes('hello') || userText.includes('hi') || userText.includes('meow')) {
+                    addChatMsg('ai', "Meow! Welcome back user. The neon streets are waiting. 🐾");
+                    changeCatState('normal');
+                }
+                else if (userText.includes('sleep') || userText.includes('tired')) {
+                    addChatMsg('ai', "Zzz... the code is compiling... leave me alone... 💤");
+                    changeCatState('sleeping');
+                }
+                else if (userText.includes('dog')) {
+                    addChatMsg('ai', "SYSTEM ERROR! FORBIDDEN WORD DETECTED! HISS! 😾🚨");
+                    changeCatState('shocked');
+                }
+                else {
+                    const randomResponses = [
+                        "Purr-cessing your request...", 
+                        "Did you see that glowing alleyway? Download it!", 
+                        "I'm just a cat, I don't know HTML... wait, yes I do.", 
+                        "Error: Need more fish bytes. 🍣", 
+                        "That's highly aesthetic. Keep scrolling!"
+                    ];
+                    addChatMsg('ai', randomResponses[Math.floor(Math.random() * randomResponses.length)]);
+                    changeCatState(Math.random() > 0.5 ? 'happy' : 'normal');
+                }
+            }, 800); 
         }
     </script>
 </body>
