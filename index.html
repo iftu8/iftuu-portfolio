@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TOKYO X | Ultra AI Max</title>
+    <title>TOKYO X | Ultra Pro Max</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* =========================================
+           1. CORE VARIABLES & SETUP
+           ========================================= */
         :root {
             --bg-color: #030305;
-            --surface-color: rgba(20, 20, 25, 0.7);
+            --surface-color: rgba(15, 15, 20, 0.6);
             --text-main: #ffffff;
             --text-dim: #8e8e93;
             --primary: #00f0ff;
             --secondary: #ff003c;
             --tertiary: #b026ff;
-            --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --font-main: 'Inter', sans-serif;
             --font-display: 'Space Grotesk', sans-serif;
+            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.4);
+            --glow-red: 0 0 20px rgba(255, 0, 60, 0.4);
         }
 
-        ::-webkit-scrollbar { display: none; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--tertiary); border-radius: 10px; }
 
         body {
             font-family: var(--font-main); background: var(--bg-color);
@@ -30,181 +36,257 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- SPLASH SCREEN --- */
-        #splash-screen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #000; z-index: 9999; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; transition: opacity 0.8s ease;
-        }
-        .cyber-loader { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--text-main); letter-spacing: 5px; text-transform: uppercase; animation: glitch 1s infinite; }
-        .progress-bar { width: 200px; height: 2px; background: var(--glass-border); margin-top: 20px; position: relative; overflow: hidden; }
-        .progress-bar::after { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); animation: loadBar 2s forwards ease-in-out; }
-        @keyframes loadBar { to { width: 100%; } }
-        @keyframes glitch { 0% { text-shadow: 2px 0 var(--secondary), -2px 0 var(--primary); } 50% { text-shadow: -2px 0 var(--secondary), 2px 0 var(--primary); } 100% { text-shadow: 2px 0 var(--secondary), -2px 0 var(--primary); } }
+        /* Matrix Canvas Background */
+        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.15; pointer-events: none; }
 
-        /* --- HEADER --- */
+        /* =========================================
+           2. SPLASH & HEADER
+           ========================================= */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000;
+            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease;
+        }
+        .cyber-loader { font-family: var(--font-display); font-size: 3rem; font-weight: 800; text-transform: uppercase; text-shadow: var(--glow-cyan); }
+        
         header {
             position: fixed; top: 0; width: 100%; padding: 15px 20px;
-            background: rgba(3, 3, 5, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            background: rgba(3, 3, 5, 0.85); backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--glass-border); z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .logo { font-family: var(--font-display); font-size: 22px; font-weight: 800; background: linear-gradient(90deg, var(--primary), var(--tertiary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .ai-status { font-size: 11px; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 5px; border: 1px solid var(--primary); padding: 4px 10px; border-radius: 20px; }
-        .ai-pulse { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(0, 240, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); } }
+        .logo { font-family: var(--font-display); font-size: 26px; font-weight: 800; background: linear-gradient(90deg, var(--primary), var(--tertiary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .ai-status { font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--primary); padding: 6px 15px; border-radius: 20px; box-shadow: var(--glow-cyan); }
+        .ai-pulse { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; animation: pulse 1.2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,240,255,0.8); } 70% { box-shadow: 0 0 0 10px rgba(0,240,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,240,255,0); } }
 
-        /* --- STORIES (VIBE SELECTOR) --- */
-        .stories { margin-top: 80px; padding: 10px 20px; display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; }
+        /* =========================================
+           3. STORIES & GALLERY (FEED)
+           ========================================= */
+        .stories { margin-top: 85px; padding: 15px 20px; display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; }
         .story { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; flex-shrink: 0; }
-        .story-ring { width: 70px; height: 70px; border-radius: 50%; padding: 3px; background: linear-gradient(45deg, var(--secondary), var(--tertiary)); transition: 0.3s; }
-        .story-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--bg-color); }
-        .story:hover .story-ring { transform: scale(1.05); }
-        .story span { font-size: 11px; font-weight: 600; color: var(--text-dim); }
+        .story-ring {
+            width: 80px; height: 80px; border-radius: 50%; padding: 3px;
+            background: conic-gradient(from 0deg, var(--secondary), var(--tertiary), var(--primary), var(--secondary));
+            animation: spinBg 4s linear infinite; display: flex; justify-content: center; align-items: center; transition: 0.3s;
+        }
+        @keyframes spinBg { 100% { transform: rotate(360deg); } }
+        .story-ring-inner { width: 100%; height: 100%; background: var(--bg-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; animation: spinBgReverse 4s linear infinite; }
+        @keyframes spinBgReverse { 100% { transform: rotate(-360deg); } }
+        .story-ring-inner img { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg-color); }
+        .story:hover .story-ring { transform: scale(1.1); }
+        .story span { font-size: 12px; font-weight: 700; color: #fff; }
 
-        /* --- MASONRY GRID --- */
-        .gallery { padding: 10px 15px 120px; column-count: 2; column-gap: 15px; }
+        .gallery { padding: 15px 20px 120px; column-count: 2; column-gap: 15px; }
         @media (min-width: 768px) { .gallery { column-count: 3; } }
         @media (min-width: 1024px) { .gallery { column-count: 4; } }
 
-        .card { break-inside: avoid; margin-bottom: 15px; border-radius: 20px; position: relative; overflow: hidden; background: var(--surface-color); opacity: 0; animation: fadeUp 0.6s forwards cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .card { break-inside: avoid; margin-bottom: 15px; border-radius: 20px; position: relative; overflow: hidden; background: var(--surface-color); cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
+        .card img { width: 100%; display: block; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .card:hover img { transform: scale(1.08); }
         
-        .card img { width: 100%; display: block; object-fit: cover; transition: transform 0.5s ease; }
-        .card:hover img { transform: scale(1.05); }
-
-        /* Double Tap Heart Animation */
-        .big-heart { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); color: var(--secondary); font-size: 80px; filter: drop-shadow(0 0 20px rgba(255,0,60,0.8)); opacity: 0; pointer-events: none; z-index: 10; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .big-heart.active { transform: translate(-50%, -50%) scale(1); opacity: 1; animation: heartBeat 0.8s forwards; }
-        @keyframes heartBeat { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 15% { transform: translate(-50%, -50%) scale(1.2); } 30% { transform: translate(-50%, -50%) scale(1); } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
-
-        /* Card Overlays */
-        .overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px 15px 15px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); display: flex; justify-content: space-between; align-items: flex-end; opacity: 0; transition: 0.3s; }
+        .overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 15px 15px; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); display: flex; justify-content: space-between; align-items: flex-end; opacity: 0; transition: 0.3s ease; }
         .card:hover .overlay { opacity: 1; }
-        .btn-glass { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; cursor: pointer; transition: 0.2s; }
-        .btn-glass:hover { background: #fff; color: #000; }
-        .btn-glass.liked { background: var(--secondary); border-color: var(--secondary); color: #fff; }
-
-        /* --- AI VISION LIGHTBOX (MODAL) --- */
-        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 3000; justify-content: center; align-items: center; flex-direction: column; padding: 20px; opacity: 0; transition: opacity 0.3s; }
-        #lightbox.show { display: flex; opacity: 1; }
-        .lb-close { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 30px; cursor: pointer; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; background: var(--surface-color); border-radius: 50%; }
-        .lb-img { max-width: 100%; max-height: 60vh; border-radius: 20px; box-shadow: 0 20px 50px rgba(0, 240, 255, 0.2); border: 1px solid var(--primary); }
-        .ai-analysis { margin-top: 20px; width: 100%; max-width: 400px; background: var(--surface-color); border: 1px solid var(--glass-border); padding: 20px; border-radius: 16px; }
-        .ai-title { font-family: var(--font-display); font-size: 16px; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .tag-container { display: flex; flex-wrap: wrap; gap: 8px; }
-        .ai-tag { background: rgba(0, 240, 255, 0.1); color: var(--primary); font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(0, 240, 255, 0.3); }
-
-        /* --- BOTTOM NAV --- */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; height: 85px; background: rgba(5, 5, 8, 0.9); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-top: 1px solid var(--glass-border); display: flex; justify-content: space-around; align-items: center; padding-bottom: 20px; z-index: 1000; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-dim); cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--primary); transform: translateY(-3px); }
-        .nav-item svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
-        .nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* --- AI ASSISTANT TERMINAL --- */
-        .ai-fab { position: fixed; bottom: 100px; right: 20px; z-index: 2000; width: 60px; height: 60px; border-radius: 50%; background: var(--surface-color); border: 2px solid var(--tertiary); box-shadow: 0 10px 30px rgba(176, 38, 255, 0.4); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; overflow: hidden; }
-        .ai-fab img { width: 100%; height: 100%; object-fit: cover; }
-        .ai-fab:hover { transform: scale(1.1); box-shadow: 0 0 40px var(--primary); border-color: var(--primary); }
         
-        .ai-terminal { position: fixed; bottom: 170px; right: 20px; width: 300px; background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--primary); border-radius: 20px; padding: 20px; z-index: 2000; display: none; flex-direction: column; gap: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); transform-origin: bottom right; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .terminal-header { display: flex; justify-content: space-between; align-items: center; color: var(--primary); font-family: var(--font-display); font-size: 14px; border-bottom: 1px solid rgba(0,240,255,0.2); padding-bottom: 10px; }
-        .terminal-body { font-size: 13px; line-height: 1.5; color: #ddd; min-height: 60px; }
-        .terminal-input { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 10px 15px; border-radius: 12px; color: #fff; font-family: var(--font-main); outline: none; width: 100%; }
+        .action-btns { display: flex; gap: 8px; }
+        .btn-glass { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); color: #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; cursor: pointer; transition: 0.2s; }
+        .btn-glass:hover { background: #fff; color: #000; transform: translateY(-3px); }
+        .btn-glass.liked { background: var(--secondary); border-color: var(--secondary); color: #fff; text-shadow: var(--glow-red); animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-download { background: var(--primary); color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: var(--glow-cyan); }
+        .btn-download:hover { background: #fff; transform: scale(1.1); }
+        @keyframes pop { 50% { transform: scale(1.4); } }
 
-        #scroll-sentinel { width: 100%; height: 10px; }
-        .spinner { width: 30px; height: 30px; border: 3px solid var(--glass-border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 20px auto 40px; }
+        /* =========================================
+           4. VAULT (SAVED PHOTOS SECTION)
+           ========================================= */
+        #vault-section { display: none; padding: 100px 20px 120px; min-height: 100vh; }
+        .vault-header { font-family: var(--font-display); font-size: 28px; color: var(--tertiary); margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; text-shadow: 0 0 15px rgba(176,38,255,0.5); }
+        #vault-empty { text-align: center; color: var(--text-dim); margin-top: 50px; font-size: 16px; display: none; }
+
+        /* =========================================
+           5. ADVANCED HUD LIGHTBOX
+           ========================================= */
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 3000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s; }
+        #lightbox.show { display: flex; opacity: 1; }
+        .lb-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #fff; cursor: pointer; border: 1px solid var(--glass-border); }
+        .lb-img { max-width: 100%; max-height: 55vh; border-radius: 15px; border: 1px solid var(--primary); box-shadow: var(--glow-cyan); object-fit: contain; }
+        .hud-panel { margin-top: 25px; width: 100%; max-width: 500px; background: var(--surface-color); border: 1px solid var(--primary); padding: 20px; border-radius: 15px; }
+        .hud-title { color: var(--primary); font-family: var(--font-display); font-size: 18px; margin-bottom: 15px; border-bottom: 1px dashed rgba(0,240,255,0.3); padding-bottom: 10px; }
+        .hud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .hud-stat { font-size: 12px; color: var(--text-dim); }
+        .hud-stat span { color: #fff; font-weight: bold; display: block; font-size: 14px; margin-top: 4px; }
+        
+        /* =========================================
+           6. AI CAT CHAT TERMINAL
+           ========================================= */
+        .ai-fab { position: fixed; bottom: 110px; right: 20px; z-index: 2000; width: 70px; height: 70px; border-radius: 50%; background: var(--surface-color); border: 2px solid var(--tertiary); box-shadow: 0 0 20px rgba(176,38,255,0.4); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; }
+        .ai-fab img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .ai-fab:hover { transform: scale(1.1); box-shadow: var(--glow-cyan); border-color: var(--primary); }
+        
+        .chat-terminal { position: fixed; bottom: 190px; right: 20px; width: 340px; background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--primary); border-radius: 20px; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9); z-index: 2000; transform-origin: bottom right; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; }
+        @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .chat-header { background: rgba(0,240,255,0.1); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--primary); }
+        .chat-header span { font-family: var(--font-display); color: var(--primary); font-weight: 800; font-size: 15px; }
+        .chat-body { padding: 15px; height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 13px; line-height: 1.5; }
+        
+        .msg { max-width: 85%; padding: 10px 15px; border-radius: 15px; }
+        .msg.ai { background: rgba(176,38,255,0.15); border: 1px solid var(--tertiary); color: #fff; align-self: flex-start; border-bottom-left-radius: 0; }
+        .msg.user { background: rgba(0,240,255,0.15); border: 1px solid var(--primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 0; }
+        
+        .chat-input-area { padding: 15px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; }
+        .chat-input-area input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 10px 15px; border-radius: 10px; color: #fff; outline: none; }
+        .chat-input-area button { background: var(--primary); border: none; padding: 0 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+
+        /* =========================================
+           7. BOTTOM NAVIGATION
+           ========================================= */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; height: 85px; background: rgba(5, 5, 8, 0.95); backdrop-filter: blur(25px); border-top: 1px solid var(--glass-border); display: flex; justify-content: space-around; align-items: center; padding-bottom: 20px; z-index: 1000; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-dim); cursor: pointer; transition: 0.3s; }
+        .nav-item.active { color: var(--primary); transform: translateY(-5px); }
+        .nav-item svg { width: 26px; height: 26px; stroke: currentColor; stroke-width: 2; fill: none; }
+        .nav-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+
+        .spinner { width: 40px; height: 40px; border: 4px solid var(--glass-border); border-top-color: var(--tertiary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 20px auto 40px; }
         
         @media (max-width: 768px) {
-            .overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.8) 10%, transparent); }
+            .overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.85) 15%, transparent); padding-bottom: 12px; }
+            .chat-terminal { bottom: 0; right: 0; width: 100%; height: 100vh; border-radius: 0; z-index: 4000; }
+            .lb-img { max-height: 40vh; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. OS Boot Splash Screen -->
+    <canvas id="matrix-canvas"></canvas>
+
     <div id="splash-screen">
-        <div class="cyber-loader">TOKYO X_OS</div>
-        <div class="progress-bar"></div>
+        <div class="cyber-loader">SYSTEM.BOOT()</div>
+        <div class="spinner"></div>
     </div>
 
-    <!-- 2. Header -->
     <header>
         <div class="logo">TOKYO_X</div>
-        <div class="ai-status">
-            <div class="ai-pulse"></div> AI ACTIVE
-        </div>
+        <div class="ai-status"><div class="ai-pulse"></div> MAX ONLINE</div>
     </header>
 
-    <!-- 3. Stories (Vibe Selector) -->
-    <div class="stories" id="story-container">
-        <!-- Injected by JS -->
+    <div id="view-feed">
+        <div class="stories" id="story-container"></div>
+        <main class="gallery" id="grid"></main>
+        <div id="scroll-sentinel" style="height: 10px; width: 100%;"></div>
+        <div id="loader" style="display:none;"><div class="spinner"></div></div>
     </div>
 
-    <!-- 4. Main Gallery Grid -->
-    <main class="gallery" id="grid"></main>
-    <div id="scroll-sentinel"></div>
-    <div id="loader" style="display:none;"><div class="spinner"></div></div>
+    <div id="view-vault" style="display: none;">
+        <div id="vault-section">
+            <h1 class="vault-header">ENCRYPTED VAULT</h1>
+            <p style="color:var(--text-dim); margin-bottom: 20px;">Photos saved to local protocol.</p>
+            <main class="gallery" id="vault-grid"></main>
+            <div id="vault-empty">Vault is empty. Save photos from the feed.</div>
+        </div>
+    </div>
 
-    <!-- 5. AI Vision Lightbox -->
     <div id="lightbox">
         <div class="lb-close" onclick="closeLightbox()">✕</div>
         <img src="" id="lb-image" class="lb-img">
-        <div class="ai-analysis">
-            <div class="ai-title">🤖 AI VISION SCAN... <span id="scan-status" style="color:#fff; font-size:12px;">Complete</span></div>
-            <div class="tag-container" id="ai-tags"></div>
-            <a href="#" id="hd-download" download="TOKYO_X_ULTRA.jpg" style="display:block; width:100%; text-align:center; background:var(--primary); color:#000; padding:12px; border-radius:12px; text-decoration:none; font-weight:700; margin-top:15px; cursor:pointer;">DOWNLOAD 4K</a>
+        <div class="hud-panel">
+            <div class="hud-title">SCANNING EXIF DATA...</div>
+            <div class="hud-grid">
+                <div class="hud-stat">LENS<span>50mm f/1.4</span></div>
+                <div class="hud-stat">ISO<span>800</span></div>
+                <div class="hud-stat">SHUTTER<span>1/250s</span></div>
+                <div class="hud-stat">VIBE<span>Cyberpunk 2077</span></div>
+            </div>
+            <button class="btn-download" style="width: 100%; border-radius: 12px; margin-top: 10px;" id="hud-download">DOWNLOAD SECURE ASSET ⭳</button>
         </div>
     </div>
 
-    <!-- 6. Bottom Navigation -->
+    <div class="ai-fab" onclick="toggleChat()">
+        <img src="https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif" alt="AI Cat">
+    </div>
+
+    <div class="chat-terminal" id="chatbox">
+        <div class="chat-header">
+            <span>🐱 Bongo.AI_Terminal</span>
+            <span onclick="toggleChat()" style="cursor:pointer; font-size:20px;">✕</span>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="msg ai">Meow! Connected to Neo-Tokyo grid. Type "help" to see commands, or just chat with me! 🐾</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Enter command..." onkeypress="handleChat(event)">
+            <button onclick="processCommand()">→</button>
+        </div>
+    </div>
+
     <nav class="bottom-nav">
-        <div class="nav-item active" onclick="refreshApp()">
+        <div class="nav-item active" id="nav-feed" onclick="switchView('feed')">
             <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
             <span class="nav-label">Feed</span>
         </div>
-        <div class="nav-item" onclick="aiChat('Generate new visual combinations.')">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-            <span class="nav-label">Create</span>
+        <div class="nav-item" onclick="forceGlitchRefresh()">
+            <svg viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.26l3.08 2.69"></path></svg>
+            <span class="nav-label">Re-Roll</span>
         </div>
-        <div class="nav-item" onclick="aiChat('Accessing secure vault...')">
+        <div class="nav-item" id="nav-vault" onclick="switchView('vault')">
             <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
             <span class="nav-label">Vault</span>
         </div>
     </nav>
 
-    <!-- 7. AI Assistant Terminal -->
-    <div class="ai-fab" onclick="toggleTerminal()">
-        <img src="https://media.tenor.com/R3aMv7X2F1wAAAAi/bongo-cat-transparent.gif" alt="AI">
-    </div>
-    <div class="ai-terminal" id="terminal">
-        <div class="terminal-header">
-            <span>SYSTEM.AI_CAT</span>
-            <span onclick="toggleTerminal()" style="cursor:pointer; color:#fff;">✕</span>
-        </div>
-        <div class="terminal-body" id="term-text">
-            Initializing neural network... <br>
-            Zero duplicates guaranteed. <br>
-            How can I assist you in Neo-Tokyo?
-        </div>
-        <input type="text" class="terminal-input" placeholder="Type command..." onkeypress="handleTerminalInput(event)">
-    </div>
-
     <script>
-        // --- BOOT SEQUENCE ---
-        window.addEventListener('load', () => {
+        /* =========================================================================
+           ULTRA PRO MAX LOGIC - WRITTEN FOR SPEED & POWER
+           ========================================================================= */
+        
+        // --- 1. BOOT SEQUENCE ---
+        window.onload = () => {
+            initMatrix();
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 setTimeout(() => splash.remove(), 800);
-            }, 2000);
+            }, 1500);
             initStories();
             initEngine();
-        });
+            loadVaultData();
+        };
 
-        // --- ULTRA MASSIVE DATA POOL (Unsplash High-Quality Cyberpunk/Tokyo) ---
-        // 100+ IDs to ensure long scroll without any repeats.
+        // --- 2. MATRIX DIGITAL RAIN (CANVAS API) ---
+        function initMatrix() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロゴゾドボポヴッン';
+            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const nums = '0123456789';
+            const alphabet = katakana + latin + nums;
+
+            const fontSize = 16;
+            const columns = canvas.width / fontSize;
+            const rainDrops = Array.from({ length: columns }).fill(1);
+
+            function draw() {
+                ctx.fillStyle = 'rgba(3, 3, 5, 0.05)'; // Fade effect
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#00f0ff';
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < rainDrops.length; i++) {
+                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+                    if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        rainDrops[i] = 0;
+                    }
+                    rainDrops[i]++;
+                }
+            }
+            setInterval(draw, 50);
+        }
+
+        // --- 3. MASSIVE DATA POOL & CORE ENGINE ---
+        // Over 60 High Quality curated IDs for Cyberpunk/Tokyo vibe
         const masterPool = [
             '1540959733332-eab4deabeeaf', '1554797589-7241bb691973', '1503899036084-c55cdd92da26', '1528360983277-13d401cdc186',
             '1518005020951-eccb494ad742', '1493976040381-c1f9610f94f2', '1522850655386-81f1480f785b', '1551482850-a92bd0325bdf',
@@ -216,15 +298,17 @@
             '1526481280693-3bfa7568e0f3', '1533050487297-09b450131906', '1601473634040-7f28ed51b9e4', '1542051841857-5f90071e7989',
             '1504109586052-7a52d45e46dd', '1583337130417-3346a1be7dee', '1557321528-761e01bc6f32', '1561005166-51d2f623e595',
             '1520165985834-60141680d287', '1610312278520-bcc893a3ff1d', '1566810246-8877e8a946e3', '1547823528-84226d97c7fb',
-            '1538356111053-748a5634b1ed', '1568212177-3e112d8a0c2f', '1514800361284-0697920199f1', '1564753063852-c32ab51416fb',
-            '1526305886971-15b573a647bb', '1492571350019-22de08371fd3', '1513407030348-73140fee0b36', '1536697246787-1fc9bc7cb8ee'
+            '1538356111053-748a5634b1ed', '1568212177-3e112d8a0c2f', '1514800361284-0697920199f1', '1526305886971-15b573a647bb',
+            '1492571350019-22de08371fd3', '1513407030348-73140fee0b36', '1536697246787-1fc9bc7cb8ee', '1582136006132-75d8d0526e5d'
         ];
 
-        // --- ZERO DUPLICATE ENGINE ---
         let activeQueue = [];
-        let globalUsedSet = new Set(); // Stores absolutely everything shown in the session
-        const grid = document.getElementById('grid');
+        let loopCounter = 0;
         let isLoading = false;
+        const grid = document.getElementById('grid');
+
+        // LOCAL STORAGE SETUP FOR VAULT
+        let vaultSaved = JSON.parse(localStorage.getItem('tokyoXVault')) || [];
 
         function shuffle(array) {
             let arr = [...array];
@@ -236,127 +320,162 @@
         }
 
         function initEngine() {
-            globalUsedSet.clear();
+            loopCounter = 0;
             activeQueue = shuffle(masterPool);
             loadItems(12);
         }
 
-        function getStrictUniqueId() {
-            // If we somehow exhausted the MASSIVE pool, we must reset the memory to keep scrolling infinite
-            if (globalUsedSet.size >= masterPool.length) {
-                globalUsedSet.clear();
-                activeQueue = shuffle(masterPool);
-                aiChat("System memory full. Re-initializing matrix variables...");
-            }
-
-            let nextId = activeQueue.pop();
-            // Fallback safety
-            while (globalUsedSet.has(nextId) && activeQueue.length > 0) {
-                nextId = activeQueue.pop();
-            }
-            
-            if (!nextId) { // Failsafe
-                activeQueue = shuffle(masterPool);
-                nextId = activeQueue.pop();
-            }
-
-            globalUsedSet.add(nextId);
-            return nextId;
+        function forceGlitchRefresh() {
+            if(navigator.vibrate) navigator.vibrate([30, 50, 30]);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            grid.style.opacity = '0';
+            setTimeout(() => {
+                grid.innerHTML = '';
+                initEngine();
+                grid.style.opacity = '1';
+                addChatMsg('ai', "Re-rolling the simulation... Here are fresh nodes. 🎲");
+            }, 500);
         }
 
-        // --- INFINITE SCROLL OBSERVER ---
-        const sentinel = document.getElementById('scroll-sentinel');
+        // --- 4. INFINITE SCROLL RENDERER ---
         const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !isLoading) {
+            if (entries[0].isIntersecting && !isLoading && document.getElementById('view-feed').style.display !== 'none') {
                 document.getElementById('loader').style.display = 'block';
                 isLoading = true;
-                setTimeout(() => { loadItems(8); }, 300); // Super fast load time
+                setTimeout(() => loadItems(8), 300);
             }
-        }, { rootMargin: '1000px' });
-        observer.observe(sentinel);
+        }, { rootMargin: '800px' });
+        observer.observe(document.getElementById('scroll-sentinel'));
 
-        // --- RENDER ENGINE ---
         function loadItems(count) {
             const fragment = document.createDocumentFragment();
-
             for (let i = 0; i < count; i++) {
-                const photoId = getStrictUniqueId();
-                const imgUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&fm=webp&w=600&q=70`;
-                const hdUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=3000&q=100`;
-
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.ondblclick = (e) => triggerDoubleTap(card, e);
-                
-                card.innerHTML = `
-                    <img src="${imgUrl}" loading="lazy" alt="Neo Tokyo" onclick="openLightbox('${hdUrl}')">
-                    <i class="big-heart">♥</i>
-                    <div class="overlay">
-                        <button class="btn-glass" onclick="event.stopPropagation(); toggleLike(this, '${photoId}')">♡</button>
-                        <button class="btn-glass" onclick="event.stopPropagation(); openLightbox('${hdUrl}')" style="font-size:14px; background:var(--primary); color:#000; border:none; width:auto; padding:0 15px; border-radius:20px; font-weight:700;">SCAN</button>
-                    </div>
-                `;
-                fragment.appendChild(card);
+                if (activeQueue.length === 0) {
+                    loopCounter++;
+                    activeQueue = shuffle(masterPool);
+                }
+                const photoId = activeQueue.pop();
+                fragment.appendChild(createCard(photoId, loopCounter));
             }
             grid.appendChild(fragment);
             document.getElementById('loader').style.display = 'none';
             isLoading = false;
         }
 
-        // --- MICRO INTERACTIONS ---
-
-        // 1. Double Tap Like
-        function triggerDoubleTap(card, event) {
-            const heart = card.querySelector('.big-heart');
-            const likeBtn = card.querySelector('.btn-glass');
+        function createCard(photoId, cacheBust) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const imgWidth = 600 + cacheBust; 
+            const imgUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&fm=webp&w=${imgWidth}&q=70`;
+            const hdUrl = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=3000&q=100`;
             
-            // Haptic Feedback
-            if (navigator.vibrate) navigator.vibrate(50);
+            const isSaved = vaultSaved.includes(photoId);
 
-            heart.classList.remove('active');
-            void heart.offsetWidth; // Trigger reflow
-            heart.classList.add('active');
+            card.innerHTML = `
+                <img src="${imgUrl}" loading="lazy" decoding="async" alt="Cyberpunk View" onclick="openLightbox('${hdUrl}')">
+                <div class="overlay">
+                    <div class="action-btns">
+                        <button class="btn-glass ${isSaved ? 'liked' : ''}" onclick="toggleLike(this, '${photoId}')">${isSaved ? '♥' : '♡'}</button>
+                    </div>
+                    <button class="btn-download" onclick="instantDownload('${hdUrl}', 'TOKYO_X_${photoId}')" title="Free 4K Download">⭳</button>
+                </div>
+            `;
+            return card;
+        }
 
-            if (!likeBtn.classList.contains('liked')) {
-                likeBtn.classList.add('liked');
-                likeBtn.innerHTML = '♥';
+        // --- 5. VAULT LOGIC (LOCAL STORAGE) ---
+        function toggleLike(btn, photoId) {
+            if (navigator.vibrate) navigator.vibrate(40);
+            
+            if (vaultSaved.includes(photoId)) {
+                // Remove from vault
+                vaultSaved = vaultSaved.filter(id => id !== photoId);
+                btn.classList.remove('liked');
+                btn.innerHTML = '♡';
+                addChatMsg('ai', "File removed from Vault. 🗑️");
+            } else {
+                // Add to vault
+                vaultSaved.push(photoId);
+                btn.classList.add('liked');
+                btn.innerHTML = '♥';
+                addChatMsg('ai', "File securely encrypted in Vault! 🔒");
+            }
+            
+            localStorage.setItem('tokyoXVault', JSON.stringify(vaultSaved));
+            loadVaultData(); // Refresh vault view in background
+        }
+
+        function loadVaultData() {
+            const vaultGrid = document.getElementById('vault-grid');
+            const emptyMsg = document.getElementById('vault-empty');
+            vaultGrid.innerHTML = '';
+            
+            if (vaultSaved.length === 0) {
+                emptyMsg.style.display = 'block';
+            } else {
+                emptyMsg.style.display = 'none';
+                const fragment = document.createDocumentFragment();
+                vaultSaved.forEach(photoId => {
+                    fragment.appendChild(createCard(photoId, 0)); // No cache bust needed for vault
+                });
+                vaultGrid.appendChild(fragment);
             }
         }
 
-        // 2. Normal Like
-        function toggleLike(btn, id) {
-            if (navigator.vibrate) navigator.vibrate(30);
-            btn.classList.toggle('liked');
-            btn.innerHTML = btn.classList.contains('liked') ? '♥' : '♡';
+        function switchView(view) {
+            if (navigator.vibrate) navigator.vibrate(20);
+            const feed = document.getElementById('view-feed');
+            const vault = document.getElementById('view-vault');
+            
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById(`nav-${view}`).classList.add('active');
+
+            if (view === 'vault') {
+                feed.style.display = 'none';
+                vault.style.display = 'block';
+                addChatMsg('ai', "Accessing encrypted vault... 🛡️");
+                window.scrollTo({ top: 0 });
+            } else {
+                vault.style.display = 'none';
+                feed.style.display = 'block';
+            }
         }
 
-        // --- AI VISION LIGHTBOX ---
-        const tagsBank = [
-            "Location: Sector 7G", "Vibe: 98% Cyberpunk", "Neon Density: High", 
-            "Subject: Architecture", "Weather: Acid Rain", "Lighting: Synthetic",
-            "Era: 2077", "Location: Neo-Shinjuku", "Data: Encrypted"
-        ];
+        // --- 6. ADVANCED DOWNLOAD ENGINE ---
+        async function instantDownload(url, filename) {
+            if (navigator.vibrate) navigator.vibrate([50, 50]);
+            addChatMsg('ai', "Initiating 4K secure download... ⚡");
 
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = `${filename}.jpg`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(blobUrl);
+                
+                addChatMsg('ai', "Download successful! File saved. ✅");
+            } catch (err) {
+                window.open(url, '_blank');
+                addChatMsg('ai', "Bypassed CORS firewall. Opening file in new tab. 🔓");
+            }
+        }
+
+        // --- 7. HUD LIGHTBOX ---
         function openLightbox(hdUrl) {
             const lb = document.getElementById('lightbox');
-            const img = document.getElementById('lb-image');
-            const tagContainer = document.getElementById('ai-tags');
+            document.getElementById('lb-image').src = hdUrl;
             
-            img.src = hdUrl;
-            document.getElementById('hd-download').href = hdUrl;
-            
-            // Generate Random AI Tags
-            tagContainer.innerHTML = '';
-            let shuffledTags = shuffle(tagsBank).slice(0, 4);
-            shuffledTags.forEach(text => {
-                let span = document.createElement('span');
-                span.className = 'ai-tag';
-                span.innerText = text;
-                tagContainer.appendChild(span);
-            });
+            const btn = document.getElementById('hud-download');
+            btn.onclick = () => instantDownload(hdUrl, 'TOKYO_X_ASSET');
 
             lb.classList.add('show');
-            if (navigator.vibrate) navigator.vibrate(20);
+            if (navigator.vibrate) navigator.vibrate(30);
         }
 
         function closeLightbox() {
@@ -364,70 +483,85 @@
             document.getElementById('lb-image').src = '';
         }
 
-        // --- STORIES / VIBES ---
-        const vibes = [
-            {name: "Shibuya", img: "1542051841857-5f90071e7989"},
-            {name: "Neon Alley", img: "1518005020951-eccb494ad742"},
-            {name: "Mech", img: "1528360983277-13d401cdc186"},
-            {name: "Rain", img: "1515634928627-2a4e0a5bf533"},
-            {name: "Future", img: "1579684126759-8664c120bf9c"}
-        ];
-
+        // --- 8. STORIES SECTOR ---
         function initStories() {
+            const vibes = [
+                {name: "Shinjuku", img: "1542051841857-5f90071e7989"},
+                {name: "Neon Alley", img: "1518005020951-eccb494ad742"},
+                {name: "Mecha", img: "1528360983277-13d401cdc186"},
+                {name: "Acid Rain", img: "1515634928627-2a4e0a5bf533"},
+                {name: "Cyber 2077", img: "1579684126759-8664c120bf9c"}
+            ];
             const container = document.getElementById('story-container');
             vibes.forEach(v => {
                 let div = document.createElement('div');
                 div.className = 'story';
                 div.onclick = () => {
-                    aiChat(`Switching coordinates to: ${v.name}...`);
-                    refreshApp();
+                    addChatMsg('ai', `Jumping coordinates to Sector: ${v.name}... 🚀`);
+                    forceGlitchRefresh();
                 };
                 div.innerHTML = `
-                    <div class="story-ring"><img src="https://images.unsplash.com/photo-${v.img}?w=150&h=150&fit=crop" alt="${v.name}"></div>
+                    <div class="story-ring"><div class="story-ring-inner"><img src="https://images.unsplash.com/photo-${v.img}?w=150&h=150&fit=crop" alt="${v.name}"></div></div>
                     <span>${v.name}</span>
                 `;
                 container.appendChild(div);
             });
         }
 
-        function refreshApp() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            grid.innerHTML = '';
-            document.getElementById('loader').style.display = 'block';
+        // --- 9. AI CAT CHAT TERMINAL ---
+        function toggleChat() {
+            const chat = document.getElementById('chatbox');
+            chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+            if (navigator.vibrate) navigator.vibrate(20);
+        }
+
+        function addChatMsg(sender, text) {
+            const body = document.getElementById('chat-body');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `msg ${sender}`;
+            msgDiv.innerText = text;
+            body.appendChild(msgDiv);
+            body.scrollTop = body.scrollHeight; // Auto scroll down
+        }
+
+        function handleChat(e) {
+            if (e.key === 'Enter') processCommand();
+        }
+
+        function processCommand() {
+            const inputField = document.getElementById('chat-input');
+            const userText = inputField.value.trim().toLowerCase();
+            if (!userText) return;
+
+            addChatMsg('user', userText);
+            inputField.value = '';
+
             setTimeout(() => {
-                initEngine();
-            }, 500);
-        }
-
-        // --- AI CHAT TERMINAL ---
-        function toggleTerminal() {
-            const term = document.getElementById('terminal');
-            term.style.display = term.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function aiChat(msg) {
-            const text = document.getElementById('term-text');
-            const term = document.getElementById('terminal');
-            term.style.display = 'flex';
-            text.innerHTML = `> User: Command Executed <br>> AI: <span style="color:var(--primary)">${msg}</span>`;
-            
-            // Cat animation
-            const cat = document.querySelector('.ai-fab');
-            cat.style.transform = "scale(1.2)";
-            setTimeout(() => cat.style.transform = "scale(1)", 200);
-        }
-
-        function handleTerminalInput(e) {
-            if(e.key === 'Enter' && e.target.value.trim() !== '') {
-                const val = e.target.value;
-                aiChat(`Processing query: "${val}". Data encrypted.`);
-                e.target.value = '';
-                
-                // If user types "clear" or "reset"
-                if(val.toLowerCase() === 'reset') {
-                    refreshApp();
+                // Cat AI Brain Logic
+                if (userText === 'clear' || userText === 'cls') {
+                    document.getElementById('chat-body').innerHTML = '';
+                    addChatMsg('ai', "Terminal cleared. Terminal ready.");
+                } 
+                else if (userText.includes('matrix') || userText.includes('hack')) {
+                    addChatMsg('ai', "I'm already in the mainframe. Fetching tuna coordinates... 🐟");
                 }
-            }
+                else if (userText.includes('hello') || userText.includes('hi')) {
+                    addChatMsg('ai', "Meow! Ready to explore Neo-Tokyo? Use the feed to find sick wallpapers.");
+                }
+                else if (userText === 'help') {
+                    addChatMsg('ai', "Commands: 'clear' (clears chat), 'matrix' (hack mode), 'hello'. Or just click 'Re-Roll' in the nav!");
+                }
+                else if (userText.includes('pro max')) {
+                    addChatMsg('ai', "This is the ultimate Pro Max architecture! No bloatware, just pure cyberpunk speed. ⚡");
+                }
+                else {
+                    const randomResponses = [
+                        "Purr-cessing...", "Are you a replicant? 🤖", "I just knocked a glass off the cyber-table.", 
+                        "System error: Need more head scratches.", "Analyzing pixel data... highly aesthetic."
+                    ];
+                    addChatMsg('ai', randomResponses[Math.floor(Math.random() * randomResponses.length)]);
+                }
+            }, 600); // Slight delay for realistic feel
         }
     </script>
 </body>
