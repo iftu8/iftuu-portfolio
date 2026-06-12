@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="neon-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEON GENESIS OS | OMEGA TIER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&family=Fira+Code:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =======================================================================
+           [1] OMEGA TIER VARIABLES & CORE SYSTEM
+           ======================================================================= */
+        :root {
+            --bg-base: #050508;
+            --os-surface: rgba(10, 12, 20, 0.6);
+            --os-border: rgba(0, 255, 255, 0.15);
+            --cyan: #00f3ff;
+            --magenta: #ff00ea;
+            --yellow: #fcee0a;
+            --crimson: #ff003c;
+            --text-main: #e0e0e0;
+            --text-muted: #6b7280;
+            --font-display: 'Orbitron', sans-serif;
+            --font-ui: 'Rajdhani', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --glow-cyan: 0 0 15px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 243, 255, 0.1);
+            --glow-magenta: 0 0 15px rgba(255, 0, 234, 0.4);
+            --scanline: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+
+        body {
+            background-color: var(--bg-base); color: var(--text-main); font-family: var(--font-ui);
+            height: 100vh; width: 100vw; overflow: hidden; position: relative;
+        }
+
+        /* CRT Overlay Effect */
+        body::after {
+            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+            background: var(--scanline); background-size: 100% 4px; z-index: 9999;
+            pointer-events: none; opacity: 0.15;
+        }
+
+        /* Background Canvas */
+        #warp-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; }
+
+        /* =======================================================================
+           [2] BOOT SEQUENCE (BIOS)
+           ======================================================================= */
+        #boot-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000;
+            z-index: 10000; display: flex; flex-direction: column; padding: 20px;
+            font-family: var(--font-mono); color: #0f0; font-size: 14px; overflow: hidden;
+            text-shadow: 0 0 5px #0f0;
+        }
+        .boot-line { margin-bottom: 5px; opacity: 0; animation: typeLine 0.1s forwards; }
+        @keyframes typeLine { to { opacity: 1; } }
+        .glitch-text-giant {
+            font-size: 4rem; font-family: var(--font-display); color: var(--cyan);
+            margin: auto; text-align: center; text-transform: uppercase;
+            animation: glitchEffect 2s infinite; display: none;
+        }
+        @keyframes glitchEffect {
+            0% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--yellow); }
+            20% { text-shadow: -2px 0 var(--magenta), 2px 0 var(--yellow); transform: translate(-2px, 2px); }
+            40% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--yellow); transform: translate(2px, -2px); }
+            60% { text-shadow: -2px 0 var(--magenta), 2px 0 var(--yellow); transform: translate(0, 0); }
+            100% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--yellow); }
+        }
+
+        /* =======================================================================
+           [3] OS DESKTOP & HUD
+           ======================================================================= */
+        #desktop { position: relative; width: 100vw; height: 100vh; z-index: 10; display: none; }
+        
+        .top-bar {
+            position: absolute; top: 0; width: 100%; height: 35px; background: rgba(0,0,0,0.8);
+            border-bottom: 1px solid var(--cyan); display: flex; justify-content: space-between;
+            align-items: center; padding: 0 20px; font-family: var(--font-mono); font-size: 12px;
+            backdrop-filter: blur(10px); color: var(--cyan); z-index: 100;
+        }
+        .top-bar span strong { color: var(--magenta); }
+
+        .hud-overlay {
+            position: absolute; top: 60px; right: 20px; width: 250px; pointer-events: none;
+        }
+        .hud-box {
+            background: rgba(5, 5, 10, 0.4); border: 1px solid rgba(0, 243, 255, 0.3);
+            padding: 15px; margin-bottom: 15px; border-radius: 5px; box-shadow: var(--glow-cyan);
+            backdrop-filter: blur(5px); position: relative; overflow: hidden;
+        }
+        .hud-box::before { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background: linear-gradient(90deg, transparent, rgba(0,243,255,0.2), transparent); animation: scan 2s infinite linear; }
+        @keyframes scan { to { left: 200%; } }
+        .hud-title { font-family: var(--font-display); font-size: 12px; color: var(--magenta); letter-spacing: 2px; margin-bottom: 10px; border-bottom: 1px solid var(--os-border); padding-bottom: 5px; }
+        .hud-stat { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; margin-bottom: 5px; }
+        .progress-bar { width: 100%; height: 4px; background: #222; margin-top: 5px; position: relative; }
+        .progress-fill { height: 100%; background: var(--cyan); width: 0%; transition: width 0.3s; }
+
+        /* =======================================================================
+           [4] DRAGGABLE WINDOW SYSTEM (APP CONTAINERS)
+           ======================================================================= */
+        .os-window {
+            position: absolute; background: var(--os-surface); border: 1px solid var(--cyan);
+            border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,255,255,0.05);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; flex-direction: column; overflow: hidden; transition: transform 0.2s, opacity 0.2s;
+        }
+        .window-header {
+            height: 40px; background: rgba(0,0,0,0.7); border-bottom: 1px solid var(--cyan);
+            display: flex; justify-content: space-between; align-items: center; padding: 0 15px;
+            cursor: grab; font-family: var(--font-display); font-size: 14px; letter-spacing: 1px;
+        }
+        .window-header:active { cursor: grabbing; }
+        .window-title { display: flex; align-items: center; gap: 8px; color: var(--cyan); text-shadow: var(--glow-cyan); }
+        .window-controls { display: flex; gap: 8px; }
+        .win-btn { width: 14px; height: 14px; border-radius: 50%; border: none; cursor: pointer; transition: 0.3s; }
+        .btn-close { background: var(--crimson); box-shadow: 0 0 10px var(--crimson); }
+        .btn-min { background: var(--yellow); box-shadow: 0 0 10px var(--yellow); }
+        .btn-max { background: #0f0; box-shadow: 0 0 10px #0f0; }
+        .win-btn:hover { filter: brightness(1.5); }
+        .window-body { flex: 1; overflow-y: auto; overflow-x: hidden; position: relative; }
+
+        /* App 1: The Nexus Gallery (3D Tilt & Infinite) */
+        #app-gallery { top: 80px; left: 50px; width: 65vw; height: 75vh; resize: both; }
+        .gallery-grid { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; perspective: 1000px; }
+        .neo-card {
+            background: #000; border: 1px solid var(--os-border); border-radius: 10px; overflow: hidden;
+            position: relative; height: 350px; cursor: crosshair; transform-style: preserve-3d;
+            transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+        }
+        .neo-card img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s, filter 0.3s; filter: grayscale(30%) contrast(120%); }
+        .neo-card:hover { border-color: var(--cyan); z-index: 10; }
+        .neo-card:hover img { filter: grayscale(0%) contrast(110%); }
+        .card-glare {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), transparent);
+            opacity: 0; pointer-events: none; transition: opacity 0.3s; mix-blend-mode: overlay;
+        }
+        .neo-card:hover .card-glare { opacity: 1; }
+        .card-data {
+            position: absolute; bottom: 0; width: 100%; padding: 15px; background: linear-gradient(0deg, #000 0%, transparent 100%);
+            transform: translateZ(30px); /* 3D pop effect */ font-family: var(--font-mono);
+        }
+        .data-id { color: var(--magenta); font-size: 10px; margin-bottom: 5px; }
+        .btn-vault { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 15px; font-family: var(--font-display); cursor: pointer; transition: 0.3s; font-size: 12px; border-radius: 3px; }
+        .btn-vault:hover { background: var(--cyan); color: #000; box-shadow: var(--glow-cyan); }
+
+        /* App 2: Neural AI Core Terminal */
+        #app-terminal { top: 120px; right: 300px; width: 400px; height: 500px; }
+        .term-output { padding: 15px; font-family: var(--font-mono); font-size: 13px; color: #0f0; display: flex; flex-direction: column; gap: 10px; min-height: calc(100% - 50px); }
+        .sys-msg { color: var(--yellow); }
+        .user-msg { color: var(--cyan); text-align: right; }
+        .ai-msg { color: var(--text-main); position: relative; padding-left: 15px; border-left: 2px solid var(--magenta); }
+        .term-input-container { position: absolute; bottom: 0; width: 100%; border-top: 1px solid var(--cyan); background: #000; display: flex; align-items: center; padding: 10px; }
+        .term-input-container span { color: var(--magenta); margin-right: 10px; font-weight: bold; }
+        .term-input { flex: 1; background: transparent; border: none; color: var(--cyan); font-family: var(--font-mono); font-size: 14px; outline: none; }
+
+        /* App 3: Dock / Taskbar */
+        .dock {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.6); border: 1px solid var(--os-border); border-radius: 15px;
+            padding: 10px 20px; display: flex; gap: 20px; backdrop-filter: blur(15px); z-index: 100;
+        }
+        .dock-icon {
+            width: 50px; height: 50px; border-radius: 12px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
+        }
+        .dock-icon svg { width: 24px; height: 24px; fill: none; stroke: var(--text-main); stroke-width: 2; transition: 0.3s; }
+        .dock-icon:hover { transform: translateY(-10px) scale(1.1); background: rgba(0, 243, 255, 0.2); border-color: var(--cyan); box-shadow: var(--glow-cyan); }
+        .dock-icon:hover svg { stroke: var(--cyan); }
+        .dock-tooltip {
+            position: absolute; top: -35px; background: var(--cyan); color: #000; font-family: var(--font-display);
+            font-size: 12px; padding: 4px 8px; border-radius: 4px; opacity: 0; pointer-events: none; transition: 0.2s;
+            font-weight: bold;
+        }
+        .dock-icon:hover .dock-tooltip { opacity: 1; transform: translateY(-5px); }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="warp-canvas"></canvas>
+
+    <div id="boot-screen">
+        <div id="boot-log"></div>
+        <div class="glitch-text-giant" id="boot-logo">OMEGA // TIER</div>
+    </div>
+
+    <div id="desktop">
+        
+        <div class="top-bar">
+            <span>NEON GENESIS <strong>v9.9.9</strong></span>
+            <span id="top-clock">00:00:00:00</span>
+            <span>SECURE CONNECTION <strong>[ENCRYPTED]</strong></span>
+        </div>
+
+        <div class="hud-overlay">
+            <div class="hud-box">
+                <div class="hud-title">SYSTEM_MONITOR</div>
+                <div class="hud-stat"><span>CPU CORES</span><span id="cpu-val">42%</span></div>
+                <div class="progress-bar"><div class="progress-fill" id="cpu-bar" style="width: 42%;"></div></div>
+                <div style="margin-top: 10px;"></div>
+                <div class="hud-stat"><span>RAM USAGE</span><span id="ram-val">16GB/64GB</span></div>
+                <div class="progress-bar"><div class="progress-fill" id="ram-bar" style="width: 25%; background: var(--magenta);"></div></div>
+            </div>
+            <div class="hud-box">
+                <div class="hud-title">NETWORK_UPLINK</div>
+                <div class="hud-stat"><span style="color:var(--cyan)">▼ DOWN</span><span id="net-down">1.2 GB/s</span></div>
+                <div class="hud-stat"><span style="color:var(--magenta)">▲ UP</span><span id="net-up">850 MB/s</span></div>
+                <div class="hud-stat" style="margin-top: 10px; color: #0f0;">PING: <span id="ping-val">12ms</span></div>
+            </div>
+        </div>
+
+        <div class="os-window" id="app-gallery" style="z-index: 11;">
+            <div class="window-header" onmousedown="startDrag(event, 'app-gallery')">
+                <div class="window-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    NEXUS_VISUAL_CORE.exe
+                </div>
+                <div class="window-controls">
+                    <button class="win-btn btn-min" onclick="toggleWindow('app-gallery')"></button>
+                    <button class="win-btn btn-max" onclick="maximizeWindow('app-gallery')"></button>
+                    <button class="win-btn btn-close" onclick="toggleWindow('app-gallery')"></button>
+                </div>
+            </div>
+            <div class="window-body" id="gallery-body">
+                <div class="gallery-grid" id="grid">
+                    </div>
+            </div>
+        </div>
+
+        <div class="os-window" id="app-terminal" style="z-index: 12; display: none;">
+            <div class="window-header" onmousedown="startDrag(event, 'app-terminal')">
+                <div class="window-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                    NEURAL_MIND_V2.sh
+                </div>
+                <div class="window-controls">
+                    <button class="win-btn btn-close" onclick="toggleWindow('app-terminal')"></button>
+                </div>
+            </div>
+            <div class="window-body" style="background: rgba(0,0,0,0.9);">
+                <div class="term-output" id="term-output">
+                    <div class="sys-msg">[SYS] AI Core Initialized.</div>
+                    <div class="ai-msg">Greetings, Operator. I am the Omega-Tier AI. Awaiting command sequence. Type 'help' for options.</div>
+                </div>
+                <div class="term-input-container">
+                    <span>root@omega:~#</span>
+                    <input type="text" class="term-input" id="term-input" autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </div>
+
+        <div class="dock">
+            <div class="dock-icon" onclick="toggleWindow('app-gallery')">
+                <div class="dock-tooltip">Nexus</div>
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            </div>
+            <div class="dock-icon" onclick="toggleWindow('app-terminal')">
+                <div class="dock-tooltip">Terminal</div>
+                <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            </div>
+            <div class="dock-icon" onclick="rebootSystem()">
+                <div class="dock-tooltip">Reboot</div>
+                <svg viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.26l3.08 2.69"></path></svg>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* =======================================================================
+           [1] SYSTEM BOOT & INITIALIZATION ENGINE
+           ======================================================================= */
+        const bootLogs = [
+            "Initializing Omega Kernel v9.9...",
+            "Loading Quantum Drivers... [OK]",
+            "Bypassing Mainframe Security... [SUCCESS]",
+            "Decrypting Neural Net Assets... [OK]",
+            "Establishing Uplink to Tokyo_Servers... [CONNECTED]",
+            "Mounting Virtual Drives...",
+            "Executing Interface Protocol..."
+        ];
+
+        window.onload = () => {
+            initWarpCanvas();
+            startBootSequence();
+        };
+
+        function startBootSequence() {
+            const logContainer = document.getElementById('boot-log');
+            let delay = 0;
+            
+            bootLogs.forEach((log, index) => {
+                setTimeout(() => {
+                    let p = document.createElement('div');
+                    p.className = 'boot-line';
+                    p.innerText = `> ${log}`;
+                    logContainer.appendChild(p);
+                }, delay);
+                delay += 300 + Math.random() * 400; // Randomize typing speed
+            });
+
+            setTimeout(() => {
+                logContainer.style.display = 'none';
+                document.getElementById('boot-logo').style.display = 'block';
+            }, delay + 500);
+
+            setTimeout(() => {
+                document.getElementById('boot-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('boot-screen').style.display = 'none';
+                    document.getElementById('desktop').style.display = 'block';
+                    initOS();
+                }, 500);
+            }, delay + 2500);
+        }
+
+        function initOS() {
+            startClock();
+            startHUDUpdates();
+            loadGallery(16);
+        }
+
+        function rebootSystem() {
+            document.getElementById('desktop').style.display = 'none';
+            document.getElementById('boot-screen').style.display = 'flex';
+            document.getElementById('boot-screen').style.opacity = '1';
+            document.getElementById('boot-logo').style.display = 'none';
+            document.getElementById('boot-log').innerHTML = '';
+            document.getElementById('boot-log').style.display = 'block';
+            startBootSequence();
+        }
+
+        /* =======================================================================
+           [2] 3D WARP SPEED CANVAS (WEBGL STYLE VANILLA JS)
+           ======================================================================= */
+        function initWarpCanvas() {
+            const canvas = document.getElementById('warp-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, cx, cy;
+            let stars = [];
+            const numStars = 800;
+            let speed = 2;
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                cx = width / 2; cy = height / 2;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Star {
+                constructor() {
+                    this.x = (Math.random() - 0.5) * width * 2;
+                    this.y = (Math.random() - 0.5) * height * 2;
+                    this.z = Math.random() * width;
+                    this.pz = this.z;
+                }
+                update() {
+                    this.z -= speed;
+                    if (this.z < 1) {
+                        this.z = width; this.x = (Math.random() - 0.5) * width * 2;
+                        this.y = (Math.random() - 0.5) * height * 2; this.pz = this.z;
+                    }
+                }
+                draw() {
+                    let sx = (this.x / this.z) * width + cx;
+                    let sy = (this.y / this.z) * height + cy;
+                    let px = (this.x / this.pz) * width + cx;
+                    let py = (this.y / this.pz) * height + cy;
+                    this.pz = this.z;
+
+                    let opacity = (1 - this.z / width);
+                    ctx.beginPath();
+                    ctx.moveTo(px, py); ctx.lineTo(sx, sy);
+                    // Color mix for Cyberpunk feel (Cyan to Magenta)
+                    ctx.strokeStyle = Math.random() > 0.5 ? `rgba(0, 243, 255, ${opacity})` : `rgba(255, 0, 234, ${opacity})`;
+                    ctx.lineWidth = opacity * 3;
+                    ctx.stroke();
+                }
+            }
+
+            for (let i = 0; i < numStars; i++) stars.push(new Star());
+
+            function animate() {
+                ctx.fillStyle = 'rgba(5, 5, 8, 0.4)'; // Motion blur trail
+                ctx.fillRect(0, 0, width, height);
+                stars.forEach(s => { s.update(); s.draw(); });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        /* =======================================================================
+           [3] OS WINDOW MANAGER & DRAGGING LOGIC
+           ======================================================================= */
+        let zIndexCounter = 100;
+
+        function startDrag(e, windowId) {
+            const win = document.getElementById(windowId);
+            win.style.zIndex = ++zIndexCounter; // Bring to front
+            
+            let startX = e.clientX;
+            let startY = e.clientY;
+            let rect = win.getBoundingClientRect();
+            let offsetX = startX - rect.left;
+            let offsetY = startY - rect.top;
+
+            function onMouseMove(e) {
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                win.style.left = `${newX}px`;
+                win.style.top = `${newY}px`;
+            }
+
+            function onMouseUp() {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        }
+
+        function toggleWindow(windowId) {
+            const win = document.getElementById(windowId);
+            if (win.style.display === 'none' || win.style.display === '') {
+                win.style.display = 'flex';
+                win.style.zIndex = ++zIndexCounter;
+                // Add pop animation class if needed
+            } else {
+                win.style.display = 'none';
+            }
+        }
+
+        function maximizeWindow(windowId) {
+            const win = document.getElementById(windowId);
+            if (!win.dataset.maximized) {
+                win.dataset.oldTop = win.style.top;
+                win.dataset.oldLeft = win.style.left;
+                win.dataset.oldWidth = win.style.width;
+                win.dataset.oldHeight = win.style.height;
+
+                win.style.top = '40px'; win.style.left = '0';
+                win.style.width = '100vw'; win.style.height = 'calc(100vh - 40px)';
+                win.dataset.maximized = "true";
+            } else {
+                win.style.top = win.dataset.oldTop; win.style.left = win.dataset.oldLeft;
+                win.style.width = win.dataset.oldWidth; win.style.height = win.dataset.oldHeight;
+                delete win.dataset.maximized;
+            }
+        }
+
+        /* =======================================================================
+           [4] 3D GALLERY PHYSICS & RENDERER
+           ======================================================================= */
+        const photoPool = [
+            '1542051841857-5f90071e7989', '1518005020951-eccb494ad742', '1528360983277-13d401cdc186',
+            '1579684126759-8664c120bf9c', '1532054041103-625d57b54a23', '1601042879362-f3b1f240d9ce',
+            '1515634928627-2a4e0a5bf533', '1564753063852-c32ab51416fb', '1550566373-81b49f972b22',
+            '1598875706266-96a8ebba0c31', '1570146059178-57cb5a909fc7', '1583337130417-3346a1be7dee'
+        ];
+
+        function loadGallery(count) {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                let photoId = photoPool[Math.floor(Math.random() * photoPool.length)];
+                let card = document.createElement('div');
+                card.className = 'neo-card';
+                card.innerHTML = `
+                    <img src="https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=600&q=80" alt="Cyber Asset">
+                    <div class="card-glare"></div>
+                    <div class="card-data">
+                        <div class="data-id">ASSET_ID: //${Math.floor(Math.random()*99999)}</div>
+                        <button class="btn-vault">ENCRYPT DATA</button>
+                    </div>
+                `;
+                
+                // 3D Tilt Physics Event Listeners
+                card.addEventListener('mousemove', handleCardMove);
+                card.addEventListener('mouseleave', handleCardLeave);
+                
+                grid.appendChild(card);
+            }
+        }
+
+        function handleCardMove(e) {
+            const card = this;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left; // x position within the element.
+            const y = e.clientY - rect.top;  // y position within the element.
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calculate rotation (Max 15 degrees)
+            const rotateX = ((y - centerY) / centerY) * -15;
+            const rotateY = ((x - centerX) / centerX) * 15;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+            
+            // Move glare
+            const glare = card.querySelector('.card-glare');
+            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.3), transparent 60%)`;
+        }
+
+        function handleCardLeave() {
+            this.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            this.querySelector('.card-glare').style.background = `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), transparent)`;
+        }
+
+        /* =======================================================================
+           [5] NEURAL AI TERMINAL LOGIC
+           ======================================================================= */
+        const termInput = document.getElementById('term-input');
+        const termOutput = document.getElementById('term-output');
+
+        termInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                let val = this.value.trim();
+                if(!val) return;
+                
+                // Print user command
+                termOutput.innerHTML += `<div class="user-msg">root@omega:~# ${val}</div>`;
+                this.value = '';
+                
+                // Process Command with delay to simulate thinking
+                setTimeout(() => processCommand(val.toLowerCase()), 400);
+                
+                termOutput.parentElement.scrollTop = termOutput.parentElement.scrollHeight;
+            }
+        });
+
+        function processCommand(cmd) {
+            let response = "";
+            if(cmd === 'help') {
+                response = "AVAILABLE COMMANDS: <br>- <b>nexus</b>: Launch Gallery<br>- <b>clear</b>: Clear Terminal<br>- <b>hack</b>: Initiate sequence<br>- <b>whoami</b>: Identity check";
+            } else if (cmd === 'nexus') {
+                toggleWindow('app-gallery');
+                response = "Executing NEXUS_VISUAL_CORE.exe... Access Granted.";
+            } else if (cmd === 'clear' || cmd === 'cls') {
+                termOutput.innerHTML = ''; return;
+            } else if (cmd === 'hack') {
+                response = "<span style='color:#ff003c; animation: glitchEffect 0.2s infinite;'>WARNING: BYPASSING MAINFRAME... ACCESSING CLASSIFIED DATA.</span>";
+            } else if (cmd === 'whoami') {
+                response = "You are OPERATOR_01. Clearance Level: OMEGA.";
+            } else {
+                response = `Command not recognized: '${cmd}'. Type 'help' for syntax.`;
+            }
+
+            termOutput.innerHTML += `<div class="ai-msg">${response}</div>`;
+            termOutput.parentElement.scrollTop = termOutput.parentElement.scrollHeight;
+        }
+
+        /* =======================================================================
+           [6] LIVE HUD & SYSTEM CLOCK UPDATER
+           ======================================================================= */
+        function startClock() {
+            setInterval(() => {
+                const now = new Date();
+                document.getElementById('top-clock').innerText = 
+                    `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')} : ${String(now.getMilliseconds()).padStart(3, '0').slice(0,2)}`;
+            }, 50);
+        }
+
+        function startHUDUpdates() {
+            setInterval(() => {
+                // Fake CPU
+                let cpu = Math.floor(Math.random() * 40) + 20; // 20-60%
+                document.getElementById('cpu-val').innerText = `${cpu}%`;
+                document.getElementById('cpu-bar').style.width = `${cpu}%`;
+                
+                // Fake Network
+                let down = (Math.random() * 5 + 1).toFixed(1);
+                let up = (Math.random() * 2 + 0.1).toFixed(1);
+                document.getElementById('net-down').innerText = `${down} GB/s`;
+                document.getElementById('net-up').innerText = `${up} GB/s`;
+                
+                // Fake Ping
+                let ping = Math.floor(Math.random() * 20) + 5;
+                document.getElementById('ping-val').innerText = `${ping}ms`;
+                document.getElementById('ping-val').style.color = ping > 15 ? "var(--yellow)" : "#0f0";
+            }, 1500);
+        }
+
+    </script>
+</body>
+</html>
