@@ -96,7 +96,6 @@ System protocols require connection to the main frame. Access the creator's dire
 <br><br>
 
 <img src="https://i.pinimg.com/originals/2c/31/5b/2c315b9c02ff2df1eb6dcb9ee1e912b7.gif" width="400" style="border-radius: 15px; border: 2px solid #7000ff; box-shadow: 0 0 25px rgba(112, 0, 255, 0.6);">
-https://github-profile-trophy.vercel.app/?username=ryo-ma&theme=tokyonight
 <br><br>
 <i>"Iftuu Nexus 3000 - Building the web of tomorrow, today."</i>
 👽
