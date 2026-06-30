@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="NEXUS 3.0 | A state-of-the-art visual engine with unlimited, unique, zero-duplicate high-resolution images.">
+    <meta name="theme-color" content="#0f172a">
+    <meta property="og:title" content="NEXUS 3.0 | Pro Vision">
+    <meta property="og:description" content="Discover Unlimited Perspectives with zero duplicate images.">
+    
     <title>N E X U S 3.0 | Pro Vision</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://picsum.photos">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
     
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -19,9 +29,9 @@
                     },
                     colors: {
                         glassBg: 'rgba(15, 23, 42, 0.6)',
-                        primary: '#38bdf8', /* Light Sky Blue */
-                        secondary: '#818cf8', /* Indigo */
-                        dark: '#0f172a', /* Slate 900 */
+                        primary: '#38bdf8', 
+                        secondary: '#818cf8', 
+                        dark: '#0f172a', 
                     }
                 }
             }
@@ -35,7 +45,7 @@
         ::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #818cf8; }
 
-        /* Premium Glassmorphism Utility */
+        /* Premium Glassmorphism */
         .glass {
             background: rgba(15, 23, 42, 0.4);
             backdrop-filter: blur(16px);
@@ -43,12 +53,13 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Animated Gradient Background */
+        /* 🚀 GPU Accelerated Background Gradient */
         body {
             background: linear-gradient(-45deg, #0f172a, #1e1b4b, #020617, #172554);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: #f8fafc;
+            will-change: background-position;
         }
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
@@ -56,19 +67,20 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Funny Cat Animation CSS */
+        /* 🐈 GPU Accelerated Funny Cat Animation */
         .funny-cat {
             position: fixed; bottom: 20px; left: -100px;
             font-size: 3rem; z-index: 100;
             animation: runCat 10s linear infinite;
             filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
+            will-change: transform;
         }
         @keyframes runCat {
             0% { transform: translateX(-100px) scaleX(1) translateY(0); }
             20% { transform: translateX(20vw) scaleX(1) translateY(-20px); }
             40% { transform: translateX(50vw) scaleX(1) translateY(0); }
             49% { transform: translateX(110vw) scaleX(1); }
-            50% { transform: translateX(110vw) scaleX(-1); } /* Turn around */
+            50% { transform: translateX(110vw) scaleX(-1); }
             100% { transform: translateX(-100px) scaleX(-1); }
         }
 
@@ -76,17 +88,18 @@
         .ai-chat-popup {
             transform: translateY(150%);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform;
         }
         .ai-chat-popup.active { transform: translateY(0); }
 
-        /* Image Load Optimization */
+        /* Highly Optimized Masonry Grid */
         .masonry-grid { column-count: 1; column-gap: 1.5rem; }
         @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
         @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
         @media (min-width: 1280px) { .masonry-grid { column-count: 4; } }
-        .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; }
+        .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; will-change: transform; }
 
-        /* Button Loader */
+        /* Loader */
         .loading-spinner {
             display: inline-block; width: 16px; height: 16px;
             border: 2px solid white; border-top-color: transparent;
@@ -97,7 +110,7 @@
 </head>
 <body class="font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white">
 
-    <div class="funny-cat" title="Meow! I'm making the web faster!">🐈💨</div>
+    <div class="funny-cat" aria-hidden="true" title="Meow! I'm making the web faster!">🐈💨</div>
 
     <nav class="fixed top-0 w-full glass z-50 px-8 py-4 flex justify-between items-center transition-all duration-300 shadow-lg">
         <div class="font-heading text-2xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary cursor-pointer">
@@ -108,7 +121,7 @@
             <a href="#" class="hover:text-primary transition-colors">Collections</a>
             <a href="#" class="hover:text-primary transition-colors">Pro Network</a>
         </div>
-        <button onclick="toggleAI()" class="flex items-center gap-2 bg-gradient-to-r from-secondary to-primary px-5 py-2 rounded-full text-sm font-semibold hover:scale-105 transition-transform shadow-[0_4px_15px_rgba(56,189,248,0.4)]">
+        <button onclick="toggleAI()" aria-label="Toggle AI Assistant" class="flex items-center gap-2 bg-gradient-to-r from-secondary to-primary px-5 py-2 rounded-full text-sm font-semibold hover:scale-105 transition-transform shadow-[0_4px_15px_rgba(56,189,248,0.4)]">
             🤖 Ask AI
         </button>
     </nav>
@@ -116,21 +129,21 @@
     <div id="ai-widget" class="fixed bottom-6 right-6 w-80 glass rounded-2xl border border-white/20 shadow-2xl z-50 ai-chat-popup flex flex-col overflow-hidden">
         <div class="bg-gradient-to-r from-secondary to-primary p-4 flex justify-between items-center">
             <h3 class="font-heading font-bold text-white flex items-center gap-2">🤖 Nexus AI Helper</h3>
-            <button onclick="toggleAI()" class="text-white hover:text-gray-200 font-bold">✕</button>
+            <button onclick="toggleAI()" aria-label="Close AI" class="text-white hover:text-gray-200 font-bold">✕</button>
         </div>
         <div id="ai-messages" class="p-4 h-64 overflow-y-auto flex flex-col gap-3 text-sm text-gray-200 bg-dark/80">
-            <div class="bg-white/10 p-3 rounded-lg self-start max-w-[80%] rounded-tl-none border border-white/5">
+            <div class="bg-white/10 p-3 rounded-lg self-start max-w-[80%] rounded-tl-none border border-white/5 shadow-md">
                 Hi there! I am Nexus AI. I don't make mistakes. Ask me "status", "photos", or "cat"!
             </div>
         </div>
         <div class="p-3 border-t border-white/10 flex gap-2 bg-dark/90">
-            <input type="text" id="ai-input" placeholder="Type a command..." class="w-full bg-black/50 text-white text-sm rounded-lg px-3 py-2 outline-none border border-white/10 focus:border-primary transition-colors" onkeypress="handleAIEnter(event)">
-            <button onclick="sendAIMessage()" class="bg-primary text-dark px-3 py-2 rounded-lg font-bold hover:bg-white transition-colors">↗</button>
+            <input type="text" id="ai-input" aria-label="Ask AI" placeholder="Type a command..." class="w-full bg-black/50 text-white text-sm rounded-lg px-3 py-2 outline-none border border-white/10 focus:border-primary transition-colors" onkeypress="handleAIEnter(event)">
+            <button onclick="sendAIMessage()" aria-label="Send Message" class="bg-primary text-dark px-3 py-2 rounded-lg font-bold hover:bg-white transition-colors">↗</button>
         </div>
     </div>
 
     <header class="relative w-full min-h-[70vh] flex flex-col justify-center items-center text-center pt-24 px-4">
-        <div class="inline-block glass px-4 py-1 rounded-full text-xs font-semibold text-primary mb-6 border border-primary/30">
+        <div class="inline-block glass px-4 py-1 rounded-full text-xs font-semibold text-primary mb-6 border border-primary/30 shadow-[0_0_15px_rgba(56,189,248,0.2)]">
             ✨ Infinite. Unique. Flawless.
         </div>
         
@@ -159,8 +172,7 @@
             </div>
         </div>
 
-        <div id="nexus-grid" class="masonry-grid">
-            </div>
+        <div id="nexus-grid" class="masonry-grid"></div>
 
         <div id="loader" class="w-full py-16 flex flex-col justify-center items-center">
             <div class="w-12 h-12 border-4 border-white/10 border-t-primary rounded-full animate-spin"></div>
@@ -169,8 +181,8 @@
     </main>
 
     <div id="image-modal" class="fixed inset-0 bg-dark/95 z-[9000] hidden flex-col justify-center items-center p-4 backdrop-blur-xl transition-all opacity-0">
-        <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-all">✕ CLOSE</button>
-        <img id="modal-img" src="" alt="High Resolution" class="max-w-full max-h-[75vh] rounded-xl shadow-2xl mb-8 object-contain">
+        <button onclick="closeModal()" aria-label="Close Image" class="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-all">✕ CLOSE</button>
+        <img id="modal-img" src="" alt="High Resolution Asset" class="max-w-full max-h-[75vh] rounded-xl shadow-2xl mb-8 object-contain">
         <div class="flex gap-4">
             <button id="modal-download-btn" class="bg-primary text-dark font-heading px-8 py-3 rounded-full hover:bg-white transition-all font-bold shadow-[0_4px_20px_rgba(56,189,248,0.5)] flex items-center">
                 Download 4K Free
@@ -180,7 +192,7 @@
 
     <script>
         // ==========================================
-        // 1. AI ASSISTANT LOGIC (Rule-Based, Error Free)
+        // 1. AI ASSISTANT LOGIC
         // ==========================================
         const aiWidget = document.getElementById('ai-widget');
         const aiInput = document.getElementById('ai-input');
@@ -199,11 +211,9 @@
             const text = aiInput.value.trim().toLowerCase();
             if (!text) return;
 
-            // User Message
             addMessage(text, 'user');
             aiInput.value = '';
 
-            // AI Logic (Immediate & Error-Free)
             setTimeout(() => {
                 let response = "I'm a pre-programmed AI widget. Type 'status', 'photos', or 'cat' to interact!";
                 
@@ -218,31 +228,30 @@
                 }
 
                 addMessage(response, 'ai');
-            }, 600); // 600ms delay to feel natural
+            }, 600);
         }
 
         function addMessage(text, sender) {
             const msgDiv = document.createElement('div');
             if (sender === 'user') {
-                msgDiv.className = "bg-primary text-dark p-3 rounded-lg self-end max-w-[80%] rounded-tr-none font-medium shadow-md";
+                msgDiv.className = "bg-primary text-dark p-3 rounded-lg self-end max-w-[80%] rounded-tr-none font-medium shadow-md transition-all";
             } else {
-                msgDiv.className = "bg-white/10 p-3 rounded-lg self-start max-w-[80%] rounded-tl-none border border-white/5 text-gray-200 shadow-md";
+                msgDiv.className = "bg-white/10 p-3 rounded-lg self-start max-w-[80%] rounded-tl-none border border-white/5 text-gray-200 shadow-md transition-all";
             }
             msgDiv.innerText = text;
             aiMessages.appendChild(msgDiv);
-            aiMessages.scrollTop = aiMessages.scrollHeight; // Auto-scroll to bottom
+            aiMessages.scrollTop = aiMessages.scrollHeight; 
         }
 
         // ==========================================
-        // 2. INFINITE UNIQUE PHOTOS LOGIC (NO REPEATS)
+        // 2. ULTRA-FAST INFINITE PHOTOS LOGIC
         // ==========================================
         const grid = document.getElementById('nexus-grid');
         const loader = document.getElementById('loader');
         const counterDisplay = document.getElementById('counter-display');
         let totalLoaded = 0;
+        let isFetching = false;
 
-        // Create a Cryptographically Random UUID for the Image Seed
-        // This guarantees EVERY photo fetched is 100% unique globally.
         function generateUUID() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -250,7 +259,6 @@
             });
         }
 
-        // Force Download via Blob (Saves direct to device)
         async function forceDownload(url, filename, btnElement) {
             btnElement.innerHTML = `Downloading... <span class="loading-spinner"></span>`;
             btnElement.style.pointerEvents = 'none';
@@ -287,7 +295,6 @@
             }
         }
 
-        // Modal Logic
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-img');
         const modalDownloadBtn = document.getElementById('modal-download-btn');
@@ -304,30 +311,31 @@
             setTimeout(() => {
                 modal.style.display = 'none';
                 modalImg.src = '';
-            }, 300); // Matches transition duration
+            }, 300);
         }
 
-        // Main Fast Loading Function
         const loadPhotos = (count = 10) => {
+            if(isFetching) return;
+            isFetching = true;
+            
             const fragment = document.createDocumentFragment();
 
             for (let i = 0; i < count; i++) {
                 totalLoaded++;
-                const uniqueSeed = generateUUID(); // Guaranteed no duplicate
+                const uniqueSeed = generateUUID(); 
                 
-                // Using seed guarantees a unique image every single time.
                 const displayUrl = `https://picsum.photos/seed/${uniqueSeed}/600/800`;
                 const highResUrl = `https://picsum.photos/seed/${uniqueSeed}/3840/2160`;
                 const fileName = `NEXUS_HQ_${uniqueSeed.substring(0,6)}.jpg`;
 
                 const card = document.createElement('div');
                 card.className = "masonry-item group relative rounded-2xl overflow-hidden glass hover:border-primary/50 transition-all duration-500 cursor-pointer shadow-lg";
-                
-                // Clicking the card opens the high-res view
                 card.onclick = () => openModal(highResUrl, fileName);
 
+                /* ⚡ decoding="async" added for zero main-thread blocking */
                 card.innerHTML = `
-                    <div class="bg-gray-800 animate-pulse absolute inset-0 -z-10"></div> <img src="${displayUrl}" loading="lazy" alt="Nexus Vision ${totalLoaded}" 
+                    <div class="bg-gray-800 animate-pulse absolute inset-0 -z-10"></div> 
+                    <img src="${displayUrl}" loading="lazy" decoding="async" alt="Nexus Vision ${totalLoaded}" 
                          class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
                     
                     <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
@@ -346,20 +354,20 @@
             
             grid.appendChild(fragment);
             counterDisplay.innerText = totalLoaded;
+            isFetching = false;
         };
 
         // Initial Load
         loadPhotos(12);
 
-        // Smooth Performance Infinite Scroll Observer
+        // Highly Optimized Infinite Scroll Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Slight delay to allow smooth scrolling without frame drops
+                if (entry.isIntersecting && !isFetching) {
                     requestAnimationFrame(() => loadPhotos(6)); 
                 }
             });
-        }, { root: null, rootMargin: '800px', threshold: 0 }); // 800px rootMargin loads images before user even sees the bottom
+        }, { root: null, rootMargin: '1000px', threshold: 0 }); // Pre-loads heavily before hitting bottom
 
         observer.observe(loader);
     </script>
