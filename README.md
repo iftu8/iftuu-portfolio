@@ -1,129 +1,132 @@
+<!-- HEADER DYNAMIC GRADIENT ANIMATION -->
 <div align="center">
-
-# 🌃 N E X U S 3.0 : N E O - T O K Y O 🚀
-### 🌌 The Next Generation of Quantum Web Experience
-
-<a href="https://iftu8.github.io/iftuu-portfolio/" target="_blank">
-  <img src="https://i.pinimg.com/originals/a4/89/3e/a4893e4a282901ee7c00e6c641be2a09.gif" alt="Cyberpunk Cityscape" width="100%" style="border-radius: 20px; border: 2px solid #00f2fe; box-shadow: 0 0 40px rgba(0, 242, 254, 0.4); margin-bottom: 20px;">
-</a>
-
-## ⚡ [LIVE DEPLOYMENT PORTAL] ⚡
-### 🔴 🟢 🔵 **[ENTER NEO-TOKYO HUB 🚀](https://iftu8.github.io/iftuu-portfolio/)** 🔵 🟢 🔴
-
-**Premium Futuristic Portfolio | Ultra-Fast 60FPS | Cyberpunk Aesthetics | Zero-Lag Engine**
-
-<br>
-
-[![Live Website](https://img.shields.io/badge/🚀_ENTER_NEO_TOKYO_-_LIVE_PREVIEW-00f0ff?style=for-the-badge&logoColor=black)](https://iftu8.github.io/iftuu-portfolio/)
-![Profile Views](https://komarev.com/ghpvc/?username=iftu8&label=NEXUS+VISITORS&color=00f2fe&style=for-the-badge)
-
-<br>
-
-![GitHub repo size](https://img.shields.io/github/repo-size/iftu8/iftuu-portfolio?style=for-the-badge&color=818cf8)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/iftu8/iftuu-portfolio?style=for-the-badge&color=38bdf8)
-![GitHub License](https://img.shields.io/github/license/iftu8/iftuu-portfolio?style=for-the-badge&color=00f2fe)
-![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
-
-<br>
-
-<img src="https://i.pinimg.com/originals/18/de/e0/18dee0402e3b2e7cd34cb5030dcfe3c1.gif" width="100%" height="15px"> 
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=280&section=header&text=NEXUS%203.0%20:%20NEO-TOKYO&fontSize=55&fontAlignY=40&animation=twinkling&fontColor=ffffff" width="100%" />
 </div>
 
-## 📟 Executive Core Terminal
-```bash
+<!-- LIVE PROFILE VIEWS & GLOBAL STATUS -->
+<div align="center">
+  <a href="https://github.com/iftu8">
+    <img src="https://komarev.com/ghpvc/?username=iftu8&label=NEXUS+VISITORS&color=00ffcc&style=for-the-badge" alt="Profile Views" />
+  </a>
+  <img src="https://img.shields.io/badge/SYSTEM_STATUS-FULLY_OPERATIONAL-00FFCC?style=for-the-badge&logo=matrix&logoColor=000" alt="Status" />
+  <br><br>
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=23&pause=1000&color=00FFCC&center=true&vCenter=true&width=750&lines=Initializing_Quantum_Web_Interface...;Compiling_Neo-Tokyo_Core...;Building_Zero-Latency_Architectures...;Turning_Imagination_Into_Clean_Code_🚀" alt="Typing Engine" />
+</div>
+
+---
+
+### 🖥️ Executive System Terminal
+
+```zsh
 [root@nexus-3.0 ~]# ./initialize_matrix.sh
-⚙️ Matrix Operational Protocol: ONLINE
-> ARCHITECT: Iftekhar Ahmmed Chowdhury (Iftuu)
-> PROJECT ID: NEXUS-CORE-3.0
-> TARGET BUILD: Production-ready high-fidelity web space optimization.
-> ENGINE FOCUS: Extreme performance scaling, zero heavy framework dependencies, pure raw execution.
-📑 Core Index
-​<details>
-<summary><b>✨ Expand System Directory ✨</b></summary>
-​📜 Executive Summary & Lore
-​💎 Production Engineering Highlights
-​📂 Repository Architecture & Blueprint
-​🛠️ Engineering Stack Matrix
-​📊 Performance Metrics & Analytics
-​🔮 Daily AI Mood & System Vibe
-​🐾 Development Chronicles
-​🌐 Secure Connection Hub
-​</details>
-​📜 Executive Summary & Lore
-​In the modern landscape of high-performance web engineering, traditional portfolios fall short. Welcome to Neo-Tokyo, a futuristic cyberspace nexus optimized exclusively for unparalleled speed, structural fluidity, and absolute visual supremacy.
-​This project bypasses traditional heavy JavaScript framework overheads to deliver a raw, GPU-accelerated responsive architecture. Engineered entirely from scratch by Iftekhar Ahmmed Chowdhury (Iftuu), it serves as a live presentation of production-grade modern web development capabilities.
-​💎 Production Engineering Highlights
-Core System ModuleTechnical Implementation SpecificationExecution Status
-🌌 Cyberpunk UI EngineAdvanced CSS glassmorphism grids, hardware-accelerated dynamic neon shading layouts.🟢 Fully Stable
-⚡ Quantum LoadingImplemented decoding="async" pipeline alongside asynchronous Intersection Observers.🟢 Optimized
-🧬 Cryptographic SeedsIntegrated unique cryptographic runtime variables ensuring absolute asset collision prevention.🟢 Active
-💾 Local Blob ExtractionNative Client-Side API integration for automated 4K asset downloads skipping heavy server traffic.🟢 Integrated
-🤖 Interactive AutomationsPre-packaged autonomous UI prompt widget simulating continuous background system telemetry.🟢 Active
-🚀 Enterprise CI/CD LineMulti-stage integration loops managed via GitHub Actions automation layers.🟢 Continuous
-📂 Repository Architecture & Blueprint
-An enterprise-grade breakdown of the logical project components and code organization:
-NEXUS-3.0/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # Automated CI/CD Production Deployment Pipeline
+
+◢ MATRIX OPERATIONAL PROTOCOL : ONLINE
+◢ ARCHITECT                   : Iftakhar Ahmed Chowdhury (iftu8)
+◢ STRATEGIC CORE              : High-Performance Frontend & Futuristic UI/UX
+◢ CURRENT EMISSION            : Crafting Immersive Cyberpunk Web Frameworks
+◢ SECURE LINK                 : iftuuu69@gmail.com
+🌐 Featured Masterpiece: NEXUS 3.0 (Neo-Tokyo Hub)
+​<div align="center">
+<p><b>The Next Generation of Quantum Web Experience</b> — A premium, high-fidelity, ultra-fast 60FPS portfolio built with raw performance and modern engineering tooling in mind.</p>
+​<a href="https://iftu8.github.io/iftuu-portfolio/">
+<img src="https://img.shields.io/badge/⚡_LIVE_DEPLOYMENT_PORTAL-ENTER_HUB-FF0055?style=for-the-badge&labelColor=0b0f19" alt="Live Link" />
+</a>
+<a href="https://github.com/iftu8/iftuu-portfolio">
+<img src="https://img.shields.io/badge/📦_REPOSITORY_SOURCE-ACCESS_CODE-00FFCC?style=for-the-badge&labelColor=0b0f19" alt="Repo Link" />
+</a>
+</div>
+​🛠️ Website Engine & Core Architecture
+​Cyberpunk UI Engine: Hand-crafted advanced CSS glimmermorphism grids and glassmorphism designs.
+​Quantum Loading Pipeline: Optimized hardware-accelerated transitions with zero framework bloat.
+​Automated CI/CD Pipeline: Fully configured workflow utilizing GitHub Actions for rapid delivery.
+​<details open>
+<summary><b>📂 System Directory Blueprint</b></summary>
+
+iftuu-portfolio/
+├── .github/workflows/
+│   └── deploy.yml        # Automated CI/CD Production Deploy
 ├── assets/
 │   ├── css/
-│   │   └── style.css           # Core Visual DNA (Neon Engine, Grids, Responsive UI)
-│   ├── js/
-│   │   └── script.js           # Core Behavioral Engine (DOM Controls, Async Handlers)
-│   └── images/                 # Asset Vault (Optimized Media Formats)
-├── index.html                  # Core Entry Interface (SEO & Performance Tuning)
-├── LICENSE                     # MIT Open-Source Compliance Licensing Parameter
-└── README.md                   # Core Architecture System Documentation
-🛠️ Engineering Stack Matrix
-Built with raw performance and modern tooling in mind:
-<div align="center">
-<img src="https://skillicons.dev/icons?i=html,css,tailwind,js,github,vscode,git,figma,vercel&perline=9" alt="System Infrastructure Matrix Grid" />
-</div>
-📊 Performance Metrics & Analytics
-<div align="center">
-<table border="0" style="border: none; background: transparent;">
+│   │   └── style.css     # Core Visual DNA (Neon Engine, UI Styling)
+│   └── js/
+│       └── script.js     # Behavioral Control Engine (DOM Logic)
+├── index.html            # Asset Vault & Core Entry Interface
+├── LICENSE               # MIT Open-Source Compliance License
+└── README.md             # Core Architecture System Documentation
+</details>
+​🛠️ The Digital Arsenal (Tech Stack Matrix)
+​<table width="100%">
 <tr>
-<td align="center" width="50%" style="border: none;">
-<img src="https://github-readme-stats.vercel.app/api?username=iftu8&theme=tokyonight&show_icons=true&hide_border=true&count_private=true" alt="Architect's Core Stats" width="100%">
+<td width="50%" valign="top">
+<h4>🌌 Frontend Architecture</h4>
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
 </td>
-<td align="center" width="50%" style="border: none;">
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iftu8&theme=tokyonight&show_icons=true&hide_border=true&layout=compact" alt="Dominant Technological Footprint" width="100%">
+<td width="50%" valign="top">
+<h4>⚡ Backend & Environments</h4>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
+<img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" />
+<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+<img src="https://img.shields.io/badge/VS_Code-0078D4?style=for-the-badge&logo=visual-studio-code&logoColor=white" />
 </td>
 </tr>
 </table>
+​🏆 Developer Badges & Achievements
+​<div align="center">
+<a href="https://github.com/ryo-ma/github-profile-trophy">
+<img src="https://github-profile-trophy.vercel.app/?username=iftu8&theme=tokyonight&no-frame=true&no-bg=true&margin-w=15" alt="Trophies" />
+</a>
 </div>
-🔮 Daily AI Mood & System Vibe
-The operational framework computes systemic tech thoughts dynamically every 24-hour cycle:
-<div align="center">
+​📊 Performance Metrics & Live Analytics
+​<div align="center">
 <table border="0" style="border: none; background: transparent;">
 <tr>
-<td align="center" width="50%" style="border: none;">
-<img src="https://quotes-github-readme.vercel.app/api?type=vertical&theme=tokyonight" alt="Dynamic Daily Inversion Telemetry" width="100%">
+<td>
+<img src="https://github-readme-stats.vercel.app/api?username=iftu8&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=00ffcc&text_color=ffffff&icon_color=ff0055" height="185px" />
 </td>
-<td align="center" width="50%" style="border: none;">
-<img src="https://i.pinimg.com/originals/81/25/08/812508eb6759e0a0d9b158b09337ba18.gif" alt="System Node Reaction Loop" width="100%" style="border-radius: 12px; border: 1px solid #00f2fe;">
+<td>
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iftu8&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=00ffcc&text_color=ffffff" height="185px" />
 </td>
 </tr>
 </table>
+
+
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=iftu8&theme=tokyonight&hide_border=true&background=0D1117&ring=00ffcc&fire=ff0055&currStreakLabel=00ffcc" width="95%" />
 </div>
-🐾 Development Chronicles
-System Log // Compilation at 03:00 AM: Maintaining infrastructure reliability parameters while resolving edge cases in the data layer.
+​⚡ Development Chronicles & Humorous Bits
+[System Log // 03:14 AM // Compiling Matrix Thoughts]
+> Fixing the bug... Bug fixed.
+> 42 new warnings appeared.
+> Pretending I didn't see anything... Deployment Successful! 🎉
 <div align="center">
-<img src="https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif" alt="System Engineering Simulation" width="320" style="border-radius: 15px; border: 2px solid #ff0055; box-shadow: 0 0 25px rgba(255, 0, 85, 0.4);">
-
-
-
-<code>System.out.println("Compiling core processes... Matrix operations running nominally.");</code>
+<img src="https://readme-jokes.vercel.app/api?theme=tokyonight&hideBorder=true" alt="Daily Programmer Joke" />
 </div>
-🌐 Secure Connection Hub
-Initialize secure synchronization through verified transport channels:
+📡 Establish Secure Connection Protocol
 <div align="center">
-GitHub Portfolio Terminal
-LinkedIn Identity Matrix
-Secure Mail Protocol
-"Iftuu Nexus 3000 — Engineering the architecture of tomorrow's web space, today." 👽
+<p>Whether you want to build tomorrow's decentralized web spaces or just talk UI/UX design over coffee, my matrix gates are open.</p>
+<table border="0" style="border: none; background: transparent;">
+<tr>
+<td align="center">
+<a href="mailto:iftuuu69@gmail.com">
+<img src="https://img.shields.io/badge/Secure_Mail_Protocol-D14836?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0b0f19" alt="Email Link" />
+</a>
+</td>
+<td align="center">
+<a href="https://github.com/iftu8">
+<img src="https://img.shields.io/badge/GitHub_Identity_Matrix-100000?style=for-the-badge&logo=github&logoColor=white&labelColor=0b0f19" alt="GitHub Link" />
+</a>
+</td>
+</tr>
+</table>
 
 
-<img src="https://i.pinimg.com/originals/18/de/e0/18dee0402e3b2e7cd34cb5030dcfe3c1.gif" width="100%" height="15px">
+<p><sub><i>"Engineering the architecture of tomorrow's web spaces, one matrix node deployment at a time." — Iftu8</i></sub></p>
+</div>
+<!-- FOOTER ANIMATION -->
+<div align="center">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=120&section=footer" width="100%" />
 </div>
