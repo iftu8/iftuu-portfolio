@@ -3,11 +3,15 @@
 # 🌃 N E X U S 3.0 : N E O - T O K Y O 🚀
 ### 🌌 The Next Generation of Quantum Web Experience
 
-<img src="https://i.pinimg.com/originals/a4/89/3e/a4893e4a282901ee7c00e6c641be2a09.gif" alt="Cyberpunk Cityscape" width="100%" style="border-radius: 20px; border: 2px solid #00f2fe; box-shadow: 0 0 40px rgba(0, 242, 254, 0.4);">
+<a href="https://iftu8.github.io/iftuu-portfolio/" target="_blank">
+  <img src="https://i.pinimg.com/originals/a4/89/3e/a4893e4a282901ee7c00e6c641be2a09.gif" alt="Cyberpunk Cityscape" width="100%" style="border-radius: 20px; border: 2px solid #00f2fe; box-shadow: 0 0 40px rgba(0, 242, 254, 0.4); margin-bottom: 20px;">
+</a>
 
-<br>
+<h2> 🔴 🟢 🔵 <a href="https://iftu8.github.io/iftuu-portfolio/">CLICK HERE TO ENTER THE LIVE WEBSITE</a> 🔴 🟢 🔵 </h2>
 
 **Premium Futuristic Portfolio | Ultra-Fast 60FPS | Cyberpunk Aesthetics | Zero-Lag Engine**
+
+<br>
 
 [![Live Website](https://img.shields.io/badge/🚀_ENTER_NEO_TOKYO_-_LIVE_PREVIEW-00f0ff?style=for-the-badge&logoColor=black)](https://iftu8.github.io/iftuu-portfolio/)
 <br>
@@ -33,12 +37,13 @@
 
 ---
 
-## 📑 System Directory
+## 📑 System Protocols
 <details>
-<summary><b>✨ Click to Initialize System Protocols ✨</b></summary>
+<summary><b>✨ Click to Expand System Directory ✨</b></summary>
 
 - [🔮 System Mood & Daily Vibe Core](#-system-mood--daily-vibe-core)
 - [📜 The Lore of Project "TOKYO 3000"](#-the-lore-of-project-tokyo-3000)
+- [📂 System File Protocols (Directory)](#-system-file-protocols-directory)
 - [💎 Pro Max System Features](#-pro-max-system-features)
 - [🛠️ Core Architecture & Tech Stack](#️-core-architecture--tech-stack)
 - [📊 Architect's Global Stats](#-architects-global-stats)
@@ -74,6 +79,19 @@
 In the year 3000, the digital space has evolved. Traditional websites are dead. Welcome to **Neo-Tokyo**, a cyberspace nexus built for speed, privacy, and visual supremacy. This project is not just a gallery; it is a high-performance digital artifact showcasing unlimited future photography. 
 
 Designed, engineered, and maintained entirely from scratch by **Iftekhar Ahmmed Chowdhury (Iftuu)**. It is a testament to raw coding power, bypassing heavy frameworks for pure vanilla speed.
+
+---
+
+## 📂 System File Protocols (Directory)
+*Deep-dive tracking of the repository matrix structure and files:*
+
+*   📁 **`.github/workflows/deploy.yml`**: Automated CI/CD Production Pipeline for zero-downtime deployment.
+*   📁 **`assets/css/style.css`**: Custom style definitions rendering Neon effects & Glassmorphism.
+*   📁 **`assets/js/script.js`**: Core brain interface managing AI engine, UI interactions, and DOM logic.
+*   📁 **`assets/images/`**: High-fidelity, premium optimization visual repository assets.
+*   📄 **`index.html`**: Main optimized quantum entry portal to Neo-Tokyo.
+*   📄 **`LICENSE`**: MIT Open Source Authorization Protocol parameters.
+*   📄 **`README.md`**: Master architecture system documentation (You are here).
 
 ---
 
@@ -128,9 +146,13 @@ While you are exploring the cyberpunk future, here is actual footage of me (Iftu
 🌐 Connect With The Architect (Iftuu)
 System protocols require connection to the main frame. Access the creator's direct channels below!
 <div align="center">
+
 GitHub
+
 LinkedIn
+
 Gmail
+
 "Iftuu Nexus 3000 - Building the web of tomorrow, today." 👽
 </div>
 <div align="center">
