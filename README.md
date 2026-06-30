@@ -10,6 +10,8 @@
 **Premium Futuristic Portfolio | Ultra-Fast 60FPS | Cyberpunk Aesthetics | Zero-Lag Engine**
 
 [![Live Website](https://img.shields.io/badge/🚀_ENTER_NEO_TOKYO_-_LIVE_PREVIEW-00f0ff?style=for-the-badge&logoColor=black)](https://iftu8.github.io/iftuu-portfolio/)
+<br>
+![Profile Views](https://komarev.com/ghpvc/?username=iftu8&label=NEXUS+VISITORS&color=00f2fe&style=for-the-badge)
 
 <br>
 
@@ -23,16 +25,24 @@
 <img src="https://i.pinimg.com/originals/18/de/e0/18dee0402e3b2e7cd34cb5030dcfe3c1.gif" width="100%" height="15px"> 
 </div>
 
+## 📟 System Terminal [ONLINE]
+> **INITIALIZING CONNECTION...**
+> **USER:** Iftekhar Ahmmed Chowdhury (Iftuu)
+> **ROLE:** Mastermind / Lead Architect 
+> **SYSTEM STATUS:** 100% Optimal. Ready to build the future.
+
+---
+
 ## 📑 System Directory
 <details>
-<summary>Click to Expand System Protocols</summary>
+<summary><b>✨ Click to Initialize System Protocols ✨</b></summary>
 
 - [🔮 System Mood & Daily Vibe Core](#-system-mood--daily-vibe-core)
 - [📜 The Lore of Project "TOKYO 3000"](#-the-lore-of-project-tokyo-3000)
 - [💎 Pro Max System Features](#-pro-max-system-features)
 - [🛠️ Core Architecture & Tech Stack](#️-core-architecture--tech-stack)
-- [📂 Futuristic Folder Structure](#-futuristic-folder-structure)
-- [🗺️ Future Roadmap (Update 3001.0)](#️-future-roadmap-update-30010)
+- [📊 Architect's Global Stats](#-architects-global-stats)
+- [⏳ Daily Routine of the Architect](#-daily-routine-of-the-architect)
 - [🐾 Behind The Scenes...](#-behind-the-scenes)
 - [🌐 Connect With The Architect](#-connect-with-the-architect-iftuu)
 
@@ -63,7 +73,7 @@
 ## 📜 The Lore of Project "NEXUS 3.0"
 In the year 3000, the digital space has evolved. Traditional websites are dead. Welcome to **Neo-Tokyo**, a cyberspace nexus built for speed, privacy, and visual supremacy. This project is not just a gallery; it is a high-performance digital artifact showcasing unlimited future photography. 
 
-Designed and engineered entirely from scratch by **Iftekhar Ahmmed Chowdhury (Iftuu)**.
+Designed, engineered, and maintained entirely from scratch by **Iftekhar Ahmmed Chowdhury (Iftuu)**. It is a testament to raw coding power, bypassing heavy frameworks for pure vanilla speed.
 
 ---
 
@@ -74,52 +84,38 @@ Designed and engineered entirely from scratch by **Iftekhar Ahmmed Chowdhury (If
 | **🌌 Cyberpunk UI/UX** | Holographic colors, extreme glassmorphism, and neon-glowing interactions. | 🟢 Active |
 | **⚡ Quantum Loading** | Engineered with advanced `decoding="async"` technology and Intersection Observers. | 🟢 Active |
 | **🧬 Pure UUID Engine** | Cryptographically random seeds ensuring **zero duplicate** image generation. | 🟢 Active |
-| **💾 Direct Blob Downloads** | Extracts high-res 4K photos directly to local drives without server redirects. | 🟢 Active |
 | **🤖 Integrated AI** | Pre-programmed AI assistant widget for automated system interaction. | 🟢 Active |
 | **🚀 CI/CD Pipeline** | Automated GitHub Actions workflow for zero-downtime deployments. | 🟢 Active |
 
 ---
 
 ## 🛠️ Core Architecture & Tech Stack
-
-This project strictly avoids heavy frameworks to maintain extreme raw performance, relying on a modern modular stack:
-
-* **Frontend Engine:** HTML5, Tailwind CSS (via CDN with Preconnect).
-* **Logic Core:** Vanilla JavaScript (ES6+, Async/Await, Web API).
-* **Performance Optimization:** GPU-accelerated CSS animations (`will-change`), Masonry Layouts.
-* **Automation:** GitHub Actions (`deploy.yml`).
-
 <div align="center">
-  <img src="https://skillicons.dev/icons?i=html,tailwind,js,github,vscode&perline=5" alt="Tech Stack" />
+  <img src="https://skillicons.dev/icons?i=html,tailwind,js,github,vscode,git,figma&perline=7" alt="Tech Stack" />
 </div>
 
 ---
 
-## 📂 Futuristic Folder Structure
-
-```text
-NEXUS-3.0/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # Automated CI/CD Production Pipeline
-├── assets/
-│   ├── css/
-│   │   └── style.css           # Custom Neon & Glassmorphism styles
-│   ├── js/
-│   │   └── script.js           # Core AI & DOM logic
-│   └── images/                 # High-quality premium assets
-├── index.html                  # Main Entry Point (Optimized)
-├── LICENSE                     # MIT License Protocol
-└── README.md                   # System Documentation (You are here)
-🗺️ Future Roadmap (Update 3001.0)
-[x] Establish Core System Architecture.
-[x] Deploy Lazy-Loading & UUID Algorithm.
-[x] Integrate Automated CI/CD Deployment.
-[ ] Connect Real-time AI Chatbot API (Gemini/OpenAI).
-[ ] Implement WebGL 3D Elements & Canvas Particles.
+## 📊 Architect's Global Stats
 <div align="center">
-<img src="https://i.pinimg.com/originals/18/de/e0/18dee0402e3b2e7cd34cb5030dcfe3c1.gif" width="100%" height="15px">
+  <img src="https://github-readme-stats.vercel.app/api?username=iftu8&theme=tokyonight&show_icons=true&hide_border=true&count_private=true" alt="GitHub Stats" width="48%">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iftu8&theme=tokyonight&show_icons=true&hide_border=true&layout=compact" alt="Top Languages" width="48%">
 </div>
+
+---
+
+## ⏳ Daily Routine of the Architect
+*Monitoring the life-cycle of a Cyberpunk Developer (Iftuu)...*
+
+```js
+const dailyRoutine = {
+  "08:00 AM": "Boot up the system & grab futuristic coffee ☕",
+  "10:00 AM": "Reviewing Pull Requests & optimizing the Quantum Engine ⚙️",
+  "02:00 PM": "Building Pro-Max UI components with extreme glassmorphism 🎨",
+  "08:00 PM": "Debugging the Matrix... squashing bugs 🐛",
+  "02:00 AM": "Listening to Synthwave & writing the best code of the day 🎧",
+  "05:00 AM": "Sleep() // Error 404: Sleep not found 😴"
+};
 🐾 Behind The Scenes...
 While you are exploring the cyberpunk future, here is actual footage of me (Iftuu) coding this masterpiece at 3 AM:
 <div align="center">
@@ -132,9 +128,11 @@ While you are exploring the cyberpunk future, here is actual footage of me (Iftu
 🌐 Connect With The Architect (Iftuu)
 System protocols require connection to the main frame. Access the creator's direct channels below!
 <div align="center">
-🔗 Official Terminals:
-LinkedIn Check out Iftekhar Ahmed Chowdhury’s profile on LinkedIn https://bd.linkedin.com/in/iftekhar-ahmed-chowdhury-aa432b416
+GitHub
+LinkedIn
+Gmail
 "Iftuu Nexus 3000 - Building the web of tomorrow, today." 👽
-
-
+</div>
+<div align="center">
+<img src="https://i.pinimg.com/originals/18/de/e0/18dee0402e3b2e7cd34cb5030dcfe3c1.gif" width="100%" height="15px">
 </div>
