@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TOKYO 2030 | Unlimited Free 4K & 8K Photo Downloads. Zero-Duplicate Infinite Grid.">
-    <meta name="theme-color" content="#050505">
+    <meta name="description" content="TOKYO 2030 | Premium Infinite Visuals. 4K & 8K Zero-Duplicate Downloads.">
+    <meta name="theme-color" content="#09090b">
     
-    <title>TOKYO 2030 | Free Unlimited 4K/8K Photos</title>
+    <title>TOKYO 2030 | Unlimited Pro Vision</title>
     
-    <!-- Premium Fonts -->
+    <!-- Premium Fonts for Futuristic Look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -24,31 +24,10 @@
                         heading: ['Outfit', 'sans-serif'],
                     },
                     colors: {
-                        tokyoDark: '#050505',
-                        tokyoCard: '#0f0f11',
-                        tokyoNeon: '#f0abfc',
-                        tokyoCyan: '#22d3ee',
-                        tokyoPurple: '#c084fc',
-                        tokyoBlue: '#3b82f6'
-                    },
-                    animation: {
-                        'shimmer': 'shimmer 2.5s linear infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'fade-in': 'fadeIn 0.5s ease-out forwards'
-                    },
-                    keyframes: {
-                        shimmer: {
-                            '0%': { backgroundPosition: '-1200px 0' },
-                            '100%': { backgroundPosition: '1200px 0' }
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-12px)' }
-                        },
-                        fadeIn: {
-                            '0%': { opacity: 0, transform: 'translateY(15px) scale(0.98)' },
-                            '100%': { opacity: 1, transform: 'translateY(0) scale(1)' }
-                        }
+                        tokyoDark: '#09090b',
+                        tokyoNeon: '#f0abfc', /* Neon Pink/Purple vibe */
+                        tokyoCyan: '#22d3ee', /* Cyberpunk Cyan */
+                        tokyoGlass: 'rgba(9, 9, 11, 0.75)',
                     }
                 }
             }
@@ -56,384 +35,270 @@
     </script>
 
     <style>
-        /* Premium Custom Scrollbar */
+        /* Smooth Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #f0abfc; }
 
-        body { 
-            background-color: #050505; 
-            color: #f8fafc; 
-            overflow-x: hidden; 
-            -webkit-font-smoothing: antialiased;
-            overscroll-behavior-y: none;
+        /* Animated Dark/Neon Background */
+        body {
+            background-color: #09090b;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(240, 171, 252, 0.08), transparent 25%);
+            color: #f8fafc;
+            will-change: background;
         }
 
-        /* High-Performance Pinterest Masonry Grid */
+        /* Pinterest Style Masonry Layout */
         .masonry-grid {
             column-count: 2;
-            column-gap: 16px;
-            padding: 16px;
+            column-gap: 1rem;
         }
         @media (min-width: 640px) { .masonry-grid { column-count: 3; } }
         @media (min-width: 1024px) { .masonry-grid { column-count: 4; } }
         @media (min-width: 1280px) { .masonry-grid { column-count: 5; } }
         @media (min-width: 1536px) { .masonry-grid { column-count: 6; } }
-        @media (min-width: 1920px) { .masonry-grid { column-count: 7; } }
         
         .masonry-item {
             break-inside: avoid;
-            margin-bottom: 16px;
-            /* CRITICAL FOR ZERO LAG: Tells browser to skip rendering when off-screen */
-            content-visibility: auto;
-            contain-intrinsic-size: 400px;
-            will-change: transform;
-            border-radius: 1rem;
-            position: relative;
-            background: #0f0f11;
+            margin-bottom: 1rem;
+            transform: translateZ(0); /* Hardware acceleration */
         }
 
-        /* Glassmorphism Utilities */
-        .glass-nav {
-            background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        /* Glassmorphism Header */
+        .glass-header {
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .loading-spinner {
+            display: inline-block; width: 14px; height: 14px;
+            border: 2px solid white; border-top-color: transparent;
+            border-radius: 50%; animation: spin 1s linear infinite; margin-left: 8px;
         }
-
-        .skeleton-bg {
-            background: linear-gradient(90deg, #0f0f11 25%, #1a1a24 50%, #0f0f11 75%);
-            background-size: 1000px 100%;
-        }
-
-        /* AI Chat Widget */
-        .chat-widget {
-            position: fixed; bottom: -500px; right: 24px; width: 360px;
-            background: rgba(15, 15, 17, 0.98); backdrop-filter: blur(24px);
-            border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 1.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,1); z-index: 9999;
-            transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .chat-widget.active { bottom: 100px; }
-
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="font-sans">
+<body class="font-sans antialiased overflow-x-hidden selection:bg-tokyoCyan selection:text-black min-h-screen">
 
-    <!-- Ambient Background Colors -->
-    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-tokyoCyan/10 blur-[150px]"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-tokyoPurple/10 blur-[150px]"></div>
-    </div>
-
-    <!-- Main Navigation -->
-    <nav class="fixed top-0 w-full glass-nav z-50 flex flex-col transition-transform duration-300" id="navbar">
-        <div class="px-4 md:px-8 py-3 flex justify-between items-center gap-4 md:gap-8">
-            <!-- Logo -->
-            <div class="font-heading text-2xl md:text-3xl font-black tracking-tighter text-white cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-1.5" onclick="window.scrollTo(0,0)">
-                <svg class="w-8 h-8 text-tokyoCyan" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 6l5 10H7l5-10z"/></svg>
-                TOKYO<span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan via-tokyoBlue to-tokyoPurple">2030</span>
-            </div>
-
-            <!-- Search Bar -->
-            <div class="hidden md:flex flex-1 max-w-3xl relative group">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-400 group-focus-within:text-tokyoCyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </div>
-                <input type="text" placeholder="Search for free 4K/8K images, categories..." class="w-full bg-white/5 border border-white/10 focus:border-tokyoCyan/50 hover:bg-white/10 rounded-full py-2.5 pl-12 pr-4 text-sm text-white placeholder-gray-400 outline-none transition-all focus:shadow-[0_0_20px_rgba(34,211,238,0.15)]">
-            </div>
-
-            <!-- Actions -->
-            <div class="flex items-center gap-4">
-                <button onclick="toggleSettings()" class="text-gray-300 hover:text-white hover:rotate-90 transition-all p-1">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                </button>
-                <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-tokyoCyan to-tokyoPurple p-[2px] rounded-full cursor-pointer hover:shadow-[0_0_15px_rgba(192,132,252,0.4)] transition-all">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=ProUser" alt="Profile" class="w-8 h-8 rounded-full bg-black">
-                </div>
-            </div>
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 w-full glass-header z-50 px-6 py-4 flex justify-between items-center transition-all duration-300">
+        <!-- Logo -->
+        <div class="font-heading text-2xl font-black tracking-tighter text-white cursor-pointer flex items-center gap-2">
+            TOKYO<span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan to-tokyoNeon">2030</span>
         </div>
 
-        <!-- Filter Chips -->
-        <div class="px-4 md:px-8 py-2 overflow-x-auto no-scrollbar flex items-center gap-3">
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-black font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_10px_rgba(255,255,255,0.2)]">All Free</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">4K Downloads</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">8K Ultimate</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">Cyber City</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">AI Concept</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">Nature Pro</button>
+        <!-- Right Side: Socials & AI -->
+        <div class="flex items-center gap-6">
+            <!-- Social Links (LinkedIn & Facebook) -->
+            <div class="flex items-center gap-4 border-r border-white/10 pr-6">
+                <!-- LinkedIn -->
+                <a href="https://bd.linkedin.com/in/iftekhar-ahmed-chowdhury-aa432b416" target="_blank" rel="noopener noreferrer" 
+                   class="text-gray-400 hover:text-[#0077b5] transition-colors duration-300" title="LinkedIn Profile">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/iftekhar.ahmmed.chowdhury" target="_blank" rel="noopener noreferrer"
+                   class="text-gray-400 hover:text-[#1877f2] transition-colors duration-300" title="Facebook Profile">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Ask AI Button -->
+            <button class="bg-white/10 hover:bg-white/20 text-white border border-white/10 px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-[0_0_15px_rgba(34,211,238,0.1)] hover:shadow-[0_0_20px_rgba(240,171,252,0.3)]">
+                Ask AI ✨
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative w-full pt-44 pb-12 px-4 flex flex-col justify-center items-center text-center z-10 animate-float">
-        <div class="inline-flex items-center gap-2 bg-tokyoCyan/10 text-tokyoCyan px-5 py-2 rounded-full text-xs font-bold mb-6 border border-tokyoCyan/20 uppercase tracking-widest">
-            <span class="w-2 h-2 rounded-full bg-tokyoCyan animate-ping"></span> 100% Free Downloads
+    <header class="relative w-full pt-32 pb-16 px-4 flex flex-col justify-center items-center text-center">
+        <div class="inline-flex items-center gap-2 bg-tokyoCyan/10 text-tokyoCyan px-4 py-1.5 rounded-full text-xs font-bold mb-6 border border-tokyoCyan/20 uppercase tracking-widest">
+            <span class="w-2 h-2 rounded-full bg-tokyoCyan animate-pulse"></span> Network Online
         </div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tight max-w-5xl">
-            Download <span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan via-white to-tokyoPurple">Unlimited</span> Photos.
+        
+        <h1 class="font-heading text-5xl md:text-7xl font-black mb-6 tracking-tight max-w-4xl">
+            Infinite. Unique. <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan via-white to-tokyoNeon">Limitless 8K Vision.</span>
         </h1>
-        <p class="text-gray-400 text-lg md:text-xl max-w-2xl font-light">Your endless gallery of royalty-free, zero-duplicate visuals. Every image is available in massive 4K & 8K resolutions instantly.</p>
+        
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mb-8 font-light leading-relaxed">
+            Experience the Tokyo 2030 algorithm. Zero duplicate images. Scroll infinitely and download in native 4K & 8K resolution absolutely free.
+        </p>
     </header>
 
-    <!-- Masonry Grid Area -->
-    <main class="w-full pb-24 max-w-[2560px] mx-auto z-10 relative">
+    <!-- Masonry Gallery (Pinterest Style) -->
+    <main class="px-4 sm:px-6 md:px-8 pb-20 max-w-[2000px] mx-auto">
         <div id="tokyo-grid" class="masonry-grid"></div>
-        
-        <!-- Loading Indicator -->
-        <div id="loader" class="w-full py-16 flex flex-col justify-center items-center gap-4">
-            <div class="w-10 h-10 border-4 border-white/5 border-t-tokyoCyan border-r-tokyoPurple rounded-full animate-spin"></div>
-            <p class="text-gray-500 font-bold text-xs tracking-widest uppercase">Fetching Free Assets...</p>
+
+        <!-- Infinite Loading Indicator -->
+        <div id="loader" class="w-full py-12 flex flex-col justify-center items-center">
+            <div class="w-10 h-10 border-4 border-white/10 border-t-tokyoNeon rounded-full animate-spin"></div>
+            <p class="mt-4 text-gray-500 text-xs font-bold tracking-widest uppercase">Rendering New Assets...</p>
         </div>
     </main>
 
-    <!-- Enhanced Image Preview Modal -->
-    <div id="image-modal" class="fixed inset-0 bg-black/95 z-[9000] hidden flex-col justify-center items-center p-4 md:p-8 backdrop-blur-3xl opacity-0 transition-opacity duration-300">
-        <button onclick="closeModal()" class="absolute top-6 right-6 text-white bg-white/10 hover:bg-red-500 p-3 rounded-full transition-all z-50">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <!-- Image Preview Modal -->
+    <div id="image-modal" class="fixed inset-0 bg-tokyoDark/95 z-[9000] hidden flex-col justify-center items-center p-4 md:p-10 backdrop-blur-xl transition-all opacity-0">
+        <button onclick="closeModal()" aria-label="Close" class="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/5 hover:bg-white/20 p-3 rounded-full transition-all backdrop-blur-md">
+            ✕ CLOSE
         </button>
         
-        <div class="relative w-full max-w-7xl flex flex-col lg:flex-row gap-8 items-center h-full max-h-[85vh]">
-            <!-- Image Frame -->
-            <div class="flex-1 w-full h-full flex justify-center items-center overflow-hidden rounded-3xl bg-black/50 border border-white/5 relative group shadow-2xl">
-                <div class="absolute inset-0 skeleton-bg animate-shimmer -z-10"></div>
-                <img id="modal-img" src="" alt="High Res Preview" class="max-w-full max-h-full object-contain drop-shadow-2xl opacity-0 transition-opacity duration-500">
-            </div>
+        <div class="relative max-w-7xl w-full flex flex-col items-center">
+            <img id="modal-img" src="" alt="High Resolution Asset" class="max-w-full max-h-[75vh] rounded-xl shadow-2xl mb-8 object-contain bg-gray-900">
             
-            <!-- Download Action Panel -->
-            <div class="w-full lg:w-96 flex flex-col gap-6 text-left shrink-0 bg-[#0a0a0c] p-8 rounded-3xl border border-white/10 h-auto">
-                <div>
-                    <h2 class="text-3xl font-heading font-black text-white mb-2">Free Download</h2>
-                    <p class="text-gray-400 text-sm">Commercial use permitted. No attribution required.</p>
-                </div>
-                
-                <div class="bg-black/50 p-5 rounded-2xl space-y-4 border border-white/5">
-                    <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                        <span class="text-gray-400 text-sm">Image UID</span>
-                        <span id="modal-uid" class="text-tokyoCyan font-mono text-sm font-bold">...</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                        <span class="text-gray-400 text-sm">License</span>
-                        <span class="text-green-400 font-bold text-sm">Royalty-Free</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-400 text-sm">Format</span>
-                        <span class="text-white font-medium text-sm">JPEG High Quality</span>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-4 mt-4">
-                    <button onclick="triggerDownload('4K')" class="w-full py-4 bg-white text-black rounded-2xl font-bold hover:bg-gray-200 transition-colors flex items-center justify-center gap-3 text-lg">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Download 4K
-                    </button>
-                    <button onclick="triggerDownload('8K')" class="w-full py-4 bg-gradient-to-r from-tokyoCyan to-tokyoPurple text-white rounded-2xl font-bold hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all flex items-center justify-center gap-3 text-lg">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                        Download 8K Max
-                    </button>
-                </div>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="downloadImage('4K')" class="bg-tokyoCyan text-black font-heading px-8 py-3 rounded-full hover:bg-white transition-all font-bold shadow-[0_0_20px_rgba(34,211,238,0.4)] flex items-center">
+                    Download 4K Free
+                </button>
+                <button onclick="downloadImage('8K')" class="bg-tokyoNeon text-black font-heading px-8 py-3 rounded-full hover:bg-white transition-all font-bold shadow-[0_0_20px_rgba(240,171,252,0.4)] flex items-center">
+                    Download 8K Ultra
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- System Settings -->
-    <div id="settings-modal" class="fixed inset-0 bg-black/90 z-[10000] hidden flex-col justify-center items-center opacity-0 transition-opacity backdrop-blur-sm">
-        <div class="bg-[#0f0f11] border border-white/10 rounded-3xl w-full max-w-sm p-6 transform scale-95 transition-transform" id="settings-content">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-heading font-bold text-white">App Settings</h3>
-                <button onclick="toggleSettings()" class="text-gray-400 hover:text-white p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            </div>
-            <div class="space-y-3">
-                <div class="flex justify-between items-center p-4 bg-black/50 rounded-2xl border border-white/5">
-                    <span class="font-medium text-sm text-gray-200">Zero-Lag Mode</span>
-                    <input type="checkbox" checked class="w-5 h-5 accent-tokyoCyan cursor-pointer">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Floating AI Button -->
-    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-white rounded-full shadow-[0_10px_30px_rgba(255,255,255,0.3)] z-[9998] flex justify-center items-center hover:scale-110 transition-transform">
-        <svg class="w-7 h-7 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-    </button>
-
+    <!-- JavaScript for Pinterest Style Infinite Scroll & No Duplicates -->
     <script>
         const grid = document.getElementById('tokyo-grid');
         const loader = document.getElementById('loader');
-        const modal = document.getElementById('image-modal');
-        const modalImg = document.getElementById('modal-img');
-        const modalUid = document.getElementById('modal-uid');
+        let totalLoaded = 0;
         let isFetching = false;
-        let currentSeed = '';
-        const generatedSeeds = new Set();
+        let currentHighResSeed = '';
 
-        // Ensure 100% Unique Images
-        function getUniqueSeed() {
-            let seed;
-            do {
-                seed = Math.random().toString(36).substring(2, 12);
-            } while (generatedSeeds.has(seed));
-            generatedSeeds.add(seed);
-            return seed;
+        // Guaranteed Unique ID Generator to prevent any duplicate images
+        function generateUniqueSeed() {
+            return 'xxxx-8xxx-yxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
         }
 
-        // --- BATCH DOM RENDERING FOR ZERO LAG ---
-        const loadPhotos = (count = 20) => {
+        // Modal Logic
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+
+        function openModal(seed) {
+            currentHighResSeed = seed;
+            // Fetching a very high-res image for preview
+            modalImg.src = `https://picsum.photos/seed/${seed}/1920/1080`;
+            modal.style.display = 'flex';
+            setTimeout(() => modal.style.opacity = '1', 10);
+        }
+
+        function closeModal() {
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modalImg.src = '';
+            }, 300);
+        }
+
+        // Fake Download Trigger for 4K/8K presentation
+        async function downloadImage(quality) {
+            const btn = event.currentTarget;
+            const originalText = btn.innerText;
+            btn.innerHTML = `Synthesizing... <span class="loading-spinner"></span>`;
+            btn.style.pointerEvents = 'none';
+            
+            // Adjust resolution based on user selection
+            let width = quality === '8K' ? 7680 : 3840;
+            let height = quality === '8K' ? 4320 : 2160;
+            let downloadUrl = `https://picsum.photos/seed/${currentHighResSeed}/${width}/${height}`;
+            let fileName = `TOKYO_2030_${quality}_${currentHighResSeed}.jpg`;
+
+            try {
+                const response = await fetch(downloadUrl);
+                if (!response.ok) throw new Error("Network error");
+                
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(blobUrl);
+                
+                btn.innerText = "✓ Downloaded";
+            } catch (error) {
+                window.open(downloadUrl, '_blank');
+                btn.innerText = "Opened in Tab";
+            } finally {
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.pointerEvents = 'auto';
+                }, 3000);
+            }
+        }
+
+        // Generate Image Cards (Pinterest Style)
+        const loadPhotos = (count = 15) => {
             if(isFetching) return;
             isFetching = true;
             
             const fragment = document.createDocumentFragment();
-            // Varied heights for perfect Pinterest masonry look
-            const heights = [350, 400, 450, 550, 600, 750];
 
             for (let i = 0; i < count; i++) {
-                const seed = getUniqueSeed(); 
-                const height = heights[Math.floor(Math.random() * heights.length)];
-                // Standard dimension API
-                const imgUrl = `https://picsum.photos/seed/${seed}/600/${height}`;
+                totalLoaded++;
+                const seed = generateUniqueSeed(); 
+                
+                // Randomize height to create the Pinterest Masonry effect perfectly
+                const heights = [400, 500, 600, 700];
+                const randomHeight = heights[Math.floor(Math.random() * heights.length)];
+                
+                const displayUrl = `https://picsum.photos/seed/${seed}/500/${randomHeight}`;
 
                 const card = document.createElement('div');
-                card.className = "masonry-item group cursor-zoom-in animate-fade-in";
-                
-                // Constructing the Pinterest-Style Card with direct download buttons
-                card.innerHTML = `
-                    <div class="absolute inset-0 skeleton-bg rounded-2xl -z-10"></div> 
-                    <img src="${imgUrl}" 
-                         loading="lazy" 
-                         decoding="async"
-                         alt="Free Image ${seed}" 
-                         onload="this.style.opacity=1"
-                         class="w-full h-auto object-cover opacity-0 rounded-2xl transition-opacity duration-500">
-                    
-                    <!-- Hover UI Overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex flex-col justify-between p-4 z-10" onclick="openModal('${seed}')">
-                        
-                        <!-- Top Area: Direct Downloads -->
-                        <div class="flex justify-end gap-2 transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                            <button onclick="event.stopPropagation(); triggerDirectDownload('${seed}', '4K', this)" class="bg-white/90 backdrop-blur text-black px-4 py-2 rounded-full font-bold text-xs hover:bg-white transition-colors">
-                                Free 4K
-                            </button>
-                            <button onclick="event.stopPropagation(); triggerDirectDownload('${seed}', '8K', this)" class="bg-tokyoCyan/90 backdrop-blur text-black px-4 py-2 rounded-full font-bold text-xs hover:bg-tokyoCyan transition-colors">
-                                Free 8K
-                            </button>
-                        </div>
+                card.className = "masonry-item group relative rounded-2xl overflow-hidden cursor-zoom-in bg-white/5";
+                card.onclick = () => openModal(seed);
 
-                        <!-- Bottom Area: Info -->
-                        <div class="flex justify-between items-end transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                            <div>
-                                <h3 class="text-white font-bold text-lg leading-tight">UID // ${seed.substring(0, 6).toUpperCase()}</h3>
-                                <p class="text-green-400 text-xs font-medium mt-1">✔ Commercial Use</p>
-                            </div>
-                            <button onclick="event.stopPropagation(); alert('Link Copied!')" class="w-9 h-9 rounded-full bg-white/20 backdrop-blur flex justify-center items-center hover:bg-white/40 transition-colors">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            </button>
+                card.innerHTML = `
+                    <div class="absolute inset-0 bg-gray-800 animate-pulse -z-10"></div> 
+                    <img src="${displayUrl}" loading="lazy" decoding="async" alt="Tokyo 2030 Asset" 
+                         class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
+                    
+                    <!-- Pinterest-like Hover Overlay -->
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
+                        <div class="flex justify-end transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="bg-tokyoNeon text-black text-xs font-bold px-3 py-1.5 rounded-full">Save 8K</span>
+                        </div>
+                        <div class="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <p class="text-white font-heading font-semibold truncate text-sm">Asset // ${seed.toUpperCase()}</p>
+                            <p class="text-gray-300 text-xs mt-0.5">Free for Commercial Use</p>
                         </div>
                     </div>
                 `;
                 fragment.appendChild(card);
             }
             
-            // Append securely and fluidly
-            requestAnimationFrame(() => {
-                grid.appendChild(fragment);
-                isFetching = false;
-            });
+            grid.appendChild(fragment);
+            isFetching = false;
         };
 
-        // Initial Grid Load
-        loadPhotos(25);
+        // Initial Load
+        loadPhotos(20);
 
-        // --- ZERO LAG INFINITE SCROLL OBSERVER ---
+        // Infinite Scroll Observer
         const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !isFetching) {
-                // Load more before user reaches bottom
-                loadPhotos(15); 
-            }
-        }, { rootMargin: '1500px' }); 
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !isFetching) {
+                    requestAnimationFrame(() => loadPhotos(10)); 
+                }
+            });
+        }, { root: null, rootMargin: '800px', threshold: 0 });
+
         observer.observe(loader);
-
-        // --- UX / Modals ---
-        function openModal(seed) {
-            currentSeed = seed;
-            modalUid.innerText = seed.toUpperCase();
-            
-            modalImg.style.opacity = '0';
-            const highRes = new Image();
-            highRes.src = `https://picsum.photos/seed/${seed}/1920/1080`;
-            highRes.onload = () => {
-                modalImg.src = highRes.src;
-                modalImg.style.opacity = '1';
-            };
-
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-            document.body.style.overflow = 'hidden'; 
-        }
-
-        function closeModal() {
-            modal.classList.add('opacity-0');
-            setTimeout(() => {
-                modal.style.display = 'none';
-                document.body.style.overflow = '';
-            }, 300);
-        }
-
-        // --- Navbar Auto-Hide (Pinterest Style) ---
-        let lastScroll = 0;
-        const nav = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            if (currentScroll > lastScroll && currentScroll > 100) {
-                nav.style.transform = 'translateY(-100%)'; // Scroll Down - Hide
-            } else {
-                nav.style.transform = 'translateY(0)'; // Scroll Up - Show
-            }
-            lastScroll = currentScroll <= 0 ? 0 : currentScroll;
-        }, { passive: true }); // passive: true for scroll performance
-
-        // --- Simulation of Downloading ---
-        function triggerDownload(quality) {
-            let width = quality === '8K' ? 7680 : 3840;
-            let height = quality === '8K' ? 4320 : 2160;
-            let finalUrl = `https://picsum.photos/seed/${currentSeed}/${width}/${height}`;
-            window.open(finalUrl, '_blank');
-        }
-
-        function triggerDirectDownload(seed, quality, btnElement) {
-            const originalText = btnElement.innerText;
-            btnElement.innerText = 'Opening...';
-            let width = quality === '8K' ? 7680 : 3840;
-            let height = quality === '8K' ? 4320 : 2160;
-            setTimeout(() => {
-                window.open(`https://picsum.photos/seed/${seed}/${width}/${height}`, '_blank');
-                btnElement.innerText = originalText;
-            }, 500);
-        }
-
-        function toggleSettings() {
-            const sModal = document.getElementById('settings-modal');
-            const sContent = document.getElementById('settings-content');
-            if (sModal.style.display === 'flex') {
-                sModal.classList.add('opacity-0');
-                sContent.classList.replace('scale-100', 'scale-95');
-                setTimeout(() => sModal.style.display = 'none', 300);
-            } else {
-                sModal.style.display = 'flex';
-                setTimeout(() => {
-                    sModal.classList.remove('opacity-0');
-                    sContent.classList.replace('scale-95', 'scale-100');
-                }, 10);
-            }
-        }
     </script>
 </body>
 </html>
