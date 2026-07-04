@@ -3,21 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TOKYO 2030 | Premium Infinite Visuals. 4K & 8K Zero-Duplicate Downloads.">
+    <meta name="theme-color" content="#09090b">
     
-    <meta name="description" content="NEXUS 3.0 | A state-of-the-art visual engine with unlimited, unique, zero-duplicate high-resolution images.">
-    <meta name="theme-color" content="#0f172a">
-    <meta property="og:title" content="NEXUS 3.0 | Pro Vision">
-    <meta property="og:description" content="Discover Unlimited Perspectives with zero duplicate images.">
+    <title>TOKYO 2030 | Unlimited Pro Vision</title>
     
-    <title>N E X U S 3.0 | Pro Vision</title>
-    
+    <!-- Premium Fonts for Futuristic Look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="dns-prefetch" href="https://picsum.photos">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -25,13 +21,13 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        heading: ['Poppins', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
                     },
                     colors: {
-                        glassBg: 'rgba(15, 23, 42, 0.6)',
-                        primary: '#38bdf8', 
-                        secondary: '#818cf8', 
-                        dark: '#0f172a', 
+                        tokyoDark: '#09090b',
+                        tokyoNeon: '#f0abfc', /* Neon Pink/Purple vibe */
+                        tokyoCyan: '#22d3ee', /* Cyberpunk Cyan */
+                        tokyoGlass: 'rgba(9, 9, 11, 0.75)',
                     }
                 }
             }
@@ -39,271 +35,163 @@
     </script>
 
     <style>
-        /* Smooth Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #818cf8; }
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f0abfc; }
 
-        /* Premium Glassmorphism */
-        .glass {
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* 🚀 GPU Accelerated Background Gradient */
+        /* Animated Dark/Neon Background */
         body {
-            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #020617, #172554);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: #09090b;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(240, 171, 252, 0.08), transparent 25%);
             color: #f8fafc;
-            will-change: background-position;
-        }
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            will-change: background;
         }
 
-        /* 🐈 GPU Accelerated Funny Cat Animation */
-        .funny-cat {
-            position: fixed; bottom: 20px; left: -100px;
-            font-size: 3rem; z-index: 100;
-            animation: runCat 10s linear infinite;
-            filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
-            will-change: transform;
+        /* Pinterest Style Masonry Layout */
+        .masonry-grid {
+            column-count: 2;
+            column-gap: 1rem;
         }
-        @keyframes runCat {
-            0% { transform: translateX(-100px) scaleX(1) translateY(0); }
-            20% { transform: translateX(20vw) scaleX(1) translateY(-20px); }
-            40% { transform: translateX(50vw) scaleX(1) translateY(0); }
-            49% { transform: translateX(110vw) scaleX(1); }
-            50% { transform: translateX(110vw) scaleX(-1); }
-            100% { transform: translateX(-100px) scaleX(-1); }
+        @media (min-width: 640px) { .masonry-grid { column-count: 3; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 4; } }
+        @media (min-width: 1280px) { .masonry-grid { column-count: 5; } }
+        @media (min-width: 1536px) { .masonry-grid { column-count: 6; } }
+        
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            transform: translateZ(0); /* Hardware acceleration */
         }
 
-        /* AI Chatbot Animation */
-        .ai-chat-popup {
-            transform: translateY(150%);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            will-change: transform;
+        /* Glassmorphism Header */
+        .glass-header {
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .ai-chat-popup.active { transform: translateY(0); }
 
-        /* Highly Optimized Masonry Grid */
-        .masonry-grid { column-count: 1; column-gap: 1.5rem; }
-        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
-        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
-        @media (min-width: 1280px) { .masonry-grid { column-count: 4; } }
-        .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; will-change: transform; }
-
-        /* Loader */
         .loading-spinner {
-            display: inline-block; width: 16px; height: 16px;
+            display: inline-block; width: 14px; height: 14px;
             border: 2px solid white; border-top-color: transparent;
             border-radius: 50%; animation: spin 1s linear infinite; margin-left: 8px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white">
+<body class="font-sans antialiased overflow-x-hidden selection:bg-tokyoCyan selection:text-black min-h-screen">
 
-    <div class="funny-cat" aria-hidden="true" title="Meow! I'm making the web faster!">🐈💨</div>
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 w-full glass-header z-50 px-6 py-4 flex justify-between items-center transition-all duration-300">
+        <!-- Logo -->
+        <div class="font-heading text-2xl font-black tracking-tighter text-white cursor-pointer flex items-center gap-2">
+            TOKYO<span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan to-tokyoNeon">2030</span>
+        </div>
 
-    <nav class="fixed top-0 w-full glass z-50 px-8 py-4 flex justify-between items-center transition-all duration-300 shadow-lg">
-        <div class="font-heading text-2xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary cursor-pointer">
-            NEXUS<span class="text-white font-light">3.0</span>
+        <!-- Right Side: Socials & AI -->
+        <div class="flex items-center gap-6">
+            <!-- Social Links (LinkedIn & Facebook) -->
+            <div class="flex items-center gap-4 border-r border-white/10 pr-6">
+                <!-- LinkedIn -->
+                <a href="https://bd.linkedin.com/in/iftekhar-ahmed-chowdhury-aa432b416" target="_blank" rel="noopener noreferrer" 
+                   class="text-gray-400 hover:text-[#0077b5] transition-colors duration-300" title="LinkedIn Profile">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/iftekhar.ahmmed.chowdhury" target="_blank" rel="noopener noreferrer"
+                   class="text-gray-400 hover:text-[#1877f2] transition-colors duration-300" title="Facebook Profile">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Ask AI Button -->
+            <button class="bg-white/10 hover:bg-white/20 text-white border border-white/10 px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-[0_0_15px_rgba(34,211,238,0.1)] hover:shadow-[0_0_20px_rgba(240,171,252,0.3)]">
+                Ask AI ✨
+            </button>
         </div>
-        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-300">
-            <a href="#" class="hover:text-primary transition-colors">Explore</a>
-            <a href="#" class="hover:text-primary transition-colors">Collections</a>
-            <a href="#" class="hover:text-primary transition-colors">Pro Network</a>
-        </div>
-        <button onclick="toggleAI()" aria-label="Toggle AI Assistant" class="flex items-center gap-2 bg-gradient-to-r from-secondary to-primary px-5 py-2 rounded-full text-sm font-semibold hover:scale-105 transition-transform shadow-[0_4px_15px_rgba(56,189,248,0.4)]">
-            🤖 Ask AI
-        </button>
     </nav>
 
-    <div id="ai-widget" class="fixed bottom-6 right-6 w-80 glass rounded-2xl border border-white/20 shadow-2xl z-50 ai-chat-popup flex flex-col overflow-hidden">
-        <div class="bg-gradient-to-r from-secondary to-primary p-4 flex justify-between items-center">
-            <h3 class="font-heading font-bold text-white flex items-center gap-2">🤖 Nexus AI Helper</h3>
-            <button onclick="toggleAI()" aria-label="Close AI" class="text-white hover:text-gray-200 font-bold">✕</button>
-        </div>
-        <div id="ai-messages" class="p-4 h-64 overflow-y-auto flex flex-col gap-3 text-sm text-gray-200 bg-dark/80">
-            <div class="bg-white/10 p-3 rounded-lg self-start max-w-[80%] rounded-tl-none border border-white/5 shadow-md">
-                Hi there! I am Nexus AI. I don't make mistakes. Ask me "status", "photos", or "cat"!
-            </div>
-        </div>
-        <div class="p-3 border-t border-white/10 flex gap-2 bg-dark/90">
-            <input type="text" id="ai-input" aria-label="Ask AI" placeholder="Type a command..." class="w-full bg-black/50 text-white text-sm rounded-lg px-3 py-2 outline-none border border-white/10 focus:border-primary transition-colors" onkeypress="handleAIEnter(event)">
-            <button onclick="sendAIMessage()" aria-label="Send Message" class="bg-primary text-dark px-3 py-2 rounded-lg font-bold hover:bg-white transition-colors">↗</button>
-        </div>
-    </div>
-
-    <header class="relative w-full min-h-[70vh] flex flex-col justify-center items-center text-center pt-24 px-4">
-        <div class="inline-block glass px-4 py-1 rounded-full text-xs font-semibold text-primary mb-6 border border-primary/30 shadow-[0_0_15px_rgba(56,189,248,0.2)]">
-            ✨ Infinite. Unique. Flawless.
+    <!-- Hero Section -->
+    <header class="relative w-full pt-32 pb-16 px-4 flex flex-col justify-center items-center text-center">
+        <div class="inline-flex items-center gap-2 bg-tokyoCyan/10 text-tokyoCyan px-4 py-1.5 rounded-full text-xs font-bold mb-6 border border-tokyoCyan/20 uppercase tracking-widest">
+            <span class="w-2 h-2 rounded-full bg-tokyoCyan animate-pulse"></span> Network Online
         </div>
         
-        <h1 class="font-heading text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight max-w-4xl">
-            Discover <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Unlimited</span> Perspectives.
+        <h1 class="font-heading text-5xl md:text-7xl font-black mb-6 tracking-tight max-w-4xl">
+            Infinite. Unique. <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan via-white to-tokyoNeon">Limitless 8K Vision.</span>
         </h1>
         
-        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mb-10 font-light leading-relaxed">
-            A state-of-the-art visual engine guaranteeing zero duplicate images. High-resolution downloads at your fingertips.
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mb-8 font-light leading-relaxed">
+            Experience the Tokyo 2030 algorithm. Zero duplicate images. Scroll infinitely and download in native 4K & 8K resolution absolutely free.
         </p>
-
-        <a href="#gallery" class="px-8 py-4 bg-white text-dark font-heading font-bold text-lg rounded-full hover:bg-primary hover:text-white transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(56,189,248,0.6)] transform hover:-translate-y-1">
-            Start Exploring ↓
-        </a>
     </header>
 
-    <main id="gallery" class="px-6 md:px-12 pb-20 max-w-[1600px] mx-auto relative z-10">
-        <div class="flex justify-between items-end mb-10 pb-4 border-b border-white/10">
-            <div>
-                <h2 class="font-heading text-3xl text-white">Curated Gallery</h2>
-                <p class="text-gray-400 text-sm mt-1">Algorithm: Pure UUID No-Repeat Engine</p>
-            </div>
-            <div class="text-right">
-                <span class="text-xs text-gray-400 block mb-1">ASSETS RENDERED</span>
-                <span id="counter-display" class="font-heading text-2xl text-primary font-bold">0</span>
-            </div>
-        </div>
+    <!-- Masonry Gallery (Pinterest Style) -->
+    <main class="px-4 sm:px-6 md:px-8 pb-20 max-w-[2000px] mx-auto">
+        <div id="tokyo-grid" class="masonry-grid"></div>
 
-        <div id="nexus-grid" class="masonry-grid"></div>
-
-        <div id="loader" class="w-full py-16 flex flex-col justify-center items-center">
-            <div class="w-12 h-12 border-4 border-white/10 border-t-primary rounded-full animate-spin"></div>
-            <p class="mt-4 text-gray-400 text-sm font-medium tracking-wide">Synthesizing Unique Data...</p>
+        <!-- Infinite Loading Indicator -->
+        <div id="loader" class="w-full py-12 flex flex-col justify-center items-center">
+            <div class="w-10 h-10 border-4 border-white/10 border-t-tokyoNeon rounded-full animate-spin"></div>
+            <p class="mt-4 text-gray-500 text-xs font-bold tracking-widest uppercase">Rendering New Assets...</p>
         </div>
     </main>
 
-    <div id="image-modal" class="fixed inset-0 bg-dark/95 z-[9000] hidden flex-col justify-center items-center p-4 backdrop-blur-xl transition-all opacity-0">
-        <button onclick="closeModal()" aria-label="Close Image" class="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-all">✕ CLOSE</button>
-        <img id="modal-img" src="" alt="High Resolution Asset" class="max-w-full max-h-[75vh] rounded-xl shadow-2xl mb-8 object-contain">
-        <div class="flex gap-4">
-            <button id="modal-download-btn" class="bg-primary text-dark font-heading px-8 py-3 rounded-full hover:bg-white transition-all font-bold shadow-[0_4px_20px_rgba(56,189,248,0.5)] flex items-center">
-                Download 4K Free
-            </button>
+    <!-- Image Preview Modal -->
+    <div id="image-modal" class="fixed inset-0 bg-tokyoDark/95 z-[9000] hidden flex-col justify-center items-center p-4 md:p-10 backdrop-blur-xl transition-all opacity-0">
+        <button onclick="closeModal()" aria-label="Close" class="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/5 hover:bg-white/20 p-3 rounded-full transition-all backdrop-blur-md">
+            ✕ CLOSE
+        </button>
+        
+        <div class="relative max-w-7xl w-full flex flex-col items-center">
+            <img id="modal-img" src="" alt="High Resolution Asset" class="max-w-full max-h-[75vh] rounded-xl shadow-2xl mb-8 object-contain bg-gray-900">
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="downloadImage('4K')" class="bg-tokyoCyan text-black font-heading px-8 py-3 rounded-full hover:bg-white transition-all font-bold shadow-[0_0_20px_rgba(34,211,238,0.4)] flex items-center">
+                    Download 4K Free
+                </button>
+                <button onclick="downloadImage('8K')" class="bg-tokyoNeon text-black font-heading px-8 py-3 rounded-full hover:bg-white transition-all font-bold shadow-[0_0_20px_rgba(240,171,252,0.4)] flex items-center">
+                    Download 8K Ultra
+                </button>
+            </div>
         </div>
     </div>
 
+    <!-- JavaScript for Pinterest Style Infinite Scroll & No Duplicates -->
     <script>
-        // ==========================================
-        // 1. AI ASSISTANT LOGIC
-        // ==========================================
-        const aiWidget = document.getElementById('ai-widget');
-        const aiInput = document.getElementById('ai-input');
-        const aiMessages = document.getElementById('ai-messages');
-
-        function toggleAI() {
-            aiWidget.classList.toggle('active');
-            if(aiWidget.classList.contains('active')) aiInput.focus();
-        }
-
-        function handleAIEnter(e) {
-            if (e.key === 'Enter') sendAIMessage();
-        }
-
-        function sendAIMessage() {
-            const text = aiInput.value.trim().toLowerCase();
-            if (!text) return;
-
-            addMessage(text, 'user');
-            aiInput.value = '';
-
-            setTimeout(() => {
-                let response = "I'm a pre-programmed AI widget. Type 'status', 'photos', or 'cat' to interact!";
-                
-                if (text.includes('status')) {
-                    response = "System Status: ONLINE. Server Load: Optimal. Duplicate Prevention: 100% Active.";
-                } else if (text.includes('photo') || text.includes('load')) {
-                    response = `Currently, we have successfully generated ${totalLoaded} unique images for you. Keep scrolling for more!`;
-                } else if (text.includes('cat')) {
-                    response = "Meow! Look at the bottom of the screen, there's a cat running around to keep the servers fast! 🐈";
-                } else if (text.includes('hello') || text.includes('hi')) {
-                    response = "Hello there! Welcome to NEXUS 3.0. How can I assist your browsing today?";
-                }
-
-                addMessage(response, 'ai');
-            }, 600);
-        }
-
-        function addMessage(text, sender) {
-            const msgDiv = document.createElement('div');
-            if (sender === 'user') {
-                msgDiv.className = "bg-primary text-dark p-3 rounded-lg self-end max-w-[80%] rounded-tr-none font-medium shadow-md transition-all";
-            } else {
-                msgDiv.className = "bg-white/10 p-3 rounded-lg self-start max-w-[80%] rounded-tl-none border border-white/5 text-gray-200 shadow-md transition-all";
-            }
-            msgDiv.innerText = text;
-            aiMessages.appendChild(msgDiv);
-            aiMessages.scrollTop = aiMessages.scrollHeight; 
-        }
-
-        // ==========================================
-        // 2. ULTRA-FAST INFINITE PHOTOS LOGIC
-        // ==========================================
-        const grid = document.getElementById('nexus-grid');
+        const grid = document.getElementById('tokyo-grid');
         const loader = document.getElementById('loader');
-        const counterDisplay = document.getElementById('counter-display');
         let totalLoaded = 0;
         let isFetching = false;
+        let currentHighResSeed = '';
 
-        function generateUUID() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        // Guaranteed Unique ID Generator to prevent any duplicate images
+        function generateUniqueSeed() {
+            return 'xxxx-8xxx-yxxx'.replace(/[xy]/g, function(c) {
                 var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
             });
         }
 
-        async function forceDownload(url, filename, btnElement) {
-            btnElement.innerHTML = `Downloading... <span class="loading-spinner"></span>`;
-            btnElement.style.pointerEvents = 'none';
-            btnElement.style.opacity = '0.8';
-            
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error("Network error");
-                
-                const blob = await response.blob();
-                const blobUrl = URL.createObjectURL(blob);
-                
-                const link = document.createElement('a');
-                link.href = blobUrl;
-                link.download = filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(blobUrl);
-                
-                btnElement.innerText = "✓ Saved Successfully";
-                btnElement.classList.replace('bg-primary', 'bg-green-500');
-            } catch (error) {
-                console.error("Download failed:", error);
-                window.open(url, '_blank');
-                btnElement.innerText = "Opened in Tab";
-            } finally {
-                setTimeout(() => {
-                    btnElement.innerText = "Download 4K Free";
-                    btnElement.classList.replace('bg-green-500', 'bg-primary');
-                    btnElement.style.pointerEvents = 'auto';
-                    btnElement.style.opacity = '1';
-                }, 3000);
-            }
-        }
-
+        // Modal Logic
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-img');
-        const modalDownloadBtn = document.getElementById('modal-download-btn');
 
-        function openModal(highResUrl, fileName) {
-            modalImg.src = highResUrl;
+        function openModal(seed) {
+            currentHighResSeed = seed;
+            // Fetching a very high-res image for preview
+            modalImg.src = `https://picsum.photos/seed/${seed}/1920/1080`;
             modal.style.display = 'flex';
             setTimeout(() => modal.style.opacity = '1', 10);
-            modalDownloadBtn.onclick = () => forceDownload(highResUrl, fileName, modalDownloadBtn);
         }
 
         function closeModal() {
@@ -314,7 +202,48 @@
             }, 300);
         }
 
-        const loadPhotos = (count = 10) => {
+        // Fake Download Trigger for 4K/8K presentation
+        async function downloadImage(quality) {
+            const btn = event.currentTarget;
+            const originalText = btn.innerText;
+            btn.innerHTML = `Synthesizing... <span class="loading-spinner"></span>`;
+            btn.style.pointerEvents = 'none';
+            
+            // Adjust resolution based on user selection
+            let width = quality === '8K' ? 7680 : 3840;
+            let height = quality === '8K' ? 4320 : 2160;
+            let downloadUrl = `https://picsum.photos/seed/${currentHighResSeed}/${width}/${height}`;
+            let fileName = `TOKYO_2030_${quality}_${currentHighResSeed}.jpg`;
+
+            try {
+                const response = await fetch(downloadUrl);
+                if (!response.ok) throw new Error("Network error");
+                
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(blobUrl);
+                
+                btn.innerText = "✓ Downloaded";
+            } catch (error) {
+                window.open(downloadUrl, '_blank');
+                btn.innerText = "Opened in Tab";
+            } finally {
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.pointerEvents = 'auto';
+                }, 3000);
+            }
+        }
+
+        // Generate Image Cards (Pinterest Style)
+        const loadPhotos = (count = 15) => {
             if(isFetching) return;
             isFetching = true;
             
@@ -322,30 +251,31 @@
 
             for (let i = 0; i < count; i++) {
                 totalLoaded++;
-                const uniqueSeed = generateUUID(); 
+                const seed = generateUniqueSeed(); 
                 
-                const displayUrl = `https://picsum.photos/seed/${uniqueSeed}/600/800`;
-                const highResUrl = `https://picsum.photos/seed/${uniqueSeed}/3840/2160`;
-                const fileName = `NEXUS_HQ_${uniqueSeed.substring(0,6)}.jpg`;
+                // Randomize height to create the Pinterest Masonry effect perfectly
+                const heights = [400, 500, 600, 700];
+                const randomHeight = heights[Math.floor(Math.random() * heights.length)];
+                
+                const displayUrl = `https://picsum.photos/seed/${seed}/500/${randomHeight}`;
 
                 const card = document.createElement('div');
-                card.className = "masonry-item group relative rounded-2xl overflow-hidden glass hover:border-primary/50 transition-all duration-500 cursor-pointer shadow-lg";
-                card.onclick = () => openModal(highResUrl, fileName);
+                card.className = "masonry-item group relative rounded-2xl overflow-hidden cursor-zoom-in bg-white/5";
+                card.onclick = () => openModal(seed);
 
-                /* ⚡ decoding="async" added for zero main-thread blocking */
                 card.innerHTML = `
-                    <div class="bg-gray-800 animate-pulse absolute inset-0 -z-10"></div> 
-                    <img src="${displayUrl}" loading="lazy" decoding="async" alt="Nexus Vision ${totalLoaded}" 
+                    <div class="absolute inset-0 bg-gray-800 animate-pulse -z-10"></div> 
+                    <img src="${displayUrl}" loading="lazy" decoding="async" alt="Tokyo 2030 Asset" 
                          class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
                     
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                        <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                            <span class="inline-block bg-primary/20 text-primary border border-primary/30 text-xs font-semibold px-2 py-1 rounded mb-2">4K UHD</span>
-                            <h3 class="font-heading text-white font-bold truncate">VISUAL_ASSET_${totalLoaded}</h3>
-                            <p class="text-xs text-gray-300 mt-1 flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                Click to Expand & Download
-                            </p>
+                    <!-- Pinterest-like Hover Overlay -->
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
+                        <div class="flex justify-end transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="bg-tokyoNeon text-black text-xs font-bold px-3 py-1.5 rounded-full">Save 8K</span>
+                        </div>
+                        <div class="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <p class="text-white font-heading font-semibold truncate text-sm">Asset // ${seed.toUpperCase()}</p>
+                            <p class="text-gray-300 text-xs mt-0.5">Free for Commercial Use</p>
                         </div>
                     </div>
                 `;
@@ -353,21 +283,20 @@
             }
             
             grid.appendChild(fragment);
-            counterDisplay.innerText = totalLoaded;
             isFetching = false;
         };
 
         // Initial Load
-        loadPhotos(12);
+        loadPhotos(20);
 
-        // Highly Optimized Infinite Scroll Observer
+        // Infinite Scroll Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !isFetching) {
-                    requestAnimationFrame(() => loadPhotos(6)); 
+                    requestAnimationFrame(() => loadPhotos(10)); 
                 }
             });
-        }, { root: null, rootMargin: '1000px', threshold: 0 }); // Pre-loads heavily before hitting bottom
+        }, { root: null, rootMargin: '800px', threshold: 0 });
 
         observer.observe(loader);
     </script>
