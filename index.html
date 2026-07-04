@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TOKYO 2030 | Premium Infinite Visuals. 4K & 8K Zero-Duplicate Downloads.">
+    <meta name="description" content="TOKYO 2030 | Unlimited Free 4K & 8K Photo Downloads. Zero-Duplicate Infinite Grid.">
     <meta name="theme-color" content="#050505">
     
-    <title>TOKYO 2030 | Unlimited Pro Vision</title>
+    <title>TOKYO 2030 | Free Unlimited 4K/8K Photos</title>
     
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,30 +28,26 @@
                         tokyoCard: '#0f0f11',
                         tokyoNeon: '#f0abfc',
                         tokyoCyan: '#22d3ee',
-                        tokyoPurple: '#c084fc'
+                        tokyoPurple: '#c084fc',
+                        tokyoBlue: '#3b82f6'
                     },
                     animation: {
-                        'shimmer': 'shimmer 2s linear infinite',
+                        'shimmer': 'shimmer 2.5s linear infinite',
                         'float': 'float 6s ease-in-out infinite',
-                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'fade-up': 'fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+                        'fade-in': 'fadeIn 0.5s ease-out forwards'
                     },
                     keyframes: {
                         shimmer: {
-                            '0%': { backgroundPosition: '-1000px 0' },
-                            '100%': { backgroundPosition: '1000px 0' }
+                            '0%': { backgroundPosition: '-1200px 0' },
+                            '100%': { backgroundPosition: '1200px 0' }
                         },
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' }
+                            '50%': { transform: 'translateY(-12px)' }
                         },
-                        'pulse-glow': {
-                            '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 10px rgba(34,211,238,0.5))' },
-                            '50%': { opacity: .7, filter: 'drop-shadow(0 0 20px rgba(240,171,252,0.8))' }
-                        },
-                        fadeUp: {
-                            '0%': { opacity: 0, transform: 'translateY(20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' }
+                        fadeIn: {
+                            '0%': { opacity: 0, transform: 'translateY(15px) scale(0.98)' },
+                            '100%': { opacity: 1, transform: 'translateY(0) scale(1)' }
                         }
                     }
                 }
@@ -60,8 +56,8 @@
     </script>
 
     <style>
-        /* Custom Premium Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Premium Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #f0abfc; }
@@ -71,13 +67,14 @@
             color: #f8fafc; 
             overflow-x: hidden; 
             -webkit-font-smoothing: antialiased;
+            overscroll-behavior-y: none;
         }
 
         /* High-Performance Pinterest Masonry Grid */
         .masonry-grid {
             column-count: 2;
-            column-gap: 1.25rem;
-            padding: 1.25rem;
+            column-gap: 16px;
+            padding: 16px;
         }
         @media (min-width: 640px) { .masonry-grid { column-count: 3; } }
         @media (min-width: 1024px) { .masonry-grid { column-count: 4; } }
@@ -87,305 +84,257 @@
         
         .masonry-item {
             break-inside: avoid;
-            margin-bottom: 1.25rem;
-            transform: translateZ(0); /* Hardware Acceleration for zero lag */
-            will-change: transform, opacity;
-            border-radius: 1.25rem;
-            opacity: 0; /* Handled by fadeUp animation */
+            margin-bottom: 16px;
+            /* CRITICAL FOR ZERO LAG: Tells browser to skip rendering when off-screen */
+            content-visibility: auto;
+            contain-intrinsic-size: 400px;
+            will-change: transform;
+            border-radius: 1rem;
+            position: relative;
+            background: #0f0f11;
         }
 
         /* Glassmorphism Utilities */
-        .glass-panel {
-            background: rgba(10, 10, 12, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .skeleton-bg {
-            background: linear-gradient(90deg, #0a0a0c 25%, #1a1a20 50%, #0a0a0c 75%);
+            background: linear-gradient(90deg, #0f0f11 25%, #1a1a24 50%, #0f0f11 75%);
             background-size: 1000px 100%;
-        }
-
-        .img-loaded {
-            opacity: 1 !important;
-            transition: opacity 0.4s ease-out, transform 0.5s ease-out;
         }
 
         /* AI Chat Widget */
         .chat-widget {
             position: fixed; bottom: -500px; right: 24px; width: 360px;
-            background: rgba(15, 15, 17, 0.95); backdrop-filter: blur(20px);
-            border: 1px solid rgba(34, 211, 238, 0.2); border-radius: 1.5rem;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9); z-index: 9999;
+            background: rgba(15, 15, 17, 0.98); backdrop-filter: blur(24px);
+            border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,1); z-index: 9999;
             transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .chat-widget.active { bottom: 100px; }
 
-        /* Hide scrollbar for category menu but allow swipe */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="font-sans">
 
-    <!-- Background Ambient Glow -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[100vw] h-[60vh] bg-gradient-to-b from-tokyoCyan/10 via-tokyoPurple/5 to-transparent blur-[120px] -z-10 pointer-events-none"></div>
+    <!-- Ambient Background Colors -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-tokyoCyan/10 blur-[150px]"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-tokyoPurple/10 blur-[150px]"></div>
+    </div>
 
-    <!-- Main Navigation (Pinterest Style) -->
-    <nav class="fixed top-0 w-full glass-panel z-50 flex flex-col transition-transform duration-300" id="navbar">
+    <!-- Main Navigation -->
+    <nav class="fixed top-0 w-full glass-nav z-50 flex flex-col transition-transform duration-300" id="navbar">
         <div class="px-4 md:px-8 py-3 flex justify-between items-center gap-4 md:gap-8">
             <!-- Logo -->
-            <div class="font-heading text-2xl md:text-3xl font-black tracking-tighter text-white cursor-pointer hover:scale-105 transition-transform flex items-center gap-2 animate-pulse-glow" onclick="window.scrollTo(0,0)">
-                TOKYO<span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan to-tokyoNeon">2030</span>
+            <div class="font-heading text-2xl md:text-3xl font-black tracking-tighter text-white cursor-pointer hover:opacity-80 transition-opacity flex items-center gap-1.5" onclick="window.scrollTo(0,0)">
+                <svg class="w-8 h-8 text-tokyoCyan" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 6l5 10H7l5-10z"/></svg>
+                TOKYO<span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan via-tokyoBlue to-tokyoPurple">2030</span>
             </div>
 
-            <!-- Global Search Bar -->
-            <div class="hidden md:flex flex-1 max-w-2xl relative group">
+            <!-- Search Bar -->
+            <div class="hidden md:flex flex-1 max-w-3xl relative group">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <svg class="w-5 h-5 text-gray-400 group-focus-within:text-tokyoCyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
-                <input type="text" placeholder="Search high-res assets, styles, or UIDs..." class="w-full bg-white/5 border border-transparent focus:border-tokyoCyan/40 hover:bg-white/10 rounded-full py-2.5 pl-12 pr-4 text-sm text-white placeholder-gray-400 outline-none transition-all focus:shadow-[0_0_15px_rgba(34,211,238,0.1)]">
+                <input type="text" placeholder="Search for free 4K/8K images, categories..." class="w-full bg-white/5 border border-white/10 focus:border-tokyoCyan/50 hover:bg-white/10 rounded-full py-2.5 pl-12 pr-4 text-sm text-white placeholder-gray-400 outline-none transition-all focus:shadow-[0_0_20px_rgba(34,211,238,0.15)]">
             </div>
 
             <!-- Actions -->
-            <div class="flex items-center gap-3">
-                <button class="md:hidden text-gray-400 hover:text-white p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </button>
-                <button onclick="toggleSettings()" class="text-gray-400 hover:text-tokyoCyan p-2 rounded-full hover:bg-white/10 transition-colors">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSettings()" class="text-gray-300 hover:text-white hover:rotate-90 transition-all p-1">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                 </button>
-                <div class="hidden sm:block w-9 h-9 rounded-full bg-gradient-to-tr from-tokyoCyan to-tokyoPurple p-[2px] cursor-pointer hover:scale-105 transition-transform">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=TokyoUser" alt="Profile" class="w-full h-full rounded-full bg-black">
+                <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-tokyoCyan to-tokyoPurple p-[2px] rounded-full cursor-pointer hover:shadow-[0_0_15px_rgba(192,132,252,0.4)] transition-all">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=ProUser" alt="Profile" class="w-8 h-8 rounded-full bg-black">
                 </div>
             </div>
         </div>
 
-        <!-- Categories / Filters -->
-        <div class="px-4 md:px-8 py-2 overflow-x-auto no-scrollbar flex items-center gap-3 border-t border-white/5">
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-black font-semibold text-sm hover:opacity-90 transition-opacity">For You</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white/10 text-white font-medium text-sm hover:bg-white/20 transition-colors">4K HDR</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white/10 text-white font-medium text-sm hover:bg-white/20 transition-colors">Cyberpunk</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white/10 text-white font-medium text-sm hover:bg-white/20 transition-colors">Nature</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white/10 text-white font-medium text-sm hover:bg-white/20 transition-colors">Architecture</button>
-            <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white/10 text-white font-medium text-sm hover:bg-white/20 transition-colors">Abstract AI</button>
+        <!-- Filter Chips -->
+        <div class="px-4 md:px-8 py-2 overflow-x-auto no-scrollbar flex items-center gap-3">
+            <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-black font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_10px_rgba(255,255,255,0.2)]">All Free</button>
+            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">4K Downloads</button>
+            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">8K Ultimate</button>
+            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">Cyber City</button>
+            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">AI Concept</button>
+            <button class="whitespace-nowrap px-4 py-1.5 rounded-full glass-btn text-white font-medium text-sm hover:bg-white/20 transition-colors">Nature Pro</button>
         </div>
     </nav>
 
-    <!-- Settings Modal -->
-    <div id="settings-modal" class="fixed inset-0 bg-black/80 z-[10000] hidden flex-col justify-center items-center opacity-0 transition-opacity backdrop-blur-md">
-        <div class="bg-tokyoCard border border-white/10 rounded-3xl w-full max-w-md p-6 transform scale-95 transition-transform shadow-2xl" id="settings-content">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="text-2xl font-heading font-bold text-white">Preferences</h3>
-                <button onclick="toggleSettings()" class="text-gray-400 hover:text-white bg-white/5 p-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+    <!-- Hero Section -->
+    <header class="relative w-full pt-44 pb-12 px-4 flex flex-col justify-center items-center text-center z-10 animate-float">
+        <div class="inline-flex items-center gap-2 bg-tokyoCyan/10 text-tokyoCyan px-5 py-2 rounded-full text-xs font-bold mb-6 border border-tokyoCyan/20 uppercase tracking-widest">
+            <span class="w-2 h-2 rounded-full bg-tokyoCyan animate-ping"></span> 100% Free Downloads
+        </div>
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tight max-w-5xl">
+            Download <span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan via-white to-tokyoPurple">Unlimited</span> Photos.
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl font-light">Your endless gallery of royalty-free, zero-duplicate visuals. Every image is available in massive 4K & 8K resolutions instantly.</p>
+    </header>
+
+    <!-- Masonry Grid Area -->
+    <main class="w-full pb-24 max-w-[2560px] mx-auto z-10 relative">
+        <div id="tokyo-grid" class="masonry-grid"></div>
+        
+        <!-- Loading Indicator -->
+        <div id="loader" class="w-full py-16 flex flex-col justify-center items-center gap-4">
+            <div class="w-10 h-10 border-4 border-white/5 border-t-tokyoCyan border-r-tokyoPurple rounded-full animate-spin"></div>
+            <p class="text-gray-500 font-bold text-xs tracking-widest uppercase">Fetching Free Assets...</p>
+        </div>
+    </main>
+
+    <!-- Enhanced Image Preview Modal -->
+    <div id="image-modal" class="fixed inset-0 bg-black/95 z-[9000] hidden flex-col justify-center items-center p-4 md:p-8 backdrop-blur-3xl opacity-0 transition-opacity duration-300">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-white bg-white/10 hover:bg-red-500 p-3 rounded-full transition-all z-50">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        
+        <div class="relative w-full max-w-7xl flex flex-col lg:flex-row gap-8 items-center h-full max-h-[85vh]">
+            <!-- Image Frame -->
+            <div class="flex-1 w-full h-full flex justify-center items-center overflow-hidden rounded-3xl bg-black/50 border border-white/5 relative group shadow-2xl">
+                <div class="absolute inset-0 skeleton-bg animate-shimmer -z-10"></div>
+                <img id="modal-img" src="" alt="High Res Preview" class="max-w-full max-h-full object-contain drop-shadow-2xl opacity-0 transition-opacity duration-500">
             </div>
-            <div class="space-y-4">
-                <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl border border-white/5 hover:border-tokyoCyan/30 transition-colors">
-                    <div>
-                        <span class="font-medium block text-white">Performance Mode</span>
-                        <span class="text-xs text-gray-400">Saves RAM on endless scrolling</span>
-                    </div>
-                    <input type="checkbox" checked class="toggle-checkbox w-5 h-5 rounded accent-tokyoCyan cursor-pointer">
+            
+            <!-- Download Action Panel -->
+            <div class="w-full lg:w-96 flex flex-col gap-6 text-left shrink-0 bg-[#0a0a0c] p-8 rounded-3xl border border-white/10 h-auto">
+                <div>
+                    <h2 class="text-3xl font-heading font-black text-white mb-2">Free Download</h2>
+                    <p class="text-gray-400 text-sm">Commercial use permitted. No attribution required.</p>
                 </div>
-                <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl border border-white/5 hover:border-tokyoCyan/30 transition-colors">
-                    <span class="font-medium">Default Download</span>
-                    <select class="bg-black/50 border border-white/20 text-white rounded-lg p-2 text-sm outline-none focus:border-tokyoCyan"><option>4K Ultra</option><option>8K Extreme</option></select>
+                
+                <div class="bg-black/50 p-5 rounded-2xl space-y-4 border border-white/5">
+                    <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                        <span class="text-gray-400 text-sm">Image UID</span>
+                        <span id="modal-uid" class="text-tokyoCyan font-mono text-sm font-bold">...</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                        <span class="text-gray-400 text-sm">License</span>
+                        <span class="text-green-400 font-bold text-sm">Royalty-Free</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 text-sm">Format</span>
+                        <span class="text-white font-medium text-sm">JPEG High Quality</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4 mt-4">
+                    <button onclick="triggerDownload('4K')" class="w-full py-4 bg-white text-black rounded-2xl font-bold hover:bg-gray-200 transition-colors flex items-center justify-center gap-3 text-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download 4K
+                    </button>
+                    <button onclick="triggerDownload('8K')" class="w-full py-4 bg-gradient-to-r from-tokyoCyan to-tokyoPurple text-white rounded-2xl font-bold hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all flex items-center justify-center gap-3 text-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                        Download 8K Max
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Hero Header -->
-    <header class="relative w-full pt-44 pb-8 px-4 flex flex-col justify-center items-center text-center z-10 animate-float">
-        <div class="inline-flex items-center gap-2 glass-card text-tokyoCyan px-5 py-2 rounded-full text-xs font-bold mb-6 border border-tokyoCyan/30 uppercase tracking-widest shadow-[0_0_20px_rgba(34,211,238,0.15)]">
-            <span class="relative flex h-2.5 w-2.5">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tokyoCyan opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-tokyoCyan"></span>
-            </span> 
-            Live Database Connected
-        </div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black mb-4 tracking-tight max-w-5xl">
-            Infinite. <span class="text-transparent bg-clip-text bg-gradient-to-r from-tokyoCyan via-tokyoPurple to-tokyoNeon">Limitless.</span>
-        </h1>
-        <p class="text-gray-400 text-lg md:text-xl max-w-2xl font-light">Experience professional-grade assets. Scroll endlessly. Every piece is 100% unique and ready for 8K download.</p>
-    </header>
-
-    <!-- Main Grid Area -->
-    <main class="w-full pb-24 max-w-[2560px] mx-auto z-10 relative">
-        <div id="tokyo-grid" class="masonry-grid"></div>
-        
-        <!-- Loading Spinner -->
-        <div id="loader" class="w-full py-16 flex flex-col justify-center items-center gap-4">
-            <div class="w-12 h-12 border-4 border-white/10 border-t-tokyoCyan border-l-tokyoPurple rounded-full animate-spin"></div>
-            <p class="text-gray-500 font-medium text-sm tracking-widest uppercase">Generating New Assets...</p>
-        </div>
-    </main>
-
-    <!-- Image Preview Modal -->
-    <div id="image-modal" class="fixed inset-0 bg-black/95 z-[9000] hidden flex-col justify-center items-center p-4 md:p-8 backdrop-blur-2xl opacity-0 transition-opacity duration-300">
-        <button onclick="closeModal()" class="absolute top-6 right-6 text-white glass-card hover:bg-white/10 p-3 rounded-full transition-all z-50">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        
-        <div class="relative w-full max-w-7xl flex flex-col md:flex-row gap-8 items-center h-full max-h-[85vh]">
-            <!-- Image Area -->
-            <div class="flex-1 w-full h-full flex justify-center items-center overflow-hidden rounded-2xl glass-card relative group">
-                <div class="absolute inset-0 skeleton-bg animate-shimmer -z-10"></div>
-                <img id="modal-img" src="" alt="High Res Preview" class="max-w-full max-h-full object-contain drop-shadow-2xl opacity-0 transition-opacity duration-500 rounded-lg">
+    <!-- System Settings -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/90 z-[10000] hidden flex-col justify-center items-center opacity-0 transition-opacity backdrop-blur-sm">
+        <div class="bg-[#0f0f11] border border-white/10 rounded-3xl w-full max-w-sm p-6 transform scale-95 transition-transform" id="settings-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-heading font-bold text-white">App Settings</h3>
+                <button onclick="toggleSettings()" class="text-gray-400 hover:text-white p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
-            
-            <!-- Side Details Area -->
-            <div class="w-full md:w-80 flex flex-col gap-6 text-left shrink-0">
-                <div>
-                    <h2 class="text-2xl font-heading font-bold text-white mb-2">Asset Details</h2>
-                    <p class="text-gray-400 text-sm">Generated by TOKYO 2030 Engine</p>
-                </div>
-                
-                <div class="glass-card p-4 rounded-xl space-y-3">
-                    <div class="flex justify-between items-center border-b border-white/10 pb-2">
-                        <span class="text-gray-400 text-sm">License</span>
-                        <span class="text-tokyoCyan font-semibold text-sm">Royalty-Free</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b border-white/10 pb-2">
-                        <span class="text-gray-400 text-sm">UID</span>
-                        <span id="modal-uid" class="text-white font-mono text-sm">...</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-400 text-sm">Format</span>
-                        <span class="text-white font-medium text-sm">JPEG / RAW</span>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-3 mt-auto">
-                    <button onclick="downloadImage('4K')" class="w-full py-3.5 bg-white text-black rounded-xl font-bold hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Download 4K HDR
-                    </button>
-                    <button onclick="downloadImage('8K')" class="w-full py-3.5 glass-card text-white border border-tokyoCyan/50 rounded-xl font-bold hover:bg-tokyoCyan/10 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5 text-tokyoCyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                        Download 8K Master
-                    </button>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center p-4 bg-black/50 rounded-2xl border border-white/5">
+                    <span class="font-medium text-sm text-gray-200">Zero-Lag Mode</span>
+                    <input type="checkbox" checked class="w-5 h-5 accent-tokyoCyan cursor-pointer">
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Floating AI Button -->
-    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-tr from-tokyoCyan to-tokyoNeon rounded-full shadow-[0_10px_30px_rgba(34,211,238,0.4)] z-[9998] flex justify-center items-center hover:scale-110 hover:rotate-12 transition-all">
-        <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-white rounded-full shadow-[0_10px_30px_rgba(255,255,255,0.3)] z-[9998] flex justify-center items-center hover:scale-110 transition-transform">
+        <svg class="w-7 h-7 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
     </button>
 
-    <!-- AI Chat Widget -->
-    <div id="chat-widget" class="chat-widget flex flex-col">
-        <div class="bg-gradient-to-r from-tokyoCyan/20 to-tokyoPurple/20 p-4 border-b border-white/10 rounded-t-2xl flex justify-between items-center backdrop-blur-xl">
-            <div class="font-heading font-bold text-lg flex items-center gap-2 text-white">
-                <span class="relative flex h-3 w-3">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                </span>
-                Tokyo AI
-            </div>
-            <button onclick="toggleChat()" class="text-gray-400 hover:text-white p-1 rounded-md hover:bg-white/10"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-        </div>
-        <div class="p-4 h-72 overflow-y-auto space-y-4 text-sm flex flex-col">
-            <div class="self-start glass-card max-w-[85%] p-3.5 rounded-2xl rounded-tl-sm text-gray-200 shadow-lg">
-                Hello! I am Tokyo AI. আমি বাংলা এবং English দুটোই বুঝতে পারি। How can I help you find the perfect image today? 🎨
-            </div>
-        </div>
-        <div class="p-3 border-t border-white/10 bg-black/50 rounded-b-2xl">
-            <div class="flex gap-2">
-                <input type="text" placeholder="Ask anything..." class="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-white outline-none focus:border-tokyoCyan focus:bg-white/10 transition-all">
-                <button class="bg-white text-black p-2 rounded-full font-bold w-10 h-10 flex justify-center items-center hover:scale-105 transition-transform"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // DOM Elements
         const grid = document.getElementById('tokyo-grid');
         const loader = document.getElementById('loader');
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('modal-img');
         const modalUid = document.getElementById('modal-uid');
-        const settingsModal = document.getElementById('settings-modal');
-        const chatWidget = document.getElementById('chat-widget');
-        
         let isFetching = false;
         let currentSeed = '';
-        const usedSeeds = new Set();
-        let animationDelay = 0; // For staggered entry animations
+        const generatedSeeds = new Set();
 
-        // Zero Duplicate Logic
+        // Ensure 100% Unique Images
         function getUniqueSeed() {
-            let newSeed;
-            let attempts = 0;
+            let seed;
             do {
-                newSeed = Math.random().toString(36).substring(2, 10);
-                attempts++;
-            } while (usedSeeds.has(newSeed) && attempts < 100);
-            usedSeeds.add(newSeed);
-            return newSeed;
+                seed = Math.random().toString(36).substring(2, 12);
+            } while (generatedSeeds.has(seed));
+            generatedSeeds.add(seed);
+            return seed;
         }
 
-        // Pinterest-Style Card Generation (Optimized with DocumentFragment)
-        const loadPhotos = (count = 15) => {
+        // --- BATCH DOM RENDERING FOR ZERO LAG ---
+        const loadPhotos = (count = 20) => {
             if(isFetching) return;
             isFetching = true;
             
-            // Batch DOM insertion to prevent lag
             const fragment = document.createDocumentFragment();
-            const heights = [300, 400, 450, 500, 550, 600, 700];
+            // Varied heights for perfect Pinterest masonry look
+            const heights = [350, 400, 450, 550, 600, 750];
 
             for (let i = 0; i < count; i++) {
                 const seed = getUniqueSeed(); 
                 const height = heights[Math.floor(Math.random() * heights.length)];
-                const displayUrl = `https://picsum.photos/seed/${seed}/600/${height}`;
+                // Standard dimension API
+                const imgUrl = `https://picsum.photos/seed/${seed}/600/${height}`;
 
                 const card = document.createElement('div');
-                card.className = "masonry-item group relative overflow-hidden cursor-zoom-in bg-tokyoCard shadow-lg";
+                card.className = "masonry-item group cursor-zoom-in animate-fade-in";
                 
-                // Add staggered animation
-                card.style.animation = `fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards ${animationDelay}s`;
-                animationDelay += 0.05; 
-                if(animationDelay > 0.5) animationDelay = 0;
-
-                // Card inner HTML with Pinterest-like hover UI
+                // Constructing the Pinterest-Style Card with direct download buttons
                 card.innerHTML = `
-                    <div class="absolute inset-0 skeleton-bg animate-shimmer -z-10 rounded-2xl"></div> 
-                    <img src="${displayUrl}" 
+                    <div class="absolute inset-0 skeleton-bg rounded-2xl -z-10"></div> 
+                    <img src="${imgUrl}" 
                          loading="lazy" 
                          decoding="async"
-                         alt="Asset ${seed}" 
-                         onload="this.classList.add('img-loaded')"
-                         class="w-full h-auto object-cover opacity-0 z-0 transform group-hover:scale-[1.03] transition-all duration-500 rounded-2xl">
+                         alt="Free Image ${seed}" 
+                         onload="this.style.opacity=1"
+                         class="w-full h-auto object-cover opacity-0 rounded-2xl transition-opacity duration-500">
                     
-                    <!-- Hover Overlay -->
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex flex-col justify-between p-4 z-10" onclick="openModal('${seed}')">
+                    <!-- Hover UI Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex flex-col justify-between p-4 z-10" onclick="openModal('${seed}')">
                         
-                        <!-- Top Actions (Save/Download) -->
-                        <div class="flex justify-end w-full transform translate-y-[-10px] group-hover:translate-y-0 transition-transform duration-300">
-                            <button onclick="event.stopPropagation(); downloadDirect('${seed}', this)" class="bg-tokyoCyan text-black px-4 py-2 rounded-full font-bold text-sm hover:bg-white transition-colors">
-                                Save
+                        <!-- Top Area: Direct Downloads -->
+                        <div class="flex justify-end gap-2 transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <button onclick="event.stopPropagation(); triggerDirectDownload('${seed}', '4K', this)" class="bg-white/90 backdrop-blur text-black px-4 py-2 rounded-full font-bold text-xs hover:bg-white transition-colors">
+                                Free 4K
+                            </button>
+                            <button onclick="event.stopPropagation(); triggerDirectDownload('${seed}', '8K', this)" class="bg-tokyoCyan/90 backdrop-blur text-black px-4 py-2 rounded-full font-bold text-xs hover:bg-tokyoCyan transition-colors">
+                                Free 8K
                             </button>
                         </div>
 
-                        <!-- Bottom Details -->
-                        <div class="flex justify-between items-end w-full transform translate-y-[10px] group-hover:translate-y-0 transition-transform duration-300">
+                        <!-- Bottom Area: Info -->
+                        <div class="flex justify-between items-end transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                             <div>
-                                <p class="text-white font-heading font-semibold text-lg drop-shadow-md truncate max-w-[120px] sm:max-w-[150px]">UID // ${seed.toUpperCase()}</p>
-                                <p class="text-gray-300 text-xs mt-0.5 flex items-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span> 4K Ready
-                                </p>
+                                <h3 class="text-white font-bold text-lg leading-tight">UID // ${seed.substring(0, 6).toUpperCase()}</h3>
+                                <p class="text-green-400 text-xs font-medium mt-1">✔ Commercial Use</p>
                             </div>
-                            <button onclick="event.stopPropagation(); alert('Link Copied!')" class="w-8 h-8 rounded-full glass-card flex justify-center items-center hover:bg-white/20 transition-colors">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-5.368m0 5.368l5.662 3.397m-5.662-3.397a3 3 0 110-5.368m0 5.368l5.662 3.397m-5.662-3.397a3 3 0 110-5.368"></path></svg>
+                            <button onclick="event.stopPropagation(); alert('Link Copied!')" class="w-9 h-9 rounded-full bg-white/20 backdrop-blur flex justify-center items-center hover:bg-white/40 transition-colors">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                             </button>
                         </div>
                     </div>
@@ -393,53 +342,41 @@
                 fragment.appendChild(card);
             }
             
-            // Append securely to DOM
+            // Append securely and fluidly
             requestAnimationFrame(() => {
                 grid.appendChild(fragment);
                 isFetching = false;
-                animationDelay = 0; // reset for next batch
             });
         };
 
-        // Initialize First Batch
+        // Initial Grid Load
         loadPhotos(25);
 
-        // Optimized Infinite Scroll Observer
-        const observerOptions = {
-            root: null,
-            rootMargin: '1000px', // Load images well before user reaches bottom
-            threshold: 0.1
-        };
-
+        // --- ZERO LAG INFINITE SCROLL OBSERVER ---
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting && !isFetching) {
+                // Load more before user reaches bottom
                 loadPhotos(15); 
             }
-        }, observerOptions); 
+        }, { rootMargin: '1500px' }); 
         observer.observe(loader);
 
-        // --- Modals & UI Logic ---
-        
+        // --- UX / Modals ---
         function openModal(seed) {
             currentSeed = seed;
             modalUid.innerText = seed.toUpperCase();
             
-            // Clear previous image to show loading state
-            modalImg.src = '';
-            modalImg.classList.remove('img-loaded', 'opacity-100');
-            
-            // Set new image
-            const highResImg = new Image();
-            highResImg.src = `https://picsum.photos/seed/${seed}/1920/1080`;
-            highResImg.onload = () => {
-                modalImg.src = highResImg.src;
-                modalImg.classList.add('opacity-100');
+            modalImg.style.opacity = '0';
+            const highRes = new Image();
+            highRes.src = `https://picsum.photos/seed/${seed}/1920/1080`;
+            highRes.onload = () => {
+                modalImg.src = highRes.src;
+                modalImg.style.opacity = '1';
             };
 
             modal.style.display = 'flex';
-            // Slight delay for smooth CSS transition
             setTimeout(() => modal.classList.remove('opacity-0'), 10);
-            document.body.style.overflow = 'hidden'; // Prevent background scroll
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeModal() {
@@ -450,64 +387,52 @@
             }, 300);
         }
 
-        function toggleSettings() {
-            const content = document.getElementById('settings-content');
-            if (settingsModal.style.display === 'flex') {
-                settingsModal.classList.add('opacity-0');
-                content.classList.replace('scale-100', 'scale-95');
-                setTimeout(() => settingsModal.style.display = 'none', 300);
-            } else {
-                settingsModal.style.display = 'flex';
-                setTimeout(() => {
-                    settingsModal.classList.remove('opacity-0');
-                    content.classList.replace('scale-95', 'scale-100');
-                }, 10);
-            }
-        }
-
-        function toggleChat() {
-            chatWidget.classList.toggle('active');
-        }
-
-        // Hide Navbar on scroll down, show on scroll up (Pinterest UX)
-        let lastScrollTop = 0;
-        const navbar = document.getElementById('navbar');
-        
+        // --- Navbar Auto-Hide (Pinterest Style) ---
+        let lastScroll = 0;
+        const nav = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                navbar.style.transform = 'translateY(-100%)';
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                nav.style.transform = 'translateY(-100%)'; // Scroll Down - Hide
             } else {
-                navbar.style.transform = 'translateY(0)';
+                nav.style.transform = 'translateY(0)'; // Scroll Up - Show
             }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
-        }, { passive: true }); // passive true for zero lag scroll
+            lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+        }, { passive: true }); // passive: true for scroll performance
 
-        // Download logic
-        function downloadImage(quality) {
-            const btn = event.currentTarget;
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = 'Processing... ⌛';
-            
+        // --- Simulation of Downloading ---
+        function triggerDownload(quality) {
             let width = quality === '8K' ? 7680 : 3840;
             let height = quality === '8K' ? 4320 : 2160;
-            let url = `https://picsum.photos/seed/${currentSeed}/${width}/${height}`;
-
-            setTimeout(() => {
-                window.open(url, '_blank');
-                btn.innerHTML = '✓ Download Started';
-                setTimeout(() => btn.innerHTML = originalHTML, 2000);
-            }, 800);
+            let finalUrl = `https://picsum.photos/seed/${currentSeed}/${width}/${height}`;
+            window.open(finalUrl, '_blank');
         }
 
-        function downloadDirect(seed, btnElement) {
+        function triggerDirectDownload(seed, quality, btnElement) {
             const originalText = btnElement.innerText;
-            btnElement.innerText = '...';
+            btnElement.innerText = 'Opening...';
+            let width = quality === '8K' ? 7680 : 3840;
+            let height = quality === '8K' ? 4320 : 2160;
             setTimeout(() => {
-                window.open(`https://picsum.photos/seed/${seed}/3840/2160`, '_blank');
-                btnElement.innerText = '✓';
-                setTimeout(() => btnElement.innerText = originalText, 2000);
+                window.open(`https://picsum.photos/seed/${seed}/${width}/${height}`, '_blank');
+                btnElement.innerText = originalText;
             }, 500);
+        }
+
+        function toggleSettings() {
+            const sModal = document.getElementById('settings-modal');
+            const sContent = document.getElementById('settings-content');
+            if (sModal.style.display === 'flex') {
+                sModal.classList.add('opacity-0');
+                sContent.classList.replace('scale-100', 'scale-95');
+                setTimeout(() => sModal.style.display = 'none', 300);
+            } else {
+                sModal.style.display = 'flex';
+                setTimeout(() => {
+                    sModal.classList.remove('opacity-0');
+                    sContent.classList.replace('scale-95', 'scale-100');
+                }, 10);
+            }
         }
     </script>
 </body>
