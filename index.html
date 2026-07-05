@@ -3,92 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TOKYO 2030 | Premium Infinite Visuals. 4K & 8K Zero-Duplicate Downloads.">
+    <meta name="description" content="TOKYO 2030 PRO MAX | Enterprise 4K, 8K & 16K Zero-Duplicate AI Visuals with Pro User Dashboard.">
     
-    <title>TOKYO 2030 | Pro Unlimited Vision</title>
+    <title>TOKYO 2030 PRO MAX | Enterprise Infinite Vision</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="font-sans antialiased overflow-x-hidden selection:bg-[#22d3ee] selection:text-black min-h-screen">
+<body class="font-sans antialiased overflow-x-hidden selection:bg-[#22d3ee] selection:text-black min-h-screen flex flex-col justify-between">
 
-    <nav class="fixed top-0 w-full glass-panel z-50 px-6 py-4 flex justify-between items-center transition-all duration-300">
-        <div class="font-[Outfit] text-2xl font-black tracking-tighter cursor-pointer flex items-center gap-2" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-            TOKYO<span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] to-[#f0abfc]">2030</span><span class="text-xs bg-[#f0abfc] text-black px-2 py-0.5 rounded-full ml-2 uppercase font-bold">Pro</span>
+    <div id="toast-container" class="fixed top-24 right-6 z-[10000] flex flex-col gap-2.5 pointer-events-none"></div>
+
+    <nav class="fixed top-0 w-full glass-panel z-50 px-4 sm:px-8 py-3.5 flex justify-between items-center transition-all duration-300 shadow-lg">
+        <div class="font-[Outfit] text-2xl sm:text-3xl font-black tracking-tighter cursor-pointer flex items-center gap-1.5 select-none" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            TOKYO<span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] via-[#a855f7] to-[#f0abfc]">2030</span>
+            <span class="text-[10px] bg-gradient-to-r from-[#22d3ee] to-[#f0abfc] text-black px-2 py-0.5 rounded-full ml-1.5 uppercase font-black tracking-widest shadow-sm">Pro Max</span>
         </div>
 
-        <div class="flex items-center gap-5">
-            <div class="hidden sm:flex items-center gap-4 border-r border-white/10 pr-5">
-                <a href="https://bd.linkedin.com/in/iftekhar-ahmed-chowdhury-aa432b416" target="_blank" rel="noopener noreferrer" class="social-link text-gray-400 hover:text-[#0077b5] transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
-                <a href="https://www.facebook.com/iftekhar.ahmmed.chowdhury" target="_blank" rel="noopener noreferrer" class="social-link text-gray-400 hover:text-[#1877f2] transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/></svg>
-                </a>
+        <div class="hidden md:flex items-center bg-black/40 border border-white/10 rounded-full px-4 py-2 w-80 lg:w-96 focus-within:border-[#22d3ee] transition-all shadow-inner">
+            <svg class="w-4 h-4 text-gray-400 mr-2.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <input type="text" id="global-search" placeholder="Search 8K assets, tags, seeds..." class="bg-transparent border-none outline-none text-xs w-full text-white placeholder-gray-500 font-medium" oninput="GalleryEngine.handleSearch(this.value)">
+        </div>
+
+        <div class="flex items-center gap-3 sm:gap-4">
+            <button onclick="AuthEngine.openDashboard('bookmarks')" class="relative p-2.5 hover:bg-white/10 rounded-full transition-all text-gray-300 hover:text-[#f0abfc]" title="Saved Bookmarks">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                <span id="bookmark-count" class="absolute top-1 right-1 bg-[#f0abfc] text-black text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center scale-0 transition-transform">0</span>
+            </button>
+
+            <div id="auth-section">
+                <button onclick="AuthEngine.openModal()" class="auth-btn bg-white/10 hover:bg-white/20 text-white border border-white/15 px-4 py-2 rounded-full text-xs font-bold font-[Outfit] tracking-wider uppercase transition-all flex items-center gap-2 shadow-md">
+                    <svg class="w-4 h-4 text-[#22d3ee]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <span>Login / Join</span>
+                </button>
             </div>
 
-            <button onclick="ThemeEngine.toggleSidebar()" class="p-2.5 hover:bg-white/10 rounded-full transition-all border border-transparent hover:border-white/20" title="Preferences">
-                <svg class="w-6 h-6 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            <button onclick="ThemeEngine.toggleSidebar()" class="p-2.5 bg-white/5 hover:bg-white/15 border border-white/10 rounded-full transition-all text-gray-300 hover:text-white shadow-md" title="System Settings">
+                <svg class="w-5 h-5 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
             </button>
         </div>
     </nav>
 
-    <div id="settings-panel" class="fixed top-0 right-0 w-80 sm:w-96 h-full glass-panel z-[100] p-6 slide-in shadow-[-15px_0_35px_rgba(0,0,0,0.7)] flex flex-col justify-between">
+    <div id="settings-panel" class="fixed top-0 right-0 w-80 sm:w-96 h-full glass-panel z-[100] p-6 slide-in shadow-[-20px_0_40px_rgba(0,0,0,0.8)] flex flex-col justify-between">
         <div>
-            <div class="flex justify-between items-center mb-8 mt-16 pb-4 border-b border-white/10">
-                <h2 class="font-[Outfit] text-2xl font-bold tracking-tight">System Settings</h2>
-                <button onclick="ThemeEngine.toggleSidebar()" class="p-2 hover:bg-white/10 rounded-full transition-colors text-lg">✕</button>
+            <div class="flex justify-between items-center mb-6 mt-16 pb-4 border-b border-white/10">
+                <h2 class="font-[Outfit] text-xl font-black tracking-tight flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 bg-[#22d3ee] rounded-full"></span> SYSTEM PREFERENCES
+                </h2>
+                <button onclick="ThemeEngine.toggleSidebar()" class="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white">✕</button>
             </div>
             
-            <div class="space-y-6">
+            <div class="space-y-6 text-sm">
                 <div>
-                    <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">Select Visual Theme</h3>
+                    <h3 class="text-[11px] font-bold text-gray-400 mb-3 uppercase tracking-widest font-mono">Visual Theme Engine</h3>
                     <div class="grid grid-cols-1 gap-2.5">
-                        <button onclick="ThemeEngine.setTheme('dark')" class="theme-btn w-full text-left px-4 py-3.5 rounded-xl border border-white/10 hover:border-[#22d3ee] transition-all bg-[#09090b] text-white flex justify-between items-center font-medium shadow-md">
-                            <span>🌙 Cyber Dark</span><span class="text-xs opacity-50 font-mono">Default</span>
+                        <button onclick="ThemeEngine.setTheme('dark')" class="w-full text-left px-4 py-3 rounded-xl border border-white/10 hover:border-[#22d3ee] transition-all bg-[#09090b] text-white flex justify-between items-center font-medium shadow-md">
+                            <span>🌙 Cyber Dark</span><span class="text-[10px] opacity-50 font-mono">DEFAULT</span>
                         </button>
-                        <button onclick="ThemeEngine.setTheme('light')" class="theme-btn w-full text-left px-4 py-3.5 rounded-xl border border-gray-300 hover:border-[#22d3ee] transition-all bg-[#f8fafc] text-black flex justify-between items-center font-medium shadow-md">
-                            <span>☀️ Clean Light</span><span class="text-xs opacity-50 font-mono">High Contrast</span>
+                        <button onclick="ThemeEngine.setTheme('light')" class="w-full text-left px-4 py-3 rounded-xl border border-gray-300 hover:border-[#22d3ee] transition-all bg-[#f8fafc] text-black flex justify-between items-center font-medium shadow-md">
+                            <span>☀️ Clean Light</span><span class="text-[10px] opacity-50 font-mono">60 FPS</span>
                         </button>
-                        <button onclick="ThemeEngine.setTheme('neon')" class="theme-btn w-full text-left px-4 py-3.5 rounded-xl border border-white/10 hover:border-[#f0abfc] transition-all bg-[#040014] text-[#e0e7ff] flex justify-between items-center font-medium shadow-md">
-                            <span>✨ Neon Matrix</span><span class="text-xs opacity-50 font-mono">Cyberpunk</span>
+                        <button onclick="ThemeEngine.setTheme('neon')" class="w-full text-left px-4 py-3 rounded-xl border border-white/10 hover:border-[#f0abfc] transition-all bg-[#040014] text-[#e0e7ff] flex justify-between items-center font-medium shadow-md">
+                            <span>✨ Neon Matrix</span><span class="text-[10px] opacity-50 font-mono">CYBERPUNK</span>
+                        </button>
+                        <button onclick="ThemeEngine.setTheme('solar')" class="w-full text-left px-4 py-3 rounded-xl border border-white/10 hover:border-[#eab308] transition-all bg-[#1a1300] text-[#fef08a] flex justify-between items-center font-medium shadow-md">
+                            <span>⚡ Solar Gold</span><span class="text-[10px] opacity-50 font-mono">ULTRA PRO</span>
                         </button>
                     </div>
                 </div>
-                
-                <div class="bg-white/5 p-4 rounded-xl border border-white/5">
-                    <h3 class="text-xs font-bold text-[#22d3ee] mb-1 uppercase tracking-widest">Engine Status</h3>
-                    <p class="text-xs opacity-70 leading-relaxed">Hardware GPU acceleration & zero-duplicate UUID rendering engines are online. Unlimited 4K/8K downloads enabled.</p>
+
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <h3 class="text-[11px] font-bold text-[#22d3ee] uppercase tracking-widest font-mono">GPU Acceleration</h3>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs opacity-80">60FPS Hardware Rendering</span>
+                        <input type="checkbox" checked disabled class="accent-[#22d3ee] w-4 h-4 rounded cursor-not-allowed">
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs opacity-80">Zero-Duplicate UUID Generator</span>
+                        <input type="checkbox" checked disabled class="accent-[#f0abfc] w-4 h-4 rounded cursor-not-allowed">
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="pt-4 border-t border-white/10 text-center">
-            <p class="text-[11px] opacity-40 font-mono">TOKYO 2030 // ARCHITECTURE V3.5 PRO</p>
+        <div class="pt-4 border-t border-white/10 text-center font-mono text-[10px] opacity-40">
+            TOKYO 2030 PRO MAX // BUILD 4.8.0-ENTERPRISE
         </div>
     </div>
 
-    <header class="relative w-full pt-36 pb-20 px-4 flex flex-col justify-center items-center text-center">
-        <div class="inline-flex items-center gap-2.5 bg-[#22d3ee]/10 text-[#22d3ee] px-5 py-2 rounded-full text-xs font-bold mb-8 border border-[#22d3ee]/20 uppercase tracking-widest shadow-[0_0_20px_rgba(34,211,238,0.2)] animate-fade-in">
-            <span class="w-2 h-2 rounded-full bg-[#22d3ee] animate-ping"></span> Infinite Masonry Online
+    <div id="auth-modal" class="fixed inset-0 modal-glass z-[9500] hidden flex-col justify-center items-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="relative w-full max-w-md bg-[#09090b]/90 border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-2xl">
+            <button onclick="AuthEngine.closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all">✕</button>
+            
+            <div class="text-center mb-6">
+                <h3 id="auth-title" class="font-[Outfit] text-2xl font-black tracking-tight text-white">Welcome Back</h3>
+                <p id="auth-subtitle" class="text-xs text-gray-400 mt-1">Access your saved 8K bookmarks & high-speed unlimited downloads.</p>
+            </div>
+
+            <form id="auth-form" onsubmit="AuthEngine.handleSubmit(event)" class="space-y-4">
+                <div id="name-field" class="hidden space-y-1">
+                    <label class="text-[11px] font-bold uppercase tracking-wider text-gray-400 font-mono">Full Name</label>
+                    <input type="text" id="auth-name" placeholder="Iftekhar Ahmed Chowdhury" class="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#22d3ee] text-white transition-all">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[11px] font-bold uppercase tracking-wider text-gray-400 font-mono">Email Address</label>
+                    <input type="email" id="auth-email" required placeholder="architect@tokyo2030.com" class="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#22d3ee] text-white transition-all">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[11px] font-bold uppercase tracking-wider text-gray-400 font-mono">Password</label>
+                    <input type="password" id="auth-password" required placeholder="••••••••••••" class="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#22d3ee] text-white transition-all">
+                </div>
+
+                <button type="submit" id="auth-submit-btn" class="w-full bg-gradient-to-r from-[#22d3ee] to-[#f0abfc] text-black font-[Outfit] font-black py-3.5 rounded-xl uppercase tracking-widest hover:opacity-90 transition-all shadow-[0_0_25px_rgba(34,211,238,0.4)] mt-2">
+                    Login to Pro Engine
+                </button>
+            </form>
+
+            <div class="mt-6 text-center text-xs text-gray-400">
+                <span id="auth-switch-text">Don't have a Pro account?</span>
+                <button onclick="AuthEngine.toggleMode()" id="auth-switch-btn" class="text-[#22d3ee] font-bold underline ml-1 hover:text-[#f0abfc] transition-colors">Create Free Account</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-modal" class="fixed inset-0 modal-glass z-[9500] hidden flex-col justify-center items-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="relative w-full max-w-4xl max-h-[85vh] bg-[#09090b]/95 border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-2xl flex flex-col">
+            <div class="flex justify-between items-center pb-6 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#22d3ee] to-[#f0abfc] flex items-center justify-center text-black font-[Outfit] font-black text-xl" id="dash-avatar">P</div>
+                    <div>
+                        <h3 id="dash-name" class="font-[Outfit] text-xl font-bold text-white">Pro User</h3>
+                        <p id="dash-email" class="text-xs text-[#22d3ee] font-mono">user@tokyo2030.com</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="AuthEngine.logout()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 px-4 py-2 rounded-xl text-xs font-bold transition-all">Logout</button>
+                    <button onclick="AuthEngine.closeDashboard()" class="text-gray-400 hover:text-white bg-white/5 p-2 rounded-full">✕</button>
+                </div>
+            </div>
+
+            <div class="flex gap-4 py-4 border-b border-white/10 text-xs font-bold uppercase tracking-wider font-mono">
+                <button onclick="AuthEngine.switchTab('bookmarks')" id="tab-bookmarks" class="text-[#22d3ee] border-b-2 border-[#22d3ee] pb-1 transition-all">Saved Bookmarks (<span id="dash-bm-count">0</span>)</button>
+                <button onclick="AuthEngine.switchTab('history')" id="tab-history" class="text-gray-400 hover:text-white pb-1 transition-all">Download History (<span id="dash-dl-count">0</span>)</button>
+            </div>
+
+            <div id="dash-content" class="flex-1 overflow-y-auto py-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                </div>
+        </div>
+    </div>
+
+    <header class="relative w-full pt-32 pb-14 px-4 flex flex-col justify-center items-center text-center">
+        <div class="inline-flex flex-wrap justify-center items-center gap-3 sm:gap-6 bg-white/5 border border-white/10 px-6 py-2.5 rounded-full text-xs font-mono mb-8 backdrop-blur-md shadow-lg animate-fade-in">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#22d3ee] animate-ping"></span>
+                <span class="text-gray-400">STATUS:</span> <span class="text-[#22d3ee] font-bold">60 FPS ONLINE</span>
+            </div>
+            <div class="hidden sm:block text-white/20">|</div>
+            <div>
+                <span class="text-gray-400">ASSETS:</span> <span id="stat-assets" class="text-white font-bold">14,820+</span>
+            </div>
+            <div class="hidden sm:block text-white/20">|</div>
+            <div>
+                <span class="text-gray-400">ENGINE:</span> <span class="text-[#f0abfc] font-bold">ZERO-DUPLICATE V4</span>
+            </div>
         </div>
         
-        <h1 class="font-[Outfit] text-5xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tight max-w-5xl leading-[1.1]">
-            Unlimited Space. <br/>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] via-white to-[#f0abfc]">Zero Duplicates.</span>
+        <h1 class="font-[Outfit] text-4xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tight max-w-5xl leading-[1.08]">
+            Next-Gen Architecture. <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] via-white to-[#f0abfc]">Infinite Pro Vision.</span>
         </h1>
         
-        <p class="opacity-70 text-lg md:text-2xl max-w-2xl mb-10 font-light leading-relaxed">
-            Powered by the Pro AI Engine. Experience lag-free infinite scrolling and download high-speed 4K & 8K native assets completely free.
+        <p class="opacity-70 text-base sm:text-xl max-w-2xl mb-10 font-light leading-relaxed">
+            Synthesized with ultra-high-speed neural rendering. Download commercial-free 4K, 8K & 16K Raw visual assets without lag or friction.
         </p>
+
+        <div class="flex flex-wrap justify-center gap-2 max-w-4xl px-2">
+            <button onclick="GalleryEngine.filterCategory('all', this)" class="cat-pill active px-5 py-2 rounded-full text-xs font-bold font-mono tracking-wider uppercase transition-all bg-[#22d3ee] text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]">⚡ All Assets</button>
+            <button onclick="GalleryEngine.filterCategory('cyberpunk', this)" class="cat-pill px-5 py-2 rounded-full text-xs font-bold font-mono tracking-wider uppercase transition-all bg-white/5 hover:bg-white/15 text-gray-300 border border-white/10">🤖 Cyberpunk</button>
+            <button onclick="GalleryEngine.filterCategory('architecture', this)" class="cat-pill px-5 py-2 rounded-full text-xs font-bold font-mono tracking-wider uppercase transition-all bg-white/5 hover:bg-white/15 text-gray-300 border border-white/10">🏙️ Architecture</button>
+            <button onclick="GalleryEngine.filterCategory('neon', this)" class="cat-pill px-5 py-2 rounded-full text-xs font-bold font-mono tracking-wider uppercase transition-all bg-white/5 hover:bg-white/15 text-gray-300 border border-white/10">✨ Neon Matrix</button>
+            <button onclick="GalleryEngine.filterCategory('nature', this)" class="cat-pill px-5 py-2 rounded-full text-xs font-bold font-mono tracking-wider uppercase transition-all bg-white/5 hover:bg-white/15 text-gray-300 border border-white/10">🌿 Bio-Nature</button>
+            <button onclick="GalleryEngine.filterCategory('space', this)" class="cat-pill px-5 py-2 rounded-full text-xs font-bold font-mono tracking-wider uppercase transition-all bg-white/5 hover:bg-white/15 text-gray-300 border border-white/10">🌌 Deep Space</button>
+        </div>
     </header>
 
-    <main class="px-4 sm:px-6 md:px-8 pb-24 max-w-[2200px] mx-auto">
+    <main class="flex-1 px-4 sm:px-6 md:px-8 pb-24 max-w-[2400px] mx-auto w-full">
         <div id="tokyo-grid" class="masonry-grid"></div>
 
         <div id="loader" class="w-full py-16 flex flex-col justify-center items-center">
@@ -97,59 +201,133 @@
         </div>
     </main>
 
-    <div id="image-modal" class="fixed inset-0 modal-glass z-[9000] hidden flex-col justify-center items-center p-4 md:p-10 transition-all opacity-0">
-        <button onclick="ModalEngine.close()" aria-label="Close" class="absolute top-6 right-6 hover:text-[#f0abfc] bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full transition-all font-bold text-xs tracking-wider uppercase border border-white/10">
-            ✕ Close Preview
+    <div id="image-modal" class="fixed inset-0 modal-glass z-[9000] hidden flex-col justify-center items-center p-3 sm:p-6 md:p-10 transition-all opacity-0">
+        <button onclick="ModalEngine.close()" aria-label="Close" class="absolute top-6 right-6 hover:text-[#f0abfc] bg-white/10 hover:bg-white/20 px-5 py-2.5 rounded-full transition-all font-bold text-xs tracking-wider uppercase border border-white/10 z-50 flex items-center gap-1.5 shadow-lg">
+            ✕ <span class="hidden sm:inline">Close Preview</span>
         </button>
         
-        <div class="relative max-w-7xl w-full flex flex-col items-center">
-            <div class="relative max-h-[72vh] w-auto mb-8 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/10 bg-black/50 flex justify-center items-center">
-                <img id="modal-img" src="" alt="High Resolution Asset" class="max-w-full max-h-[72vh] object-contain">
+        <div class="relative max-w-7xl w-full bg-[#09090b]/90 border border-white/15 rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.9)] flex flex-col md:flex-row max-h-[90vh]">
+            <div class="relative flex-1 bg-black/60 flex justify-center items-center p-4 min-h-[40vh] md:min-h-full overflow-hidden group">
+                <img id="modal-img" src="" alt="High Resolution Asset" class="max-w-full max-h-[60vh] md:max-h-[85vh] object-contain transition-transform duration-500 select-none">
+                
+                <button onclick="ModalEngine.toggleBookmarkCurrent()" id="modal-bm-btn" class="absolute top-4 left-4 bg-black/60 hover:bg-black/80 text-white border border-white/20 p-3 rounded-full backdrop-blur-md transition-all shadow-lg group">
+                    <svg id="modal-bm-icon" class="w-6 h-6 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                </button>
             </div>
-            
-            <div class="flex flex-wrap justify-center gap-4">
-                <button onclick="ModalEngine.download('4K')" class="dl-btn bg-[#22d3ee] text-black font-[Outfit] px-8 py-3.5 rounded-full hover:bg-white transition-all font-bold shadow-[0_0_25px_rgba(34,211,238,0.4)] flex items-center gap-2 text-base">
-                    <span>⚡ Download 4K Free</span>
-                </button>
-                <button onclick="ModalEngine.download('8K')" class="dl-btn bg-gradient-to-r from-[#f0abfc] to-[#a855f7] text-white font-[Outfit] px-8 py-3.5 rounded-full hover:opacity-90 transition-all font-bold shadow-[0_0_25px_rgba(240,171,252,0.4)] flex items-center gap-2 text-base">
-                    <span>👑 Download 8K Ultra</span>
-                </button>
+
+            <div class="w-full md:w-96 bg-white/[0.02] border-t md:border-t-0 md:border-l border-white/10 p-6 flex flex-col justify-between overflow-y-auto">
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-[#22d3ee]/10 text-[#22d3ee] border border-[#22d3ee]/20 text-[10px] font-black px-2.5 py-1 rounded-full font-mono uppercase">AI Synthesized</span>
+                            <span id="modal-seed-id" class="text-xs font-mono opacity-50">SEED #000000</span>
+                        </div>
+                        <h3 id="modal-title" class="font-[Outfit] text-2xl font-black text-white mt-2 leading-tight">TOKYO VISION ASSET</h3>
+                    </div>
+
+                    <div class="bg-black/40 border border-white/5 rounded-2xl p-4 space-y-3 font-mono text-xs">
+                        <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-white/5 pb-2">Technical Metadata (EXIF)</div>
+                        <div class="grid grid-cols-2 gap-2 text-gray-300">
+                            <div><span class="opacity-50 block text-[10px]">ENGINE</span><span id="exif-engine">Midjourney v6</span></div>
+                            <div><span class="opacity-50 block text-[10px]">ISO SPEED</span><span id="exif-iso">ISO 100</span></div>
+                            <div><span class="opacity-50 block text-[10px]">APERTURE</span><span id="exif-aperture">f/1.4 Ultra</span></div>
+                            <div><span class="opacity-50 block text-[10px]">SHUTTER</span><span id="exif-shutter">1/8000s</span></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest font-mono mb-2.5">Extracted Color Palette</div>
+                        <div id="modal-palette" class="grid grid-cols-4 gap-2 h-10 rounded-xl overflow-hidden border border-white/10">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2.5 pt-6 mt-6 border-t border-white/10">
+                    <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest font-mono mb-1">Select Free License Quality</div>
+                    
+                    <button onclick="ModalEngine.download('4K')" class="dl-btn w-full bg-[#22d3ee] hover:bg-white text-black font-[Outfit] px-5 py-3 rounded-xl transition-all font-black shadow-[0_0_20px_rgba(34,211,238,0.3)] flex justify-between items-center text-sm">
+                        <span>⚡ Download 4K Ultra</span>
+                        <span class="text-[10px] font-mono bg-black/10 px-2 py-0.5 rounded">3840x2160</span>
+                    </button>
+                    
+                    <button onclick="ModalEngine.download('8K')" class="dl-btn w-full bg-gradient-to-r from-[#f0abfc] to-[#a855f7] hover:opacity-90 text-white font-[Outfit] px-5 py-3 rounded-xl transition-all font-black shadow-[0_0_20px_rgba(240,171,252,0.3)] flex justify-between items-center text-sm">
+                        <span>👑 Download 8K Native</span>
+                        <span class="text-[10px] font-mono bg-black/20 px-2 py-0.5 rounded">7680x4320</span>
+                    </button>
+
+                    <button onclick="ModalEngine.download('16K')" class="dl-btn w-full bg-white/5 hover:bg-white/15 text-gray-200 border border-white/10 font-[Outfit] px-5 py-2.5 rounded-xl transition-all font-bold flex justify-between items-center text-xs">
+                        <span>💎 16K Uncompressed Raw</span>
+                        <span class="text-[9px] font-mono opacity-50">PRO MAX</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="chat-widget" class="fixed bottom-6 right-6 z-[8000]">
-        <button onclick="ChatEngine.toggle()" class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-tr from-[#22d3ee] via-[#a855f7] to-[#f0abfc] rounded-full flex justify-center items-center shadow-[0_0_30px_rgba(240,171,252,0.6)] hover:scale-110 active:scale-95 transition-transform">
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+        <button onclick="ChatEngine.toggle()" class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-tr from-[#22d3ee] via-[#a855f7] to-[#f0abfc] rounded-full flex justify-center items-center shadow-[0_0_30px_rgba(240,171,252,0.6)] hover:scale-110 active:scale-95 transition-transform group">
+            <svg class="w-7 h-7 sm:w-8 sm:h-8 text-black transition-transform group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-[#22d3ee] rounded-full animate-ping"></span>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-[#22d3ee] border-2 border-black rounded-full"></span>
         </button>
 
-        <div id="chat-window" class="fade-up absolute bottom-20 right-0 w-[340px] sm:w-[380px] h-[480px] glass-panel rounded-3xl flex flex-col overflow-hidden shadow-2xl border border-white/15">
+        <div id="chat-window" class="fade-up absolute bottom-20 right-0 w-[340px] sm:w-[400px] h-[520px] glass-panel rounded-3xl flex flex-col overflow-hidden shadow-2xl border border-white/15">
             <div class="bg-black/60 p-4 border-b border-white/10 flex justify-between items-center backdrop-blur-md">
                 <div class="flex items-center gap-2.5">
                     <div class="w-2.5 h-2.5 bg-[#22d3ee] rounded-full animate-pulse shadow-[0_0_10px_#22d3ee]"></div>
-                    <span class="font-[Outfit] font-bold text-sm tracking-wide">TOKYO AI <span class="bg-[#f0abfc] text-black text-[10px] px-1.5 py-0.5 rounded font-black ml-1">PRO V3</span></span>
+                    <div>
+                        <span class="font-[Outfit] font-bold text-sm tracking-wide block leading-none">TOKYO AI <span class="bg-[#f0abfc] text-black text-[9px] px-1.5 py-0.5 rounded font-black ml-1 uppercase">Pro Max</span></span>
+                        <span class="text-[10px] text-gray-400 font-mono">Bilingual Engine • English / Bangla</span>
+                    </div>
                 </div>
                 <button onclick="ChatEngine.toggle()" class="text-xs text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-1.5 rounded-full transition-colors">✕</button>
             </div>
             
-            <div id="chat-body" class="flex-1 p-4 overflow-y-auto space-y-3 text-sm flex flex-col font-sans">
-                <div class="chat-msg ai bg-white/10 p-3.5 rounded-2xl rounded-tl-none max-w-[85%] self-start border border-white/5 leading-relaxed">
-                    👋 <strong>Hello! I am Tokyo 2030 AI.</strong> <br/>
-                    I understand English & Bangla (বাংলা/Banglish). How can I assist you with 4K/8K downloads today? <br/><br/>
-                    <span class="text-xs opacity-60">(Kemon ashen? Ami kivabe sahajjo korte pari?)</span>
+            <div class="bg-black/30 px-3 py-2 border-b border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar">
+                <button onclick="ChatEngine.sendPreset('How to download 8K?')" class="whitespace-nowrap bg-white/5 hover:bg-white/15 text-gray-300 border border-white/10 rounded-full px-3 py-1 text-[11px] transition-all">⚡ How to download?</button>
+                <button onclick="ChatEngine.sendPreset('Chobi kivabe download korbo?')" class="whitespace-nowrap bg-white/5 hover:bg-white/15 text-[#22d3ee] border border-white/10 rounded-full px-3 py-1 text-[11px] transition-all">🇧🇩 ছবি কিভাবে পাবো?</button>
+                <button onclick="ChatEngine.sendPreset('Show Cyberpunk assets')" class="whitespace-nowrap bg-white/5 hover:bg-white/15 text-[#f0abfc] border border-white/10 rounded-full px-3 py-1 text-[11px] transition-all">🤖 Cyberpunk Filter</button>
+            </div>
+
+            <div id="chat-body" class="flex-1 p-4 overflow-y-auto space-y-3.5 text-sm flex flex-col font-sans">
+                <div class="chat-msg ai bg-white/10 p-4 rounded-2xl rounded-tl-none max-w-[85%] self-start border border-white/5 leading-relaxed shadow-sm">
+                    👋 <strong>Welcome to TOKYO 2030 Pro Max!</strong> <br/><br/>
+                    Ami apnar enterprise AI assistant. Apni English athoba Bangla (বাংলা / Banglish)-e jekono proshno korte paren abong instant image filter korte paren! <br/><br/>
+                    <span class="text-xs text-[#22d3ee] font-mono">Tip: Type "login" or "cyberpunk" to test live commands!</span>
                 </div>
             </div>
             
             <div class="p-3 bg-black/60 border-t border-white/10 backdrop-blur-md">
                 <form id="chat-form" onsubmit="ChatEngine.handleSubmit(event)" class="flex gap-2">
-                    <input type="text" id="chat-input" placeholder="Ask AI anything (Bangla/Eng)..." class="w-full bg-black/50 border border-white/15 rounded-full px-4 py-2.5 outline-none focus:border-[#22d3ee] transition-colors text-sm placeholder-gray-500 text-white">
-                    <button type="submit" class="bg-[#22d3ee] hover:bg-[#f0abfc] text-black font-bold p-2.5 rounded-full w-10 h-10 flex justify-center items-center transition-all shrink-0">
+                    <input type="text" id="chat-input" placeholder="Ask AI anything (Bangla/Eng)..." class="w-full bg-black/50 border border-white/15 rounded-full px-4 py-2.5 outline-none focus:border-[#22d3ee] transition-colors text-sm placeholder-gray-500 text-white font-medium">
+                    <button type="submit" class="bg-[#22d3ee] hover:bg-[#f0abfc] text-black font-bold p-2.5 rounded-full w-10 h-10 flex justify-center items-center transition-all shrink-0 shadow-md">
                         ➤
                     </button>
                 </form>
             </div>
         </div>
     </div>
+
+    <footer class="w-full glass-panel border-t border-white/10 py-10 px-6 mt-20">
+        <div class="max-w-[1800px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+            <div>
+                <div class="font-[Outfit] text-xl font-black tracking-tighter">TOKYO<span class="text-[#22d3ee]">2030</span> // PRO MAX</div>
+                <p class="text-xs text-gray-400 mt-1">Enterprise Zero-Duplicate Architecture. Architected for limitless commercial vision.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6 text-xs text-gray-400 font-medium">
+                <a href="#tokyo-grid" class="hover:text-[#22d3ee] transition-colors">4K Assets</a>
+                <a href="#tokyo-grid" class="hover:text-[#22d3ee] transition-colors">8K Native</a>
+                <a href="#" onclick="AuthEngine.openModal()" class="hover:text-[#22d3ee] transition-colors">Pro Login</a>
+                <a href="#" onclick="ChatEngine.toggle()" class="hover:text-[#22d3ee] transition-colors">AI Support</a>
+                <a href="https://bd.linkedin.com/in/iftekhar-ahmed-chowdhury-aa432b416" target="_blank" rel="noopener noreferrer" class="hover:text-[#f0abfc] transition-colors">Architect LinkedIn</a>
+            </div>
+
+            <div class="text-xs font-mono text-gray-500">
+                &copy; 2026 TOKYO 2030 INC. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </footer>
 
     <script src="app.js"></script>
 </body>
