@@ -7,212 +7,143 @@
     
     <title>TOKYO 2030 | Pro Unlimited Vision</title>
     
-    <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Custom Theme Configuration -->
-    <style>
-        :root[data-theme="dark"] {
-            --bg-color: #09090b;
-            --text-color: #f8fafc;
-            --glass-bg: rgba(9, 9, 11, 0.85);
-            --modal-bg: rgba(9, 9, 11, 0.95);
-            --card-bg: rgba(255, 255, 255, 0.05);
-        }
-        :root[data-theme="light"] {
-            --bg-color: #f8fafc;
-            --text-color: #0f172a;
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --modal-bg: rgba(255, 255, 255, 0.95);
-            --card-bg: rgba(0, 0, 0, 0.05);
-        }
-        :root[data-theme="neon"] {
-            --bg-color: #040014;
-            --text-color: #e0e7ff;
-            --glass-bg: rgba(4, 0, 20, 0.85);
-            --modal-bg: rgba(4, 0, 20, 0.95);
-            --card-bg: rgba(34, 211, 238, 0.05);
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.5s ease, color 0.5s ease;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.05), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(240, 171, 252, 0.05), transparent 25%);
-        }
-
-        /* Ultimate Scroll Optimization (Zero Lag for Infinite Content) */
-        .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 1rem;
-            content-visibility: auto; /* Drops off-screen rendering for ultra performance */
-            contain-intrinsic-size: 500px;
-            transform: translateZ(0); 
-            will-change: transform, opacity;
-        }
-
-        .masonry-grid {
-            column-count: 2; column-gap: 1rem;
-        }
-        @media (min-width: 640px) { .masonry-grid { column-count: 3; } }
-        @media (min-width: 1024px) { .masonry-grid { column-count: 4; } }
-        @media (min-width: 1280px) { .masonry-grid { column-count: 5; } }
-        @media (min-width: 1536px) { .masonry-grid { column-count: 6; } }
-
-        /* Smooth Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: #22d3ee; border-radius: 10px; }
-
-        /* Glassmorphism Classes using variables */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(128, 128, 128, 0.1);
-        }
-
-        .modal-glass {
-            background: var(--modal-bg);
-            backdrop-filter: blur(25px);
-        }
-
-        .loading-spinner {
-            display: inline-block; width: 14px; height: 14px;
-            border: 2px solid currentColor; border-top-color: transparent;
-            border-radius: 50%; animation: spin 1s linear infinite; margin-left: 8px;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Chat & Settings Animations */
-        .slide-in { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .slide-in.active { transform: translateX(0); }
-        .fade-up { opacity: 0; transform: translateY(20px); transition: all 0.4s ease; pointer-events: none;}
-        .fade-up.active { opacity: 1; transform: translateY(0); pointer-events: auto;}
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="font-sans antialiased overflow-x-hidden selection:bg-[#22d3ee] selection:text-black min-h-screen">
 
-    <!-- Top Navigation Bar -->
     <nav class="fixed top-0 w-full glass-panel z-50 px-6 py-4 flex justify-between items-center transition-all duration-300">
-        <!-- Logo -->
-        <div class="font-[Outfit] text-2xl font-black tracking-tighter cursor-pointer flex items-center gap-2">
-            TOKYO<span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] to-[#f0abfc]">2030</span><span class="text-xs bg-[#f0abfc] text-black px-2 py-0.5 rounded-full ml-2 uppercase">Pro</span>
+        <div class="font-[Outfit] text-2xl font-black tracking-tighter cursor-pointer flex items-center gap-2" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            TOKYO<span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] to-[#f0abfc]">2030</span><span class="text-xs bg-[#f0abfc] text-black px-2 py-0.5 rounded-full ml-2 uppercase font-bold">Pro</span>
         </div>
 
-        <div class="flex items-center gap-4">
-            <!-- Settings Toggle Button -->
-            <button onclick="toggleSettings()" class="p-2 hover:bg-gray-500/20 rounded-full transition-all" title="Settings">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+        <div class="flex items-center gap-5">
+            <div class="hidden sm:flex items-center gap-4 border-r border-white/10 pr-5">
+                <a href="https://bd.linkedin.com/in/iftekhar-ahmed-chowdhury-aa432b416" target="_blank" rel="noopener noreferrer" class="social-link text-gray-400 hover:text-[#0077b5] transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/iftekhar.ahmmed.chowdhury" target="_blank" rel="noopener noreferrer" class="social-link text-gray-400 hover:text-[#1877f2] transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/></svg>
+                </a>
+            </div>
+
+            <button onclick="ThemeEngine.toggleSidebar()" class="p-2.5 hover:bg-white/10 rounded-full transition-all border border-transparent hover:border-white/20" title="Preferences">
+                <svg class="w-6 h-6 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
             </button>
         </div>
     </nav>
 
-    <!-- Settings Sidebar Panel -->
-    <div id="settings-panel" class="fixed top-0 right-0 w-80 h-full glass-panel z-[100] p-6 slide-in shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
-        <div class="flex justify-between items-center mb-8 mt-16">
-            <h2 class="font-[Outfit] text-xl font-bold">Preferences</h2>
-            <button onclick="toggleSettings()" class="hover:text-[#f0abfc] transition-colors">✕</button>
-        </div>
-        
-        <div class="space-y-6">
-            <div>
-                <h3 class="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">Theme Mode</h3>
-                <div class="grid grid-cols-1 gap-2">
-                    <button onclick="setTheme('dark')" class="w-full text-left px-4 py-3 rounded-lg border border-gray-500/30 hover:border-[#22d3ee] transition-all bg-[#09090b] text-white">🌙 Cyber Dark</button>
-                    <button onclick="setTheme('light')" class="w-full text-left px-4 py-3 rounded-lg border border-gray-500/30 hover:border-[#22d3ee] transition-all bg-[#f8fafc] text-black">☀️ Clean Light</button>
-                    <button onclick="setTheme('neon')" class="w-full text-left px-4 py-3 rounded-lg border border-gray-500/30 hover:border-[#f0abfc] transition-all bg-[#040014] text-[#e0e7ff]">✨ Neon Matrix</button>
+    <div id="settings-panel" class="fixed top-0 right-0 w-80 sm:w-96 h-full glass-panel z-[100] p-6 slide-in shadow-[-15px_0_35px_rgba(0,0,0,0.7)] flex flex-col justify-between">
+        <div>
+            <div class="flex justify-between items-center mb-8 mt-16 pb-4 border-b border-white/10">
+                <h2 class="font-[Outfit] text-2xl font-bold tracking-tight">System Settings</h2>
+                <button onclick="ThemeEngine.toggleSidebar()" class="p-2 hover:bg-white/10 rounded-full transition-colors text-lg">✕</button>
+            </div>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-widest">Select Visual Theme</h3>
+                    <div class="grid grid-cols-1 gap-2.5">
+                        <button onclick="ThemeEngine.setTheme('dark')" class="theme-btn w-full text-left px-4 py-3.5 rounded-xl border border-white/10 hover:border-[#22d3ee] transition-all bg-[#09090b] text-white flex justify-between items-center font-medium shadow-md">
+                            <span>🌙 Cyber Dark</span><span class="text-xs opacity-50 font-mono">Default</span>
+                        </button>
+                        <button onclick="ThemeEngine.setTheme('light')" class="theme-btn w-full text-left px-4 py-3.5 rounded-xl border border-gray-300 hover:border-[#22d3ee] transition-all bg-[#f8fafc] text-black flex justify-between items-center font-medium shadow-md">
+                            <span>☀️ Clean Light</span><span class="text-xs opacity-50 font-mono">High Contrast</span>
+                        </button>
+                        <button onclick="ThemeEngine.setTheme('neon')" class="theme-btn w-full text-left px-4 py-3.5 rounded-xl border border-white/10 hover:border-[#f0abfc] transition-all bg-[#040014] text-[#e0e7ff] flex justify-between items-center font-medium shadow-md">
+                            <span>✨ Neon Matrix</span><span class="text-xs opacity-50 font-mono">Cyberpunk</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-white/5 p-4 rounded-xl border border-white/5">
+                    <h3 class="text-xs font-bold text-[#22d3ee] mb-1 uppercase tracking-widest">Engine Status</h3>
+                    <p class="text-xs opacity-70 leading-relaxed">Hardware GPU acceleration & zero-duplicate UUID rendering engines are online. Unlimited 4K/8K downloads enabled.</p>
                 </div>
             </div>
-            <div>
-                <h3 class="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">Resolution Engine</h3>
-                <p class="text-xs opacity-70">4K & 8K processing is automatically optimized for your device via Cloud Engine.</p>
-            </div>
+        </div>
+
+        <div class="pt-4 border-t border-white/10 text-center">
+            <p class="text-[11px] opacity-40 font-mono">TOKYO 2030 // ARCHITECTURE V3.5 PRO</p>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <header class="relative w-full pt-32 pb-16 px-4 flex flex-col justify-center items-center text-center">
-        <div class="inline-flex items-center gap-2 bg-[#22d3ee]/10 text-[#22d3ee] px-4 py-1.5 rounded-full text-xs font-bold mb-6 border border-[#22d3ee]/20 uppercase tracking-widest shadow-[0_0_15px_rgba(34,211,238,0.2)]">
-            <span class="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse"></span> Ultra Fast Server Active
+    <header class="relative w-full pt-36 pb-20 px-4 flex flex-col justify-center items-center text-center">
+        <div class="inline-flex items-center gap-2.5 bg-[#22d3ee]/10 text-[#22d3ee] px-5 py-2 rounded-full text-xs font-bold mb-8 border border-[#22d3ee]/20 uppercase tracking-widest shadow-[0_0_20px_rgba(34,211,238,0.2)] animate-fade-in">
+            <span class="w-2 h-2 rounded-full bg-[#22d3ee] animate-ping"></span> Infinite Masonry Online
         </div>
         
-        <h1 class="font-[Outfit] text-5xl md:text-7xl font-black mb-6 tracking-tight max-w-4xl leading-tight">
+        <h1 class="font-[Outfit] text-5xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tight max-w-5xl leading-[1.1]">
             Unlimited Space. <br/>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] via-[#a855f7] to-[#f0abfc]">Zero Duplicates.</span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22d3ee] via-white to-[#f0abfc]">Zero Duplicates.</span>
         </h1>
         
-        <p class="opacity-70 text-lg md:text-xl max-w-2xl mb-8 font-light leading-relaxed">
-            Powered by the Pro AI Engine. Experience lag-free infinite scrolling and unlimited 4K/8K downloads with seamless performance.
+        <p class="opacity-70 text-lg md:text-2xl max-w-2xl mb-10 font-light leading-relaxed">
+            Powered by the Pro AI Engine. Experience lag-free infinite scrolling and download high-speed 4K & 8K native assets completely free.
         </p>
     </header>
 
-    <!-- Masonry Gallery (Pinterest Style) -->
-    <main class="px-4 sm:px-6 md:px-8 pb-20 max-w-[2000px] mx-auto">
+    <main class="px-4 sm:px-6 md:px-8 pb-24 max-w-[2200px] mx-auto">
         <div id="tokyo-grid" class="masonry-grid"></div>
 
-        <!-- Infinite Loading Indicator -->
-        <div id="loader" class="w-full py-12 flex flex-col justify-center items-center">
-            <div class="w-10 h-10 border-4 border-current opacity-20 border-t-[#f0abfc] rounded-full animate-spin"></div>
-            <p class="mt-4 opacity-50 text-xs font-bold tracking-widest uppercase">Fetching Rare Assets...</p>
+        <div id="loader" class="w-full py-16 flex flex-col justify-center items-center">
+            <div class="w-12 h-12 border-4 border-current opacity-20 border-t-[#f0abfc] rounded-full animate-spin"></div>
+            <p class="mt-4 opacity-50 text-xs font-bold tracking-widest uppercase font-mono">Synthesizing Rare Visuals...</p>
         </div>
     </main>
 
-    <!-- Image Preview Modal -->
     <div id="image-modal" class="fixed inset-0 modal-glass z-[9000] hidden flex-col justify-center items-center p-4 md:p-10 transition-all opacity-0">
-        <button onclick="closeModal()" aria-label="Close" class="absolute top-6 right-6 hover:text-[#f0abfc] bg-gray-500/20 hover:bg-gray-500/40 p-3 rounded-full transition-all">
-            ✕ CLOSE
+        <button onclick="ModalEngine.close()" aria-label="Close" class="absolute top-6 right-6 hover:text-[#f0abfc] bg-white/10 hover:bg-white/20 px-5 py-3 rounded-full transition-all font-bold text-xs tracking-wider uppercase border border-white/10">
+            ✕ Close Preview
         </button>
         
         <div class="relative max-w-7xl w-full flex flex-col items-center">
-            <img id="modal-img" src="" alt="High Resolution Asset" class="max-w-full max-h-[75vh] rounded-xl shadow-2xl mb-8 object-contain">
+            <div class="relative max-h-[72vh] w-auto mb-8 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/10 bg-black/50 flex justify-center items-center">
+                <img id="modal-img" src="" alt="High Resolution Asset" class="max-w-full max-h-[72vh] object-contain">
+            </div>
             
             <div class="flex flex-wrap justify-center gap-4">
-                <button onclick="downloadImage('4K')" class="bg-[#22d3ee] text-black font-[Outfit] px-8 py-3 rounded-full hover:bg-white transition-all font-bold shadow-[0_0_20px_rgba(34,211,238,0.4)] flex items-center">
-                    Download 4K Free
+                <button onclick="ModalEngine.download('4K')" class="dl-btn bg-[#22d3ee] text-black font-[Outfit] px-8 py-3.5 rounded-full hover:bg-white transition-all font-bold shadow-[0_0_25px_rgba(34,211,238,0.4)] flex items-center gap-2 text-base">
+                    <span>⚡ Download 4K Free</span>
                 </button>
-                <button onclick="downloadImage('8K')" class="bg-gradient-to-r from-[#f0abfc] to-[#a855f7] text-white font-[Outfit] px-8 py-3 rounded-full hover:opacity-80 transition-all font-bold shadow-[0_0_20px_rgba(240,171,252,0.4)] flex items-center">
-                    Download 8K Ultra
+                <button onclick="ModalEngine.download('8K')" class="dl-btn bg-gradient-to-r from-[#f0abfc] to-[#a855f7] text-white font-[Outfit] px-8 py-3.5 rounded-full hover:opacity-90 transition-all font-bold shadow-[0_0_25px_rgba(240,171,252,0.4)] flex items-center gap-2 text-base">
+                    <span>👑 Download 8K Ultra</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- AI Chat System (Pro Version) -->
     <div id="chat-widget" class="fixed bottom-6 right-6 z-[8000]">
-        <!-- Chat Button -->
-        <button onclick="toggleChat()" class="w-14 h-14 bg-gradient-to-tr from-[#22d3ee] to-[#f0abfc] rounded-full flex justify-center items-center shadow-[0_0_25px_rgba(240,171,252,0.5)] hover:scale-110 transition-transform">
-            <svg class="w-7 h-7 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+        <button onclick="ChatEngine.toggle()" class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-tr from-[#22d3ee] via-[#a855f7] to-[#f0abfc] rounded-full flex justify-center items-center shadow-[0_0_30px_rgba(240,171,252,0.6)] hover:scale-110 active:scale-95 transition-transform">
+            <svg class="w-7 h-7 sm:w-8 sm:h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
         </button>
 
-        <!-- Chat Window -->
-        <div id="chat-window" class="fade-up absolute bottom-20 right-0 w-[340px] h-[450px] glass-panel rounded-2xl flex flex-col overflow-hidden shadow-2xl border border-white/10">
-            <!-- Chat Header -->
-            <div class="bg-black/40 p-4 border-b border-white/10 flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 bg-[#22d3ee] rounded-full animate-pulse"></div>
-                    <span class="font-[Outfit] font-bold text-sm">TOKYO AI <span class="bg-[#f0abfc] text-black text-[10px] px-1 rounded ml-1">PRO</span></span>
+        <div id="chat-window" class="fade-up absolute bottom-20 right-0 w-[340px] sm:w-[380px] h-[480px] glass-panel rounded-3xl flex flex-col overflow-hidden shadow-2xl border border-white/15">
+            <div class="bg-black/60 p-4 border-b border-white/10 flex justify-between items-center backdrop-blur-md">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-2.5 h-2.5 bg-[#22d3ee] rounded-full animate-pulse shadow-[0_0_10px_#22d3ee]"></div>
+                    <span class="font-[Outfit] font-bold text-sm tracking-wide">TOKYO AI <span class="bg-[#f0abfc] text-black text-[10px] px-1.5 py-0.5 rounded font-black ml-1">PRO V3</span></span>
                 </div>
-                <button onclick="toggleChat()" class="text-xs hover:text-[#f0abfc]">✕</button>
+                <button onclick="ChatEngine.toggle()" class="text-xs text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-1.5 rounded-full transition-colors">✕</button>
             </div>
-            <!-- Chat Body -->
-            <div id="chat-body" class="flex-1 p-4 overflow-y-auto space-y-4 text-sm flex flex-col">
-                <div class="bg-gray-500/20 p-3 rounded-tr-xl rounded-b-xl max-w-[85%] self-start backdrop-blur-sm">
-                    Hello! I am Tokyo 2030 AI. I can understand English and Bangla. How can I help you today? <br><br> (Kemon ashen? Ami kivabe sahajjo korte pari?)
+            
+            <div id="chat-body" class="flex-1 p-4 overflow-y-auto space-y-3 text-sm flex flex-col font-sans">
+                <div class="chat-msg ai bg-white/10 p-3.5 rounded-2xl rounded-tl-none max-w-[85%] self-start border border-white/5 leading-relaxed">
+                    👋 <strong>Hello! I am Tokyo 2030 AI.</strong> <br/>
+                    I understand English & Bangla (বাংলা/Banglish). How can I assist you with 4K/8K downloads today? <br/><br/>
+                    <span class="text-xs opacity-60">(Kemon ashen? Ami kivabe sahajjo korte pari?)</span>
                 </div>
             </div>
-            <!-- Chat Input -->
-            <div class="p-3 bg-black/40 border-t border-white/10">
-                <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex gap-2">
-                    <input type="text" id="chat-input" placeholder="Type message..." class="w-full bg-black/50 border border-gray-500/30 rounded-full px-4 py-2 outline-none focus:border-[#22d3ee] transition-colors text-sm placeholder-gray-500 text-white">
-                    <button type="submit" class="bg-[#22d3ee] text-black p-2 rounded-full w-10 h-10 flex justify-center items-center hover:bg-[#f0abfc] transition-colors">
+            
+            <div class="p-3 bg-black/60 border-t border-white/10 backdrop-blur-md">
+                <form id="chat-form" onsubmit="ChatEngine.handleSubmit(event)" class="flex gap-2">
+                    <input type="text" id="chat-input" placeholder="Ask AI anything (Bangla/Eng)..." class="w-full bg-black/50 border border-white/15 rounded-full px-4 py-2.5 outline-none focus:border-[#22d3ee] transition-colors text-sm placeholder-gray-500 text-white">
+                    <button type="submit" class="bg-[#22d3ee] hover:bg-[#f0abfc] text-black font-bold p-2.5 rounded-full w-10 h-10 flex justify-center items-center transition-all shrink-0">
                         ➤
                     </button>
                 </form>
@@ -220,195 +151,6 @@
         </div>
     </div>
 
-    <!-- JavaScript Core Engine -->
-    <script>
-        // --- Theme Engine ---
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            toggleSettings(); // Close sidebar after selection
-        }
-
-        function toggleSettings() {
-            const panel = document.getElementById('settings-panel');
-            panel.classList.toggle('active');
-        }
-
-        // --- AI Chat Logic (Bilingual) ---
-        function toggleChat() {
-            const chatWindow = document.getElementById('chat-window');
-            chatWindow.classList.toggle('active');
-        }
-
-        function handleChatSubmit(e) {
-            e.preventDefault();
-            const inputField = document.getElementById('chat-input');
-            const message = inputField.value.trim();
-            if(!message) return;
-
-            addChatMessage(message, 'user');
-            inputField.value = '';
-
-            // Simulate AI Processing & Response
-            setTimeout(() => {
-                const reply = generateAiResponse(message.toLowerCase());
-                addChatMessage(reply, 'ai');
-            }, 800);
-        }
-
-        function addChatMessage(text, sender) {
-            const chatBody = document.getElementById('chat-body');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = sender === 'user' 
-                ? "bg-[#22d3ee] text-black p-3 rounded-tl-xl rounded-b-xl max-w-[85%] self-end font-medium"
-                : "bg-gray-500/20 p-3 rounded-tr-xl rounded-b-xl max-w-[85%] self-start backdrop-blur-sm border border-white/5";
-            msgDiv.innerText = text;
-            chatBody.appendChild(msgDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
-
-        function generateAiResponse(msg) {
-            // Bangla Detection Logic
-            const isBangla = /kemon|bhalo|valo|ki|koro|kothay|achis|ache|dhonnobad|tnx|jani|kivabe|download/.test(msg);
-            
-            if(isBangla) {
-                if(msg.includes('kemon')) return "Ami khub bhalo achi! Ei platform ti puro lag-free abong super fast toiri kora hoyeche. Apni kemon achen?";
-                if(msg.includes('download') || msg.includes('kivabe')) return "Apni jekono chobite click kore easily 4K ba 8K quality-te free download korte parben.";
-                if(msg.includes('valo') || msg.includes('bhalo')) return "Khub valo shune! Apnar jodi kono image dorkar hoy, just nicher dike scroll korun, infinite image paben.";
-                return "Ami apnar kotha bujhte perechi. Apni chobite click kore unlimited 8K photos download korte paren ekdom free te!";
-            } else {
-                if(msg.includes('hello') || msg.includes('hi')) return "Hello there! Welcome to the Pro version of Tokyo 2030.";
-                if(msg.includes('download')) return "Simply click on any image in the grid, and you can download the native 4K or 8K version instantly.";
-                if(msg.includes('lag') || msg.includes('slow')) return "Don't worry, this platform uses advanced DOM recycling and content-visibility optimization. It will never lag, even with 10,000+ images!";
-                return "I'm a frontend AI simulation. I can help you navigate this infinite gallery. Enjoy the zero-duplicate 8K assets!";
-            }
-        }
-
-        // --- Gallery Engine (Zero Duplicates & Infinite Scroll) ---
-        const grid = document.getElementById('tokyo-grid');
-        const loader = document.getElementById('loader');
-        let totalLoaded = 0;
-        let isFetching = false;
-        let currentHighResSeed = '';
-
-        // Guaranteed Unique ID Generator
-        function generateUniqueSeed() {
-            return 'xxxx-8xxx-yxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
-
-        // Modal Logic
-        const modal = document.getElementById('image-modal');
-        const modalImg = document.getElementById('modal-img');
-
-        function openModal(seed) {
-            currentHighResSeed = seed;
-            modalImg.src = `https://picsum.photos/seed/${seed}/1920/1080`;
-            modal.style.display = 'flex';
-            setTimeout(() => modal.style.opacity = '1', 10);
-        }
-
-        function closeModal() {
-            modal.style.opacity = '0';
-            setTimeout(() => {
-                modal.style.display = 'none';
-                modalImg.src = '';
-            }, 300);
-        }
-
-        // Pro Download System
-        async function downloadImage(quality) {
-            const btn = event.currentTarget;
-            const originalText = btn.innerText;
-            btn.innerHTML = `Synthesizing <span class="loading-spinner"></span>`;
-            btn.style.pointerEvents = 'none';
-            
-            let width = quality === '8K' ? 7680 : 3840;
-            let height = quality === '8K' ? 4320 : 2160;
-            let downloadUrl = `https://picsum.photos/seed/${currentHighResSeed}/${width}/${height}`;
-            let fileName = `TOKYO_2030_PRO_${quality}_${currentHighResSeed}.jpg`;
-
-            try {
-                const response = await fetch(downloadUrl);
-                if (!response.ok) throw new Error("Network error");
-                
-                const blob = await response.blob();
-                const blobUrl = URL.createObjectURL(blob);
-                
-                const link = document.createElement('a');
-                link.href = blobUrl;
-                link.download = fileName;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(blobUrl);
-                
-                btn.innerText = "✓ System Saved";
-            } catch (error) {
-                window.open(downloadUrl, '_blank');
-                btn.innerText = "Opened in Tab";
-            } finally {
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.pointerEvents = 'auto';
-                }, 3000);
-            }
-        }
-
-        // Generate Ultra-Optimized Cards
-        const loadPhotos = (count = 15) => {
-            if(isFetching) return;
-            isFetching = true;
-            
-            const fragment = document.createDocumentFragment();
-            const heights = [400, 450, 500, 600, 700];
-
-            for (let i = 0; i < count; i++) {
-                totalLoaded++;
-                const seed = generateUniqueSeed(); 
-                const randomHeight = heights[Math.floor(Math.random() * heights.length)];
-                const displayUrl = `https://picsum.photos/seed/${seed}/500/${randomHeight}`;
-
-                const card = document.createElement('div');
-                card.className = "masonry-item group relative rounded-2xl overflow-hidden cursor-zoom-in border border-transparent hover:border-white/10 transition-colors";
-                card.style.background = 'var(--card-bg)';
-                card.onclick = () => openModal(seed);
-
-                card.innerHTML = `
-                    <img src="${displayUrl}" loading="lazy" decoding="async" alt="Pro Asset" 
-                         class="w-full h-auto object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out will-change-transform">
-                    
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 backdrop-blur-[2px]">
-                        <div class="flex justify-end transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                            <span class="bg-[#f0abfc] text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Premium 8K</span>
-                        </div>
-                        <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                            <p class="text-white font-[Outfit] font-semibold truncate text-sm">Asset // ${seed.toUpperCase()}</p>
-                            <p class="text-gray-300 text-xs mt-1 font-light">Zero-Duplicate License</p>
-                        </div>
-                    </div>
-                `;
-                fragment.appendChild(card);
-            }
-            
-            grid.appendChild(fragment);
-            isFetching = false;
-        };
-
-        // Initial Load
-        loadPhotos(20);
-
-        // Heavy-duty Intersection Observer for Infinite Scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !isFetching) {
-                    requestAnimationFrame(() => loadPhotos(12)); 
-                }
-            });
-        }, { root: null, rootMargin: '1000px', threshold: 0 });
-
-        observer.observe(loader);
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
