@@ -1,79 +1,156 @@
-/* 🚀 Premium Futuristic UI Design Variables */
-:root {
-  --bg-dark: #0a0f1d;
-  --bg-card: #111a36;
-  --neon-blue: #00f2fe;
-  --neon-purple: #4facfe;
-  --text-main: #ffffff;
-  --text-muted: #8b9bb4;
-  --glow: 0 0 15px rgba(0, 242, 254, 0.6);
+/* ==========================================================================
+   TOKYO 2030 PRO - ENTERPRISE STYLESHEET
+   Architecture: Ultra-Performance CSS with Zero-Lag DOM Recycling
+   ========================================================================== */
+
+/* --- Dynamic Theme Custom Properties (CSS Variables) --- */
+:root[data-theme="dark"] {
+    --bg-primary: #09090b;
+    --text-primary: #f8fafc;
+    --glass-bg: rgba(9, 9, 11, 0.85);
+    --modal-bg: rgba(9, 9, 11, 0.96);
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --accent-cyan: #22d3ee;
+    --accent-neon: #f0abfc;
 }
 
-/* Base Setup */
+:root[data-theme="light"] {
+    --bg-primary: #f1f5f9;
+    --text-primary: #0f172a;
+    --glass-bg: rgba(241, 245, 249, 0.88);
+    --modal-bg: rgba(241, 245, 249, 0.96);
+    --card-bg: rgba(0, 0, 0, 0.04);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --accent-cyan: #0891b2;
+    --accent-neon: #c026d3;
+}
+
+:root[data-theme="neon"] {
+    --bg-primary: #030014;
+    --text-primary: #e0e7ff;
+    --glass-bg: rgba(3, 0, 20, 0.88);
+    --modal-bg: rgba(3, 0, 20, 0.96);
+    --card-bg: rgba(34, 211, 238, 0.05);
+    --card-border: rgba(240, 171, 252, 0.2);
+    --accent-cyan: #22d3ee;
+    --accent-neon: #f0abfc;
+}
+
+/* --- Base Setup & Hardware Acceleration --- */
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-  background-color: var(--bg-dark);
-  color: var(--text-main);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.06), transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(240, 171, 252, 0.06), transparent 30%);
+    background-attachment: fixed;
 }
 
-/* ⚡ Cyberpunk Neon Glow Heading Effect */
-.futuristic-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: var(--glow);
-  letter-spacing: 2px;
+/* --- Ultimate Scroll Optimization (Zero Lag for Infinite Content) --- */
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
+    content-visibility: auto; /* Drops off-screen rendering for super performance */
+    contain-intrinsic-size: 500px;
+    transform: translateZ(0); /* Force GPU Hardware Acceleration */
+    will-change: transform;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 🌌 Ultra-Premium Interactive Cards */
-.glass-card {
-  background: rgba(17, 26, 54, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 242, 254, 0.2);
-  border-radius: 16px;
-  padding: 25px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.masonry-item:hover {
+    border-color: rgba(34, 211, 238, 0.4);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
-.glass-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--neon-blue);
-  box-shadow: var(--glow);
+/* Pinterest Style Responsive Masonry Grid Breakpoints */
+.masonry-grid {
+    column-count: 1;
+    column-gap: 1.25rem;
+}
+@media (min-width: 640px)  { .masonry-grid { column-count: 2; } }
+@media (min-width: 768px)  { .masonry-grid { column-count: 3; } }
+@media (min-width: 1024px) { .masonry-grid { column-count: 4; } }
+@media (min-width: 1400px) { .masonry-grid { column-count: 5; } }
+@media (min-width: 1800px) { .masonry-grid { column-count: 6; } }
+
+/* --- Smooth Custom Scrollbar --- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(34, 211, 238, 0.4);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-neon);
 }
 
-/* Dynamic Live Status Badge */
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0, 242, 254, 0.1);
-  border: 1px solid var(--neon-blue);
-  padding: 6px 16px;
-  border-radius: 50px;
-  color: var(--neon-blue);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
+/* --- Advanced Glassmorphism UI --- */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--neon-blue);
-  border-radius: 50%;
-  animation: pulse 1.5s infinite;
+.modal-glass {
+    background: var(--modal-bg);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
 }
 
-@keyframes pulse {
-  0% { transform: scale(0.9); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.4; }
-  100% { transform: scale(0.9); opacity: 1; }
+/* --- UI Component Animations --- */
+.slide-in {
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.slide-in.active {
+    transform: translateX(0);
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(25px) scale(0.95);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+.fade-up.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+@keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+    animation: spinSlow 12s linear infinite;
+}
+
+/* --- Dynamic Loading Spinner for Download Buttons --- */
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2.5px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
